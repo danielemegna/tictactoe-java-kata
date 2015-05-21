@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 public class TicTacToeGameTest {
 
     @Test
-    public void nothing()
+    public void startANewGame()
     {
-        assertTrue(true);
+        TicTacToeGame game = new TicTacToeGame("Player name");
     }
 }
