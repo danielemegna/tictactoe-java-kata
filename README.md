@@ -1,2 +1,2 @@
 # tictactoe-java-kata
-A TicTacToe game TDD kata, done in Java
+A [TicTacToe](http://en.wikipedia.org/wiki/Tic-tac-toe) game TDD kata, done in Java
