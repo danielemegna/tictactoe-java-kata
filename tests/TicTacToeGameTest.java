@@ -18,20 +18,11 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void startANewGame()
+    public void someAssertsOnNewGame()
     {
         assertNotNull(game);
-    }
-
-    @Test
-    public void aNewGameIsNotFull()
-    {
         assertFalse(game.isFull());
-    }
-
-    @Test
-    public void aNewGameHasNoWinnerYet()
-    {
         assertFalse(game.thereIsAWinner());
     }
+
 }
