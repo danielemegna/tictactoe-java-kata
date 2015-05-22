@@ -7,4 +7,12 @@ public class TicTacToeGame {
     public TicTacToeGame(String playerName) {
         this.playerName = playerName;
     }
+
+    public boolean isFull() {
+        return false;
+    }
+
+    public boolean thereIsAWinner() {
+        return false;
+    }
 }
