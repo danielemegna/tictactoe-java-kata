@@ -17,6 +17,9 @@ public class TicTacToeGame {
     }
 
     public CellStateEnum getCellState(int x, int y) {
+        if(x > 2 || y > 2)
+            throw new CoordinateOutOfBoundsException();
+
         return CellStateEnum.Empty;
     }
 }
