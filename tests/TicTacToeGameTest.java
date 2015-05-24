@@ -27,11 +27,15 @@ public class TicTacToeGameTest {
 
     @Test
     public void inANewGame_everyCellIsEmpty() {
-        assertEquals(CellStateEnum.Empty, game.getCellState(0, 0));
-        assertEquals(CellStateEnum.Empty, game.getCellState(0, 1));
-        assertEquals(CellStateEnum.Empty, game.getCellState(1, 0));
-        assertEquals(CellStateEnum.Empty, game.getCellState(2, 1));
-        assertEquals(CellStateEnum.Empty, game.getCellState(2, 2));
+        assertCellState(0, 0, CellStateEnum.Empty);
+        assertCellState(0, 1, CellStateEnum.Empty);
+        assertCellState(1, 0, CellStateEnum.Empty);
+        assertCellState(2, 1, CellStateEnum.Empty);
+        assertCellState(2, 2, CellStateEnum.Empty);
+    }
+
+    private void assertCellState(int x, int y, CellStateEnum state) {
+        assertEquals(state, game.getCellState(x, y));
     }
 
 }
