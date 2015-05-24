@@ -15,4 +15,8 @@ public class TicTacToeGame {
     public boolean thereIsAWinner() {
         return false;
     }
+
+    public CellStateEnum getCellState(int x, int y) {
+        return CellStateEnum.Empty;
+    }
 }

@@ -25,4 +25,13 @@ public class TicTacToeGameTest {
         assertFalse(game.thereIsAWinner());
     }
 
+    @Test
+    public void inANewGame_everyCellIsEmpty() {
+        assertEquals(CellStateEnum.Empty, game.getCellState(0, 0));
+        assertEquals(CellStateEnum.Empty, game.getCellState(0, 1));
+        assertEquals(CellStateEnum.Empty, game.getCellState(1, 0));
+        assertEquals(CellStateEnum.Empty, game.getCellState(2, 1));
+        assertEquals(CellStateEnum.Empty, game.getCellState(2, 2));
+    }
+
 }
