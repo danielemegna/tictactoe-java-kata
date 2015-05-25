@@ -61,6 +61,17 @@ public class TicTacToeGameTest {
         assertCellState(0, 1, CellStateEnum.PlayerMarked);
     }
 
+    @Test
+    public void playerMarkDoNotAffectOtherCells()
+    {
+        game.playerMark(1, 0);
+        assertCellState(1, 0, CellStateEnum.PlayerMarked);
+        assertCellState(0, 1, CellStateEnum.Empty);
+        assertCellState(1, 1, CellStateEnum.Empty);
+        assertCellState(2, 1, CellStateEnum.Empty);
+
+    }
+
     private void assertCellState(int x, int y, CellStateEnum state) {
         assertEquals(state, game.getCellState(x, y));
     }
