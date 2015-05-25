@@ -6,19 +6,23 @@ import java.util.Arrays;
 public class TicTacToeGame {
 
     private String playerName;
-    private CellStateEnum[][] cellsMatrix;
+    private Cell[][] cellsMatrix;
 
     public TicTacToeGame(String playerName) {
         this.playerName = playerName;
         initEmptyCellsMatrix();
     }
 
-    private void initEmptyCellsMatrix() {
-        this.cellsMatrix = new CellStateEnum[3][3];
-        for(int x = 0; x < 3; x++)
-            for(int y = 0; y < 3; y++)
-                setCellState(x, y, CellStateEnum.Empty);
+    public CellStateEnum getCellState(int x, int y) {
+        Cell c = getCell(x, y);
+        return c.getState();
+    }
 
+    public void playerMark(int x, int y) {
+        if(getCellState(x, y) != CellStateEnum.Empty)
+            throw new AlreadyMarkedCellAttemptException();
+
+        setCellState(x, y, CellStateEnum.PlayerMarked);
     }
 
     public boolean isFull() {
@@ -29,26 +33,24 @@ public class TicTacToeGame {
         return false;
     }
 
-    public CellStateEnum getCellState(int x, int y) {
+    private void initEmptyCellsMatrix() {
+        this.cellsMatrix = new Cell[3][3];
+        for(int x = 0; x < 3; x++)
+            for(int y = 0; y < 3; y++)
+                this.cellsMatrix[x][y] = new Cell();
+
+    }
+
+    private Cell getCell(int x, int y) {
         try {
-            return this.cellsMatrix[x][y];
+            return cellsMatrix[x][y];
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
     }
 
     private void setCellState(int x, int y, CellStateEnum newState) {
-        try {
-            this.cellsMatrix[x][y] = newState;
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new CoordinateOutOfBoundsException();
-        }
-    }
-
-    public void playerMark(int x, int y) {
-        if(getCellState(x, y) != CellStateEnum.Empty)
-            throw new AlreadyMarkedCellAttemptException();
-
-        setCellState(x, y, CellStateEnum.PlayerMarked);
+        Cell c = getCell(x, y);
+        c.setState(newState);
     }
 }
