@@ -36,6 +36,10 @@ public class TicTacToeGame {
     }
 
     public void playerMark(int x, int y) {
-        this.cellsMatrix[x][y] = CellStateEnum.PlayerMarked;
+        try {
+            this.cellsMatrix[x][y] = CellStateEnum.PlayerMarked;
+        } catch(ArrayIndexOutOfBoundsException e) {
+            throw new CoordinateOutOfBoundsException();
+        }
     }
 }

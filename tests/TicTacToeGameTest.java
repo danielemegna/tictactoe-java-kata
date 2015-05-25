@@ -69,6 +69,25 @@ public class TicTacToeGameTest {
         assertCellState(0, 1, CellStateEnum.Empty);
         assertCellState(1, 1, CellStateEnum.Empty);
         assertCellState(2, 1, CellStateEnum.Empty);
+    }
+
+    @Test
+    public void markWrongCoordinates_throwsACoordinateOutOfBoundsException()
+    {
+        try {
+            game.playerMark(1, 3);
+            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
+        } catch (CoordinateOutOfBoundsException ex) { }
+
+        try {
+            game.playerMark(5, 0);
+            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
+        } catch (CoordinateOutOfBoundsException ex) { }
+
+        try {
+            game.playerMark(5, 6);
+            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
+        } catch (CoordinateOutOfBoundsException ex) { }
 
     }
 
