@@ -1,17 +1,22 @@
+import java.util.Arrays;
+
 /**
  * Created by daniele on 21/05/15.
  */
 public class TicTacToeGame {
 
     private String playerName;
-    private CellStateEnum[][] cellState;
+    private CellStateEnum[][] cellsMatrix;
 
     public TicTacToeGame(String playerName) {
         this.playerName = playerName;
-        this.cellState = new CellStateEnum[3][3];
+        initEmptyCellsMatrix();
+    }
+
+    private void initEmptyCellsMatrix() {
+        this.cellsMatrix = new CellStateEnum[3][3];
         for(int i = 0; i < 3; i++)
-            for(int j = 0; j < 3; j++)
-                this.cellState[i][j] = CellStateEnum.Empty;
+            Arrays.fill(this.cellsMatrix[i], CellStateEnum.Empty);
     }
 
     public boolean isFull() {
@@ -23,13 +28,14 @@ public class TicTacToeGame {
     }
 
     public CellStateEnum getCellState(int x, int y) {
-        if(x > 2 || y > 2)
+        try {
+            return this.cellsMatrix[x][y];
+        } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
-
-        return this.cellState[x][y];
+        }
     }
 
     public void playerMark(int x, int y) {
-        this.cellState[x][y] = CellStateEnum.PlayerMarked;
+        this.cellsMatrix[x][y] = CellStateEnum.PlayerMarked;
     }
 }
