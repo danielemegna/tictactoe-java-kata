@@ -88,7 +88,16 @@ public class TicTacToeGameTest {
             game.playerMark(5, 6);
             fail("Expected CoordinateOutOfBoundsException has not been thrown!");
         } catch (CoordinateOutOfBoundsException ex) { }
+    }
 
+    @Test
+    public void playerCannotMarkTwiceTheSameCell()
+    {
+        game.playerMark(0,0);
+        try {
+            game.playerMark(0,0);
+            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
+        } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
     private void assertCellState(int x, int y, CellStateEnum state) {
