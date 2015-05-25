@@ -26,7 +26,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void inANewGame_everyCellIsEmpty() {
+    public void inANewGame_CellsAreEmpty() {
         assertCellState(0, 0, CellStateEnum.Empty);
         assertCellState(0, 1, CellStateEnum.Empty);
         assertCellState(1, 0, CellStateEnum.Empty);
@@ -35,7 +35,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void askingForWrongCoordinates_throwsACoordinateOutOfBoundsException()
+    public void askingCellStateUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
     {
         try {
             game.getCellState(0, 3);
@@ -55,24 +55,32 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void playerCanMarkAnEmptyCell()
+    public void playerCanMarkEmptyCells()
     {
         game.playerMark(0, 1);
         assertCellState(0, 1, CellStateEnum.PlayerMarked);
+
+        game.playerMark(1, 1);
+        assertCellState(1, 1, CellStateEnum.PlayerMarked);
+
+        game.playerMark(2, 0);
+        assertCellState(2, 0, CellStateEnum.PlayerMarked);
     }
 
     @Test
-    public void playerMarkDoNotAffectOtherCells()
+    public void playerMarksDoNotAffectOtherCells()
     {
+        game.playerMark(0, 1);
         game.playerMark(1, 0);
-        assertCellState(1, 0, CellStateEnum.PlayerMarked);
-        assertCellState(0, 1, CellStateEnum.Empty);
+        game.playerMark(2, 1);
+        game.playerMark(2, 2);
+        assertCellState(0, 0, CellStateEnum.Empty);
         assertCellState(1, 1, CellStateEnum.Empty);
-        assertCellState(2, 1, CellStateEnum.Empty);
+        assertCellState(1, 2, CellStateEnum.Empty);
     }
 
     @Test
-    public void markWrongCoordinates_throwsACoordinateOutOfBoundsException()
+    public void markingCellsUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
     {
         try {
             game.playerMark(1, 3);
@@ -91,7 +99,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void playerCannotMarkTwiceTheSameCell()
+    public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException()
     {
         game.playerMark(0,0);
         try {
