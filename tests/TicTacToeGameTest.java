@@ -54,6 +54,13 @@ public class TicTacToeGameTest {
 
     }
 
+    @Test
+    public void playerCanMarkAnEmptyCell()
+    {
+        game.playerMark(0, 1);
+        assertCellState(0, 1, CellStateEnum.PlayerMarked);
+    }
+
     private void assertCellState(int x, int y, CellStateEnum state) {
         assertEquals(state, game.getCellState(x, y));
     }
