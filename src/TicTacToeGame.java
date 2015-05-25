@@ -15,8 +15,10 @@ public class TicTacToeGame {
 
     private void initEmptyCellsMatrix() {
         this.cellsMatrix = new CellStateEnum[3][3];
-        for(int i = 0; i < 3; i++)
-            Arrays.fill(this.cellsMatrix[i], CellStateEnum.Empty);
+        for(int x = 0; x < 3; x++)
+            for(int y = 0; y < 3; y++)
+                setCellState(x, y, CellStateEnum.Empty);
+
     }
 
     public boolean isFull() {
@@ -35,13 +37,18 @@ public class TicTacToeGame {
         }
     }
 
-    public void playerMark(int x, int y) {
+    private void setCellState(int x, int y, CellStateEnum newState) {
         try {
-            if(this.cellsMatrix[x][y] != CellStateEnum.Empty)
-                throw new AlreadyMarkedCellAttemptException();
-            this.cellsMatrix[x][y] = CellStateEnum.PlayerMarked;
+            this.cellsMatrix[x][y] = newState;
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
+    }
+
+    public void playerMark(int x, int y) {
+        if(getCellState(x, y) != CellStateEnum.Empty)
+            throw new AlreadyMarkedCellAttemptException();
+
+        setCellState(x, y, CellStateEnum.PlayerMarked);
     }
 }
