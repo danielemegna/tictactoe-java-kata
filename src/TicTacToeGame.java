@@ -12,13 +12,11 @@ public class TicTacToeGame {
     }
 
     public CellStateEnum getCellState(int x, int y) {
-        Cell c = getCell(x, y);
-        return c.getState();
+        return getCell(x, y).getState();
     }
 
     public void playerMark(int x, int y) {
-        Cell c = getCell(x, y);
-        c.playerMark();
+        getCell(x, y).playerMark();
     }
 
     public boolean isFull() {
@@ -43,5 +41,9 @@ public class TicTacToeGame {
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }

@@ -23,35 +23,29 @@ public class TicTacToeGameTest {
         assertNotNull(game);
         assertFalse(game.isFull());
         assertFalse(game.thereIsAWinner());
+        assertEquals("Player name", game.getPlayerName());
     }
 
     @Test
     public void inANewGame_CellsAreEmpty() {
-        assertCellState(0, 0, CellStateEnum.Empty);
-        assertCellState(0, 1, CellStateEnum.Empty);
-        assertCellState(1, 0, CellStateEnum.Empty);
-        assertCellState(2, 1, CellStateEnum.Empty);
-        assertCellState(2, 2, CellStateEnum.Empty);
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 3; j++)
+                assertCellState(i, j, CellStateEnum.Empty);
     }
 
     @Test
     public void askingCellStateUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
     {
-        try {
-            game.getCellState(0, 3);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        String failMessage = "Expected CoordinateOutOfBoundsException has not been thrown!";
 
-        try {
-            game.getCellState(4, 1);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        try { game.getCellState(0, 3); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
 
-        try {
-            game.getCellState(4, 7);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        try { game.getCellState(4, 1); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
 
+        try { game.getCellState(4, 7); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
     }
 
     @Test
@@ -82,34 +76,34 @@ public class TicTacToeGameTest {
     @Test
     public void markingCellsUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
     {
-        try {
-            game.playerMark(1, 3);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        String failMessage = "Expected CoordinateOutOfBoundsException has not been thrown!";
 
-        try {
-            game.playerMark(5, 0);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        try { game.playerMark(1, 3); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
 
-        try {
-            game.playerMark(5, 6);
-            fail("Expected CoordinateOutOfBoundsException has not been thrown!");
-        } catch (CoordinateOutOfBoundsException ex) { }
+        try { game.playerMark(5, 0); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
+
+        try { game.playerMark(5, 6); fail(failMessage); }
+        catch (CoordinateOutOfBoundsException ex) { }
     }
 
     @Test
     public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException()
     {
+        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
         game.playerMark(0,0);
-        try {
-            game.playerMark(0,0);
-            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
-        } catch (AlreadyMarkedCellAttemptException ex) { }
+        try { game.playerMark(0,0); fail(failMessage); }
+        catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
-    private void assertCellState(int x, int y, CellStateEnum state) {
-        assertEquals(state, game.getCellState(x, y));
+    private void assertCellState(int x, int y, CellStateEnum expected) {
+        CellStateEnum actual = game.getCellState(x, y);
+        assertEquals(
+            "Fail asserting cell ["+ x + "][" + y + "] state." +
+            "Actual [" + actual + "], expected [" + expected + "]",
+            expected, actual
+        );
     }
 
 }
