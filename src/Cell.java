@@ -12,7 +12,10 @@ public class Cell {
         return state;
     }
 
-    public void setState(CellStateEnum newState) {
-        state = newState;
+    public void playerMark() {
+        if(this.state != CellStateEnum.Empty)
+            throw new AlreadyMarkedCellAttemptException();
+
+        state =  CellStateEnum.PlayerMarked;
     }
 }

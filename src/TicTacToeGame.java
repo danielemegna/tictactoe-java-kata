@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Created by daniele on 21/05/15.
  */
@@ -19,10 +17,8 @@ public class TicTacToeGame {
     }
 
     public void playerMark(int x, int y) {
-        if(getCellState(x, y) != CellStateEnum.Empty)
-            throw new AlreadyMarkedCellAttemptException();
-
-        setCellState(x, y, CellStateEnum.PlayerMarked);
+        Cell c = getCell(x, y);
+        c.playerMark();
     }
 
     public boolean isFull() {
@@ -47,10 +43,5 @@ public class TicTacToeGame {
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
-    }
-
-    private void setCellState(int x, int y, CellStateEnum newState) {
-        Cell c = getCell(x, y);
-        c.setState(newState);
     }
 }
