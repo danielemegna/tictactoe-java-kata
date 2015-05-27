@@ -13,16 +13,17 @@ public class Cell {
     }
 
     public void playerMark() {
-        if(this.state != CellStateEnum.Empty)
-            throw new AlreadyMarkedCellAttemptException();
-
-        state =  CellStateEnum.PlayerMarked;
+        markWithState(CellStateEnum.PlayerMarked);
     }
 
     public void computerMark() {
+        markWithState(CellStateEnum.ComputerMarked);
+    }
+
+    private void markWithState(CellStateEnum newState) {
         if(this.state != CellStateEnum.Empty)
             throw new AlreadyMarkedCellAttemptException();
-        
-        state = CellStateEnum.ComputerMarked;
+
+        state = newState;
     }
 }
