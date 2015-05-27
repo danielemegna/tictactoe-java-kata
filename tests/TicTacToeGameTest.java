@@ -98,7 +98,6 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    @Ignore
     public void computerCanMarkEmptyCells() {
         game.computerMark(0, 1);
         assertCellState(0, 1, CellStateEnum.ComputerMarked);
