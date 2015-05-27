@@ -28,8 +28,7 @@ public class CellTest {
     }
 
     @Test
-    public void markingTwiceSameCell_throwsAnAlreadyMarkedCellAttemptException()
-    {
+    public void playerMarkTwiceSameCell_throwsAnAlreadyMarkedCellAttemptException() {
         cell.playerMark();
         try {
             cell.playerMark();
@@ -41,6 +40,15 @@ public class CellTest {
     public void computerCanMarkAnEmptyCell() {
         cell.computerMark();
         assertEquals(CellStateEnum.ComputerMarked, cell.getState());
+    }
+
+    @Test
+    public void computerMarkTwiceSameCell_throwsAnAlreadyMarkedCellAttemptException() {
+        cell.computerMark();
+        try {
+            cell.computerMark();
+            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
+        } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
 }

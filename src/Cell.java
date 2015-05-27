@@ -20,6 +20,9 @@ public class Cell {
     }
 
     public void computerMark() {
+        if(this.state != CellStateEnum.Empty)
+            throw new AlreadyMarkedCellAttemptException();
+        
         state = CellStateEnum.ComputerMarked;
     }
 }
