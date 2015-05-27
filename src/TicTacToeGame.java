@@ -46,4 +46,9 @@ public class TicTacToeGame {
     public String getPlayerName() {
         return playerName;
     }
+
+    public void computerMark(int x, int y) {
+        Cell c = getCell(x, y);
+        c.computerMark();
+    }
 }

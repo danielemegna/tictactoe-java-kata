@@ -18,4 +18,8 @@ public class Cell {
 
         state =  CellStateEnum.PlayerMarked;
     }
+
+    public void computerMark() {
+        state = CellStateEnum.ComputerMarked;
+    }
 }

@@ -37,6 +37,10 @@ public class CellTest {
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
-
+    @Test
+    public void computerCanMarkAnEmptyCell() {
+        cell.computerMark();
+        assertEquals(CellStateEnum.ComputerMarked, cell.getState());
+    }
 
 }

@@ -1,4 +1,5 @@
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -20,7 +21,6 @@ public class TicTacToeGameTest {
     @Test
     public void someAssertsOnNewGame()
     {
-        assertNotNull(game);
         assertFalse(game.isFull());
         assertFalse(game.thereIsAWinner());
         assertEquals("Player name", game.getPlayerName());
@@ -95,6 +95,13 @@ public class TicTacToeGameTest {
         game.playerMark(0,0);
         try { game.playerMark(0,0); fail(failMessage); }
         catch (AlreadyMarkedCellAttemptException ex) { }
+    }
+
+    @Test
+    @Ignore
+    public void computerCanMarkEmptyCells() {
+        game.computerMark(0, 1);
+        assertCellState(0, 1, CellStateEnum.ComputerMarked);
     }
 
     private void assertCellState(int x, int y, CellStateEnum expected) {
