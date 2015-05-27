@@ -13,14 +13,12 @@ public class TicTacToeGameTest {
     private TicTacToeGame game;
 
     @Before
-    public void setup()
-    {
+    public void setup() {
         this.game = new TicTacToeGame("Player name");
     }
 
     @Test
-    public void someAssertsOnNewGame()
-    {
+    public void someAssertsOnNewGame() {
         assertFalse(game.isFull());
         assertFalse(game.thereIsAWinner());
         assertEquals("Player name", game.getPlayerName());
@@ -34,8 +32,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void askingCellStateUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
-    {
+    public void askingCellStateUsingWrongCoordinates_throwsACoordinateOutOfBoundsException() {
         String failMessage = "Expected CoordinateOutOfBoundsException has not been thrown!";
 
         try { game.getCellState(0, 3); fail(failMessage); }
@@ -49,8 +46,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void playerCanMarkEmptyCells()
-    {
+    public void playerCanMarkEmptyCells() {
         game.playerMark(0, 1);
         assertCellState(0, 1, CellStateEnum.PlayerMarked);
 
@@ -62,8 +58,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void playerMarksDoNotAffectOtherCells()
-    {
+    public void playerMarksDoNotAffectOtherCells() {
         game.playerMark(0, 1);
         game.playerMark(1, 0);
         game.playerMark(2, 1);
@@ -74,8 +69,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void markingCellsUsingWrongCoordinates_throwsACoordinateOutOfBoundsException()
-    {
+    public void markingCellsUsingWrongCoordinates_throwsACoordinateOutOfBoundsException() {
         String failMessage = "Expected CoordinateOutOfBoundsException has not been thrown!";
 
         try { game.playerMark(1, 3); fail(failMessage); }
@@ -89,8 +83,7 @@ public class TicTacToeGameTest {
     }
 
     @Test
-    public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException()
-    {
+    public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException() {
         String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
         game.playerMark(0,0);
         try { game.playerMark(0,0); fail(failMessage); }
@@ -101,6 +94,15 @@ public class TicTacToeGameTest {
     public void computerCanMarkEmptyCells() {
         game.computerMark(0, 1);
         assertCellState(0, 1, CellStateEnum.ComputerMarked);
+    }
+
+    @Test
+    public void playerCannotMarkAComputerMarkedCell() {
+        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
+        game.computerMark(0, 1);
+
+        try { game.playerMark(0, 1); fail(failMessage); }
+        catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
     private void assertCellState(int x, int y, CellStateEnum expected) {
