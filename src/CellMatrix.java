@@ -1,3 +1,8 @@
+import Cell.Cell;
+import Cell.CellStateEnum;
+import Coordinates.CoordinateOutOfBoundsException;
+import Coordinates.TrisCoordinates;
+
 /**
  * Created by daniele on 29/05/15.
  */
@@ -13,7 +18,7 @@ public class CellMatrix {
     }
 
 
-    public Cell getCell(Coordinates c) {
+    public Cell getCell(TrisCoordinates c) {
         try {
             return cellsMatrix[c.getX()][c.getY()];
         } catch(ArrayIndexOutOfBoundsException e) {
@@ -21,19 +26,19 @@ public class CellMatrix {
         }
     }
 
-    public void playerMark(Coordinates c) {
+    public void playerMark(TrisCoordinates c) {
         getCell(c).playerMark();
     }
 
-    public void computerMark(Coordinates c) {
+    public void computerMark(TrisCoordinates c) {
         getCell(c).computerMark();
     }
 
-    public boolean isCellEmpty(Coordinates c) {
+    public boolean isCellEmpty(TrisCoordinates c) {
         return getCell(c).isEmpty();
     }
 
-    public CellStateEnum getCellState(Coordinates c) {
+    public CellStateEnum getCellState(TrisCoordinates c) {
         return getCell(c).getState();
     }
 }

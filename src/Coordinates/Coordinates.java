@@ -1,6 +1,5 @@
-/**
- * Created by daniele on 29/05/15.
- */
+package Coordinates;
+
 public class Coordinates {
 
     private int x;

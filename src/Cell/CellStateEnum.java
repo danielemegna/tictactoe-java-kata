@@ -1,6 +1,5 @@
-/**
- * Created by daniele on 22/05/15.
- */
+package Cell;
+
 public enum CellStateEnum {
     Empty,
     PlayerMarked,

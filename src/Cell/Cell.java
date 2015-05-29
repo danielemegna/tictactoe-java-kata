@@ -1,6 +1,5 @@
-/**
- * Created by daniele on 22/05/15.
- */
+package Cell;
+
 public class Cell {
     private CellStateEnum state;
 

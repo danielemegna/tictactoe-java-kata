@@ -1,11 +1,11 @@
+import Cell.Cell;
+import Cell.CellStateEnum;
+import Cell.AlreadyMarkedCellAttemptException;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by daniele on 22/05/15.
- */
 public class CellTest {
 
     private Cell cell;
@@ -34,7 +34,7 @@ public class CellTest {
         cell.playerMark();
         try {
             cell.playerMark();
-            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected Cell.AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
@@ -49,7 +49,7 @@ public class CellTest {
         cell.computerMark();
         try {
             cell.computerMark();
-            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected Cell.AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
