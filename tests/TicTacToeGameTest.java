@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by daniele on 21/05/15.
@@ -72,9 +73,9 @@ public class TicTacToeGameTest {
     private void assertCellState(int x, int y, CellStateEnum expected) {
         CellStateEnum actual = game.getCellState(x, y);
         assertEquals(
-            "Fail asserting cell [" + x + "][" + y + "] state." +
-            "Actual [" + actual + "], expected [" + expected + "]",
-            expected, actual
+                "Fail asserting cell [" + x + "][" + y + "] state." +
+                        "Actual [" + actual + "], expected [" + expected + "]",
+                expected, actual
         );
     }
 
@@ -104,6 +105,15 @@ public class TicTacToeGameTest {
         catch (AlreadyMarkedCellAttemptException ex) { }
         try { game.computerMark(0, 0); fail(failMessage); }
         catch (AlreadyMarkedCellAttemptException ex) { }
+    }
+
+    @Test
+    public void markingARow_CausesAWinner() {
+        game.playerMark(0, 0);
+        game.playerMark(1, 0);
+        game.playerMark(2, 0);
+
+        assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
     }
 
 

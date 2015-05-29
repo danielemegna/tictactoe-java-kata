@@ -24,6 +24,8 @@ public class TicTacToeGame {
     }
 
     public boolean thereIsAWinner() {
+        if(getCellState(2,0) == CellStateEnum.PlayerMarked)
+            return true;
         return false;
     }
 
