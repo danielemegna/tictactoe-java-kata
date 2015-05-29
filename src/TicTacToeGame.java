@@ -32,9 +32,14 @@ public class TicTacToeGame {
 
     private boolean playerWon() {
         return
-            getCellState(0,0) == CellStateEnum.PlayerMarked &&
-            getCellState(1,0) == CellStateEnum.PlayerMarked &&
-            getCellState(2,0) == CellStateEnum.PlayerMarked;
+            (
+                getCellState(0,0) == CellStateEnum.PlayerMarked &&
+                getCellState(1,0) == CellStateEnum.PlayerMarked &&
+                getCellState(2,0) == CellStateEnum.PlayerMarked
+            ) ||
+            (
+                getCellState(0,2) == CellStateEnum.PlayerMarked
+            );
     }
 
     private void initEmptyCellsMatrix() {

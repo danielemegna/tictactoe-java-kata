@@ -116,5 +116,14 @@ public class TicTacToeGameTest {
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
     }
 
+    @Test
+    public void markingAColumn_CausesAWinner() {
+        game.playerMark(0, 0);
+        game.playerMark(0, 1);
+        game.playerMark(0, 2);
+
+        assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
+    }
+
 
 }
