@@ -28,10 +28,7 @@ public class TicTacToeGame {
     }
 
     public boolean thereIsAWinner() {
-        if(playerWon())
-            return true;
-
-        return false;
+        return playerWon() || computerWon();
     }
 
     public void reset() {
@@ -65,19 +62,31 @@ public class TicTacToeGame {
     private boolean playerWon() {
         return
             (
-                getCellState(0,0) == CellStateEnum.PlayerMarked &&
-                getCellState(1,0) == CellStateEnum.PlayerMarked &&
-                getCellState(2,0) == CellStateEnum.PlayerMarked
+                isCellPlayerMarked(0,0) &&
+                isCellPlayerMarked(1,0) &&
+                isCellPlayerMarked(2,0)
             ) ||
             (
-                getCellState(0,0) == CellStateEnum.PlayerMarked &&
-                getCellState(0,1) == CellStateEnum.PlayerMarked &&
-                getCellState(0,2) == CellStateEnum.PlayerMarked
-            ) ||
-            (
-                getCellState(0,1) == CellStateEnum.ComputerMarked &&
-                getCellState(1,1) == CellStateEnum.ComputerMarked &&
-                getCellState(2,1) == CellStateEnum.ComputerMarked
+                isCellPlayerMarked(0,0) &&
+                isCellPlayerMarked(0,1) &&
+                isCellPlayerMarked(0,2)
             );
+    }
+
+    private boolean computerWon() {
+        return
+            (
+                isCellComputerMarked(0, 1) &&
+                isCellComputerMarked(1, 1) &&
+                isCellComputerMarked(2,1)
+            );
+    }
+
+    private boolean isCellPlayerMarked(int x, int y) {
+        return getCellState(x,y) == CellStateEnum.PlayerMarked;
+    }
+
+    private boolean isCellComputerMarked(int x, int y) {
+        return getCellState(x,y) == CellStateEnum.ComputerMarked;
     }
 }
