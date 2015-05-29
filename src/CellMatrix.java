@@ -1,7 +1,7 @@
-import Cell.Cell;
-import Cell.CellStateEnum;
+import TicTacToeCell.Cell;
+import TicTacToeCell.CellStateEnum;
 import Coordinates.CoordinateOutOfBoundsException;
-import Coordinates.TrisCoordinates;
+import Coordinates.TicTacToeCoordinates;
 
 /**
  * Created by daniele on 29/05/15.
@@ -18,7 +18,7 @@ public class CellMatrix {
     }
 
 
-    public Cell getCell(TrisCoordinates c) {
+    public Cell getCell(TicTacToeCoordinates c) {
         try {
             return cellsMatrix[c.getX()][c.getY()];
         } catch(ArrayIndexOutOfBoundsException e) {
@@ -26,19 +26,19 @@ public class CellMatrix {
         }
     }
 
-    public void playerMark(TrisCoordinates c) {
+    public void playerMark(TicTacToeCoordinates c) {
         getCell(c).playerMark();
     }
 
-    public void computerMark(TrisCoordinates c) {
+    public void computerMark(TicTacToeCoordinates c) {
         getCell(c).computerMark();
     }
 
-    public boolean isCellEmpty(TrisCoordinates c) {
+    public boolean isCellEmpty(TicTacToeCoordinates c) {
         return getCell(c).isEmpty();
     }
 
-    public CellStateEnum getCellState(TrisCoordinates c) {
+    public CellStateEnum getCellState(TicTacToeCoordinates c) {
         return getCell(c).getState();
     }
 }

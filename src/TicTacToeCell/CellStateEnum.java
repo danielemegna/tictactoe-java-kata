@@ -1,4 +1,4 @@
-package Cell;
+package TicTacToeCell;
 
 public enum CellStateEnum {
     Empty,

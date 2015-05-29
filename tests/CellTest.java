@@ -1,6 +1,6 @@
-import Cell.Cell;
-import Cell.CellStateEnum;
-import Cell.AlreadyMarkedCellAttemptException;
+import TicTacToeCell.Cell;
+import TicTacToeCell.CellStateEnum;
+import TicTacToeCell.AlreadyMarkedCellAttemptException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +34,7 @@ public class CellTest {
         cell.playerMark();
         try {
             cell.playerMark();
-            fail("Expected Cell.AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected TicTacToeCell.AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
@@ -49,7 +49,7 @@ public class CellTest {
         cell.computerMark();
         try {
             cell.computerMark();
-            fail("Expected Cell.AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected TicTacToeCell.AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 

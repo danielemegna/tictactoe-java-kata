@@ -1,5 +1,5 @@
-import Cell.CellStateEnum;
-import Coordinates.TrisCoordinates;
+import TicTacToeCell.CellStateEnum;
+import Coordinates.TicTacToeCoordinates;
 
 public class TicTacToeGame {
 
@@ -12,15 +12,15 @@ public class TicTacToeGame {
     }
 
     public CellStateEnum getCellState(int x, int y) {
-        return matrix.getCellState(new TrisCoordinates(x, y));
+        return matrix.getCellState(new TicTacToeCoordinates(x, y));
     }
 
     public void playerMark(int x, int y) {
-        matrix.playerMark(new TrisCoordinates(x, y));
+        matrix.playerMark(new TicTacToeCoordinates(x, y));
     }
 
     public void computerMark(int x, int y) {
-        matrix.computerMark(new TrisCoordinates(x, y));
+        matrix.computerMark(new TicTacToeCoordinates(x, y));
     }
 
     public boolean isFull() {
@@ -34,28 +34,28 @@ public class TicTacToeGame {
     public boolean playerWon() {
         return
         (
-            isCellPlayerMarked(new TrisCoordinates(0,0)) &&
-            isCellPlayerMarked(new TrisCoordinates(1,0)) &&
-            isCellPlayerMarked(new TrisCoordinates(2,0))
+            isCellPlayerMarked(new TicTacToeCoordinates(0,0)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(1,0)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(2,0))
         ) ||
         (
-            isCellPlayerMarked(new TrisCoordinates(0,0)) &&
-            isCellPlayerMarked(new TrisCoordinates(0,1)) &&
-            isCellPlayerMarked(new TrisCoordinates(0,2))
+            isCellPlayerMarked(new TicTacToeCoordinates(0,0)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(0,1)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(0,2))
         ) ||
         (
-            isCellPlayerMarked(new TrisCoordinates(0,2)) &&
-            isCellPlayerMarked(new TrisCoordinates(1,2)) &&
-            isCellPlayerMarked(new TrisCoordinates(2,2))
+            isCellPlayerMarked(new TicTacToeCoordinates(0,2)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(1,2)) &&
+            isCellPlayerMarked(new TicTacToeCoordinates(2,2))
         );
     }
 
     public boolean computerWon() {
         return
         (
-            isCellComputerMarked(new TrisCoordinates(0,1)) &&
-            isCellComputerMarked(new TrisCoordinates(1,1)) &&
-            isCellComputerMarked(new TrisCoordinates(2,1))
+            isCellComputerMarked(new TicTacToeCoordinates(0,1)) &&
+            isCellComputerMarked(new TicTacToeCoordinates(1,1)) &&
+            isCellComputerMarked(new TicTacToeCoordinates(2,1))
         );
     }
 
@@ -68,14 +68,14 @@ public class TicTacToeGame {
     }
 
     public boolean isCellEmpty(int x, int y) {
-        return matrix.isCellEmpty(new TrisCoordinates(x, y));
+        return matrix.isCellEmpty(new TicTacToeCoordinates(x, y));
     }
 
-    private boolean isCellPlayerMarked(TrisCoordinates c) {
+    private boolean isCellPlayerMarked(TicTacToeCoordinates c) {
         return getCellState(c.getX(), c.getY()) == CellStateEnum.PlayerMarked;
     }
 
-    private boolean isCellComputerMarked(TrisCoordinates c) {
+    private boolean isCellComputerMarked(TicTacToeCoordinates c) {
         return getCellState(c.getX(), c.getY()) == CellStateEnum.ComputerMarked;
     }
 }

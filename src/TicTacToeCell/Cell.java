@@ -1,4 +1,4 @@
-package Cell;
+package TicTacToeCell;
 
 public class Cell {
     private CellStateEnum state;

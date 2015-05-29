@@ -1,7 +1,7 @@
 package Coordinates;
 
-public class TrisCoordinates extends Coordinates {
-    public TrisCoordinates(int x, int y) {
+public class TicTacToeCoordinates extends Coordinates {
+    public TicTacToeCoordinates(int x, int y) {
         super(x,y);
 
         if(x > 2 || y > 2)
