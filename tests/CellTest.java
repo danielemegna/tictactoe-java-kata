@@ -19,12 +19,14 @@ public class CellTest {
     @Test
     public void aNewCellIsEmpty() {
         assertEquals(CellStateEnum.Empty, cell.getState());
+        assertTrue(cell.isEmpty());
     }
 
     @Test
     public void playerCanMarkAnEmptyCell() {
         cell.playerMark();
         assertEquals(CellStateEnum.PlayerMarked, cell.getState());
+        assertFalse(cell.isEmpty());
     }
 
     @Test

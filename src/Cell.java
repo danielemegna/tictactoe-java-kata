@@ -26,4 +26,8 @@ public class Cell {
 
         state = newState;
     }
+
+    public boolean isEmpty() {
+        return state == CellStateEnum.Empty;
+    }
 }
