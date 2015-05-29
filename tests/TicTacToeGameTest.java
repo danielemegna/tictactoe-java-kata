@@ -29,7 +29,7 @@ public class TicTacToeGameTest {
     public void inANewGame_CellsAreEmpty() {
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++)
-                assertCellState(i, j, CellStateEnum.Empty);
+                assertTrue(game.isCellEmpty(i, j));
     }
 
     @Test
@@ -65,9 +65,9 @@ public class TicTacToeGameTest {
         game.computerMark(1, 0);
         game.playerMark(2, 1);
         game.computerMark(2, 2);
-        assertCellState(0, 0, CellStateEnum.Empty);
-        assertCellState(1, 1, CellStateEnum.Empty);
-        assertCellState(1, 2, CellStateEnum.Empty);
+        assertTrue(game.isCellEmpty(0, 0));
+        assertTrue(game.isCellEmpty(1, 1));
+        assertTrue(game.isCellEmpty(1, 2));
     }
 
     private void assertCellState(int x, int y, CellStateEnum expected) {
@@ -118,10 +118,10 @@ public class TicTacToeGameTest {
         game.reset();
 
         assertFalse(game.thereIsAWinner());
-        assertCellState(1, 0, CellStateEnum.Empty);
-        assertCellState(2, 0, CellStateEnum.Empty);
-        assertCellState(0, 0, CellStateEnum.Empty);
-        assertCellState(0, 2, CellStateEnum.Empty);
+        assertTrue(game.isCellEmpty(1, 0));
+        assertTrue(game.isCellEmpty(2, 0));
+        assertTrue(game.isCellEmpty(0, 0));
+        assertTrue(game.isCellEmpty(0, 2));
     }
 
     @Test

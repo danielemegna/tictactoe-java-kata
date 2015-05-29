@@ -77,4 +77,8 @@ public class TicTacToeGame {
         Cell c = getCell(x, y);
         c.computerMark();
     }
+
+    public boolean isCellEmpty(int x, int y) {
+        return getCell(x, y).isEmpty();
+    }
 }
