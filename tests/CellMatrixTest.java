@@ -73,7 +73,7 @@ public class CellMatrixTest {
 
     @Test
     public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException() {
-        String failMessage = "Expected TicTacToeCell.AlreadyMarkedCellAttemptException has not been thrown!";
+        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
         TicTacToeCoordinates[] toBeTested = new TicTacToeCoordinates[] {
             new TicTacToeCoordinates(0, 0),
             new TicTacToeCoordinates(1, 1)

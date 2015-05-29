@@ -34,7 +34,7 @@ public class CellTest {
         cell.playerMark();
         try {
             cell.playerMark();
-            fail("Expected TicTacToeCell.AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
@@ -49,7 +49,7 @@ public class CellTest {
         cell.computerMark();
         try {
             cell.computerMark();
-            fail("Expected TicTacToeCell.AlreadyMarkedCellAttemptException has not been thrown!");
+            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
         } catch (AlreadyMarkedCellAttemptException ex) { }
     }
 
