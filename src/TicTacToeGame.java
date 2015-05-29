@@ -12,15 +12,18 @@ public class TicTacToeGame {
     }
 
     public CellStateEnum getCellState(int x, int y) {
-        return getCell(x, y).getState();
+        Coordinates c = new Coordinates(x, y);
+        return getCell(c).getState();
     }
 
     public void playerMark(int x, int y) {
-        getCell(x, y).playerMark();
+        Coordinates c = new Coordinates(x, y);
+        getCell(c).playerMark();
     }
 
     public void computerMark(int x, int y) {
-        getCell(x, y).computerMark();
+        Coordinates c = new Coordinates(x, y);
+        getCell(c).computerMark();
     }
 
     public boolean isFull() {
@@ -34,28 +37,28 @@ public class TicTacToeGame {
     public boolean playerWon() {
         return
         (
-            isCellPlayerMarked(0,0) &&
-            isCellPlayerMarked(1,0) &&
-            isCellPlayerMarked(2,0)
+            isCellPlayerMarked(new Coordinates(0,0)) &&
+            isCellPlayerMarked(new Coordinates(1,0)) &&
+            isCellPlayerMarked(new Coordinates(2,0))
         ) ||
         (
-            isCellPlayerMarked(0,0) &&
-            isCellPlayerMarked(0,1) &&
-            isCellPlayerMarked(0,2)
+            isCellPlayerMarked(new Coordinates(0,0)) &&
+            isCellPlayerMarked(new Coordinates(0,1)) &&
+            isCellPlayerMarked(new Coordinates(0,2))
         ) ||
         (
-            isCellPlayerMarked(0,2) &&
-            isCellPlayerMarked(1,2) &&
-            isCellPlayerMarked(2,2)
+            isCellPlayerMarked(new Coordinates(0,2)) &&
+            isCellPlayerMarked(new Coordinates(1,2)) &&
+            isCellPlayerMarked(new Coordinates(2,2))
         );
     }
 
     public boolean computerWon() {
         return
         (
-            isCellComputerMarked(0,1) &&
-            isCellComputerMarked(1,1) &&
-            isCellComputerMarked(2,1)
+            isCellComputerMarked(new Coordinates(0,1)) &&
+            isCellComputerMarked(new Coordinates(1,1)) &&
+            isCellComputerMarked(new Coordinates(2,1))
         );
     }
 
@@ -68,7 +71,8 @@ public class TicTacToeGame {
     }
 
     public boolean isCellEmpty(int x, int y) {
-        return getCell(x, y).isEmpty();
+        Coordinates c = new Coordinates(x, y);
+        return getCell(c).isEmpty();
     }
 
     private void initEmptyCellsMatrix() {
@@ -79,19 +83,19 @@ public class TicTacToeGame {
 
     }
 
-    private Cell getCell(int x, int y) {
+    private Cell getCell(Coordinates c) {
         try {
-            return cellsMatrix[x][y];
+            return cellsMatrix[c.getX()][c.getY()];
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
     }
 
-    private boolean isCellPlayerMarked(int x, int y) {
-        return getCellState(x,y) == CellStateEnum.PlayerMarked;
+    private boolean isCellPlayerMarked(Coordinates c) {
+        return getCellState(c.getX(), c.getY()) == CellStateEnum.PlayerMarked;
     }
 
-    private boolean isCellComputerMarked(int x, int y) {
-        return getCellState(x,y) == CellStateEnum.ComputerMarked;
+    private boolean isCellComputerMarked(Coordinates c) {
+        return getCellState(c.getX(), c.getY()) == CellStateEnum.ComputerMarked;
     }
 }
