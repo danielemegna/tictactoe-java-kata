@@ -45,6 +45,11 @@ public class TicTacToeGame {
                 getCellState(0,0) == CellStateEnum.PlayerMarked &&
                 getCellState(0,1) == CellStateEnum.PlayerMarked &&
                 getCellState(0,2) == CellStateEnum.PlayerMarked
+            ) ||
+            (
+                getCellState(0,1) == CellStateEnum.ComputerMarked &&
+                getCellState(1,1) == CellStateEnum.ComputerMarked &&
+                getCellState(2,1) == CellStateEnum.ComputerMarked
             );
     }
 
