@@ -15,7 +15,6 @@ public class CellTest {
         cell = new Cell();
     }
 
-
     @Test
     public void aNewCellIsEmpty() {
         assertEquals(CellStateEnum.Empty, cell.getState());

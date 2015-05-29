@@ -5,25 +5,25 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CellMatrixTest {
 
-    private CellMatrix matrix;
+    private CellMatrix cellMatrix;
 
     @Before
     public void setup() {
-        this.matrix = new CellMatrix();
+        this.cellMatrix = new CellMatrix();
     }
 
     @Test
     public void inANewCellMatrix_CellsAreEmpty() {
-        for(int x = 0; x < 3; x++)
-            for(int y = 0; y < 3; y++) {
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
                 TicTacToeCoordinates c = new TicTacToeCoordinates(x, y);
                 assertCellState(c, CellStateEnum.Empty);
             }
+        }
     }
 
     @Test
@@ -31,10 +31,10 @@ public class CellMatrixTest {
         TicTacToeCoordinates c;
 
         c = new TicTacToeCoordinates(0, 1);
-        matrix.playerMark(c);
+        cellMatrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
         c = new TicTacToeCoordinates(1, 1);
-        matrix.playerMark(c);
+        cellMatrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
     }
 
@@ -43,19 +43,19 @@ public class CellMatrixTest {
         TicTacToeCoordinates c;
 
         c = new TicTacToeCoordinates(0, 1);
-        matrix.computerMark(c);
+        cellMatrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
         c = new TicTacToeCoordinates(2, 1);
-        matrix.computerMark(c);
+        cellMatrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        matrix.playerMark(new TicTacToeCoordinates(0, 1));
-        matrix.playerMark(new TicTacToeCoordinates(2, 1));
-        matrix.computerMark(new TicTacToeCoordinates(1, 0));
-        matrix.computerMark(new TicTacToeCoordinates(2, 2));
+        cellMatrix.playerMark(new TicTacToeCoordinates(0, 1));
+        cellMatrix.playerMark(new TicTacToeCoordinates(2, 1));
+        cellMatrix.computerMark(new TicTacToeCoordinates(1, 0));
+        cellMatrix.computerMark(new TicTacToeCoordinates(2, 2));
 
         assertCellState(new TicTacToeCoordinates(0, 0), CellStateEnum.Empty);
         assertCellState(new TicTacToeCoordinates(1, 1), CellStateEnum.Empty);
@@ -63,11 +63,11 @@ public class CellMatrixTest {
     }
 
     private void assertCellState(TicTacToeCoordinates c, CellStateEnum expected) {
-        CellStateEnum actual = matrix.getCellState(c);
+        CellStateEnum actual = cellMatrix.getCellState(c);
         assertEquals(
-                "Fail asserting cell state at coordinates [" + c + "] ." +
-                "Actual [" + actual + "], expected [" + expected + "]",
-                expected, actual
+            "Fail asserting cell state at coordinates [" + c + "] ." +
+            "Actual [" + actual + "], expected [" + expected + "]",
+            expected, actual
         );
     }
 
@@ -79,16 +79,16 @@ public class CellMatrixTest {
             new TicTacToeCoordinates(1, 1)
         };
 
-        matrix.playerMark(toBeTested[0]);
-        matrix.computerMark(toBeTested[1]);
+        cellMatrix.playerMark(toBeTested[0]);
+        cellMatrix.computerMark(toBeTested[1]);
 
         for(TicTacToeCoordinates c : toBeTested) {
             try {
-                matrix.playerMark(c);
+                cellMatrix.playerMark(c);
                 fail(failMessage);
             } catch (AlreadyMarkedCellAttemptException ex) {}
             try {
-                matrix.computerMark(c);
+                cellMatrix.computerMark(c);
                 fail(failMessage);
             } catch (AlreadyMarkedCellAttemptException ex) {}
         }
