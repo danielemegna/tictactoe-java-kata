@@ -30,6 +30,10 @@ public class TicTacToeGame {
         return false;
     }
 
+    public void reset() {
+        initEmptyCellsMatrix();
+    }
+
     private boolean playerWon() {
         return
             (
@@ -38,6 +42,8 @@ public class TicTacToeGame {
                 getCellState(2,0) == CellStateEnum.PlayerMarked
             ) ||
             (
+                getCellState(0,0) == CellStateEnum.PlayerMarked &&
+                getCellState(0,1) == CellStateEnum.PlayerMarked &&
                 getCellState(0,2) == CellStateEnum.PlayerMarked
             );
     }
