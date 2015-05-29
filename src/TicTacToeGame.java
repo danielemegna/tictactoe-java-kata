@@ -1,6 +1,9 @@
 import TicTacToeCell.CellStateEnum;
 import Coordinates.TicTacToeCoordinates;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class TicTacToeGame {
 
     private String playerName;
@@ -24,12 +27,18 @@ public class TicTacToeGame {
     }
 
     public boolean playerWon() {
-        return
-        (
-            isCellPlayerMarked(new TicTacToeCoordinates(0,0)) &&
-            isCellPlayerMarked(new TicTacToeCoordinates(1,0)) &&
-            isCellPlayerMarked(new TicTacToeCoordinates(2,0))
-        ) || (
+
+        Set<TicTacToeCoordinates> winningCombination = new HashSet<TicTacToeCoordinates>() {{
+            add(new TicTacToeCoordinates(0,0));
+            add(new TicTacToeCoordinates(1,0));
+            add(new TicTacToeCoordinates(2,0));
+        }};
+
+        boolean win = true;
+        for(TicTacToeCoordinates c : winningCombination)
+            win = win & isCellPlayerMarked(c);
+
+        return win || (
             isCellPlayerMarked(new TicTacToeCoordinates(2,0)) &&
             isCellPlayerMarked(new TicTacToeCoordinates(2,1)) &&
             isCellPlayerMarked(new TicTacToeCoordinates(2,2))
