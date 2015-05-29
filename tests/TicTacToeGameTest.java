@@ -130,6 +130,8 @@ public class TicTacToeGameTest {
         game.playerMark(1, 0);
         game.playerMark(2, 0);
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
+        assertTrue("Fail asserting playerWon", game.playerWon());
+        assertFalse("Fail asserting playerWon", game.computerWon());
 
         game.reset();
 
@@ -137,6 +139,8 @@ public class TicTacToeGameTest {
         game.computerMark(1, 1);
         game.computerMark(2, 1);
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
+        assertFalse("Fail asserting playerWon", game.playerWon());
+        assertTrue("Fail asserting playerWon", game.computerWon());
     }
 
     @Test

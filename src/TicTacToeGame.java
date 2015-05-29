@@ -31,6 +31,29 @@ public class TicTacToeGame {
         return playerWon() || computerWon();
     }
 
+    public boolean playerWon() {
+        return
+        (
+            isCellPlayerMarked(0,0) &&
+            isCellPlayerMarked(1,0) &&
+            isCellPlayerMarked(2,0)
+        ) ||
+        (
+            isCellPlayerMarked(0,0) &&
+            isCellPlayerMarked(0,1) &&
+            isCellPlayerMarked(0,2)
+        );
+    }
+
+    public boolean computerWon() {
+        return
+        (
+            isCellComputerMarked(0, 1) &&
+            isCellComputerMarked(1, 1) &&
+            isCellComputerMarked(2,1)
+        );
+    }
+
     public void reset() {
         initEmptyCellsMatrix();
     }
@@ -57,29 +80,6 @@ public class TicTacToeGame {
         } catch(ArrayIndexOutOfBoundsException e) {
             throw new CoordinateOutOfBoundsException();
         }
-    }
-
-    private boolean playerWon() {
-        return
-            (
-                isCellPlayerMarked(0,0) &&
-                isCellPlayerMarked(1,0) &&
-                isCellPlayerMarked(2,0)
-            ) ||
-            (
-                isCellPlayerMarked(0,0) &&
-                isCellPlayerMarked(0,1) &&
-                isCellPlayerMarked(0,2)
-            );
-    }
-
-    private boolean computerWon() {
-        return
-            (
-                isCellComputerMarked(0, 1) &&
-                isCellComputerMarked(1, 1) &&
-                isCellComputerMarked(2,1)
-            );
     }
 
     private boolean isCellPlayerMarked(int x, int y) {
