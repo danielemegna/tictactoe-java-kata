@@ -24,9 +24,17 @@ public class TicTacToeGame {
     }
 
     public boolean thereIsAWinner() {
-        if(getCellState(2,0) == CellStateEnum.PlayerMarked)
+        if(playerWon())
             return true;
+
         return false;
+    }
+
+    private boolean playerWon() {
+        return
+            getCellState(0,0) == CellStateEnum.PlayerMarked &&
+            getCellState(1,0) == CellStateEnum.PlayerMarked &&
+            getCellState(2,0) == CellStateEnum.PlayerMarked;
     }
 
     private void initEmptyCellsMatrix() {
