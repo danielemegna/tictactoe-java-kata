@@ -1,7 +1,9 @@
 import TicTacToeCell.CellStateEnum;
 import Coordinates.TicTacToeCoordinates;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class TicTacToeGame {
@@ -28,21 +30,29 @@ public class TicTacToeGame {
 
     public boolean playerWon() {
 
-        Set<TicTacToeCoordinates> winningCombination = new HashSet<TicTacToeCoordinates>() {{
-            add(new TicTacToeCoordinates(0,0));
-            add(new TicTacToeCoordinates(1,0));
-            add(new TicTacToeCoordinates(2,0));
+        List<Set<TicTacToeCoordinates>> winningCombinations = new ArrayList<Set<TicTacToeCoordinates>>() {{
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,0));
+                add(new TicTacToeCoordinates(1,0));
+                add(new TicTacToeCoordinates(2,0));
+            }});
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(2,0));
+                add(new TicTacToeCoordinates(2,1));
+                add(new TicTacToeCoordinates(2,2));
+            }});
         }};
 
-        boolean win = true;
-        for(TicTacToeCoordinates c : winningCombination)
-            win = win & isCellPlayerMarked(c);
+        for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
+            boolean isMatrixCompatible = true;
+            for (TicTacToeCoordinates c : winningCombination)
+                isMatrixCompatible = isMatrixCompatible & isCellPlayerMarked(c);
 
-        return win || (
-            isCellPlayerMarked(new TicTacToeCoordinates(2,0)) &&
-            isCellPlayerMarked(new TicTacToeCoordinates(2,1)) &&
-            isCellPlayerMarked(new TicTacToeCoordinates(2,2))
-        );
+            if(isMatrixCompatible)
+                return true;
+        }
+
+        return false;
     }
 
     public boolean computerWon() {
