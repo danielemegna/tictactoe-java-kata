@@ -108,6 +108,23 @@ public class TicTacToeGameTest {
     }
 
     @Test
+    public void gameCanResetCells() {
+        game.playerMark(0, 0);
+        game.computerMark(0, 1);
+        game.playerMark(1, 0);
+        game.computerMark(0, 2);
+        game.playerMark(2, 0);
+
+        game.reset();
+
+        assertFalse(game.thereIsAWinner());
+        assertCellState(1, 0, CellStateEnum.Empty);
+        assertCellState(2, 0, CellStateEnum.Empty);
+        assertCellState(0, 0, CellStateEnum.Empty);
+        assertCellState(0, 2, CellStateEnum.Empty);
+    }
+
+    @Test
     public void markingARow_CausesAWinner() {
         game.playerMark(0, 0);
         game.playerMark(1, 0);
@@ -129,23 +146,6 @@ public class TicTacToeGameTest {
         game.playerMark(0, 2);
 
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
-    }
-
-    @Test
-    public void gameCanResetCells() {
-        game.playerMark(0, 0);
-        game.computerMark(0, 1);
-        game.playerMark(1, 0);
-        game.computerMark(0, 2);
-        game.playerMark(2, 0);
-
-        game.reset();
-
-        assertFalse(game.thereIsAWinner());
-        assertCellState(1, 0, CellStateEnum.Empty);
-        assertCellState(2, 0, CellStateEnum.Empty);
-        assertCellState(0, 0, CellStateEnum.Empty);
-        assertCellState(0, 2, CellStateEnum.Empty);
     }
 
 
