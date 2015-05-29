@@ -141,6 +141,15 @@ public class TicTacToeGameTest {
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.playerWon());
         assertTrue("Fail asserting playerWon", game.computerWon());
+
+        game.reset();
+
+        game.playerMark(0, 2);
+        game.playerMark(1, 2);
+        game.playerMark(2, 2);
+        assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
+        assertTrue("Fail asserting playerWon", game.playerWon());
+        assertFalse("Fail asserting playerWon", game.computerWon());
     }
 
     @Test

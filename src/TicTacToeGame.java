@@ -42,14 +42,19 @@ public class TicTacToeGame {
             isCellPlayerMarked(0,0) &&
             isCellPlayerMarked(0,1) &&
             isCellPlayerMarked(0,2)
+        ) ||
+        (
+            isCellPlayerMarked(0,2) &&
+            isCellPlayerMarked(1,2) &&
+            isCellPlayerMarked(2,2)
         );
     }
 
     public boolean computerWon() {
         return
         (
-            isCellComputerMarked(0, 1) &&
-            isCellComputerMarked(1, 1) &&
+            isCellComputerMarked(0,1) &&
+            isCellComputerMarked(1,1) &&
             isCellComputerMarked(2,1)
         );
     }
