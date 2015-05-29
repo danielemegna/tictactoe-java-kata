@@ -19,6 +19,10 @@ public class TicTacToeGame {
         getCell(x, y).playerMark();
     }
 
+    public void computerMark(int x, int y) {
+        getCell(x, y).computerMark();
+    }
+
     public boolean isFull() {
         return false;
     }
@@ -32,6 +36,30 @@ public class TicTacToeGame {
 
     public void reset() {
         initEmptyCellsMatrix();
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public boolean isCellEmpty(int x, int y) {
+        return getCell(x, y).isEmpty();
+    }
+
+    private void initEmptyCellsMatrix() {
+        this.cellsMatrix = new Cell[3][3];
+        for(int x = 0; x < 3; x++)
+            for(int y = 0; y < 3; y++)
+                this.cellsMatrix[x][y] = new Cell();
+
+    }
+
+    private Cell getCell(int x, int y) {
+        try {
+            return cellsMatrix[x][y];
+        } catch(ArrayIndexOutOfBoundsException e) {
+            throw new CoordinateOutOfBoundsException();
+        }
     }
 
     private boolean playerWon() {
@@ -51,34 +79,5 @@ public class TicTacToeGame {
                 getCellState(1,1) == CellStateEnum.ComputerMarked &&
                 getCellState(2,1) == CellStateEnum.ComputerMarked
             );
-    }
-
-    private void initEmptyCellsMatrix() {
-        this.cellsMatrix = new Cell[3][3];
-        for(int x = 0; x < 3; x++)
-            for(int y = 0; y < 3; y++)
-                this.cellsMatrix[x][y] = new Cell();
-
-    }
-
-    private Cell getCell(int x, int y) {
-        try {
-            return cellsMatrix[x][y];
-        } catch(ArrayIndexOutOfBoundsException e) {
-            throw new CoordinateOutOfBoundsException();
-        }
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void computerMark(int x, int y) {
-        Cell c = getCell(x, y);
-        c.computerMark();
-    }
-
-    public boolean isCellEmpty(int x, int y) {
-        return getCell(x, y).isEmpty();
     }
 }
