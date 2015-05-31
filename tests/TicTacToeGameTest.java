@@ -20,6 +20,19 @@ public class TicTacToeGameTest {
     }
 
     @Test
+    public void markWithWrongCoordinates_throwsACoordinateOutOfBoundsException()
+    {
+        String failMessage = "Expected CoordinateOutOfBoundsException not catched";
+
+        try { game.playerMark(0, 3); fail(failMessage); }
+        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+        try { game.computerMark(5, 1); fail(failMessage); }
+        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+        try { game.playerMark(42, 13); fail(failMessage); }
+        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+    }
+
+    @Test
     public void markingARow_CausesAWinner() {
         game.playerMark(0, 0);
         game.playerMark(1, 0);
