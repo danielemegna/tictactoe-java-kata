@@ -41,6 +41,16 @@ public class TicTacToeGame {
                 add(new TicTacToeCoordinates(2,1));
                 add(new TicTacToeCoordinates(2,2));
             }});
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,0));
+                add(new TicTacToeCoordinates(0,1));
+                add(new TicTacToeCoordinates(0,2));
+            }});
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,1));
+                add(new TicTacToeCoordinates(1,1));
+                add(new TicTacToeCoordinates(2,1));
+            }});
         }};
 
         for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
@@ -57,6 +67,16 @@ public class TicTacToeGame {
 
     public boolean computerWon() {
         List<Set<TicTacToeCoordinates>> winningCombinations = new ArrayList<Set<TicTacToeCoordinates>>() {{
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,0));
+                add(new TicTacToeCoordinates(1,0));
+                add(new TicTacToeCoordinates(2,0));
+            }});
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(2,0));
+                add(new TicTacToeCoordinates(2,1));
+                add(new TicTacToeCoordinates(2,2));
+            }});
             add(new HashSet<TicTacToeCoordinates>() {{
                 add(new TicTacToeCoordinates(0,0));
                 add(new TicTacToeCoordinates(0,1));
