@@ -56,16 +56,29 @@ public class TicTacToeGame {
     }
 
     public boolean computerWon() {
-        return
-        (
-            isCellComputerMarked(new TicTacToeCoordinates(0,0)) &&
-            isCellComputerMarked(new TicTacToeCoordinates(0,1)) &&
-            isCellComputerMarked(new TicTacToeCoordinates(0,2))
-        ) || (
-            isCellComputerMarked(new TicTacToeCoordinates(0,1)) &&
-            isCellComputerMarked(new TicTacToeCoordinates(1,1)) &&
-            isCellComputerMarked(new TicTacToeCoordinates(2,1))
-        );
+        List<Set<TicTacToeCoordinates>> winningCombinations = new ArrayList<Set<TicTacToeCoordinates>>() {{
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,0));
+                add(new TicTacToeCoordinates(0,1));
+                add(new TicTacToeCoordinates(0,2));
+            }});
+            add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0,1));
+                add(new TicTacToeCoordinates(1,1));
+                add(new TicTacToeCoordinates(2,1));
+            }});
+        }};
+
+        for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
+            boolean isMatrixCompatible = true;
+            for (TicTacToeCoordinates c : winningCombination)
+                isMatrixCompatible = isMatrixCompatible & isCellComputerMarked(c);
+
+            if(isMatrixCompatible)
+                return true;
+        }
+
+        return false;
     }
 
     public String getPlayerName() {
