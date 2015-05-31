@@ -1,14 +1,10 @@
 import Coordinates.TicTacToeCoordinates;
-import TicTacToeCell.Cell;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class TicTacToeRefereeTest {
-
 
     private CellMatrix matrix;
     private TicTacToeReferee referee;
@@ -26,16 +22,56 @@ public class TicTacToeRefereeTest {
     }
 
     @Test
-    public void aMatrixWithAMarkedRow_hasAWinner() {
+    public void markingARow_CausesAWinner() {
         playerMark(0, 0);
-        playerMark(0, 1);
-        playerMark(0, 2);
+        playerMark(1, 0);
+        playerMark(2, 0);
+        assertRefereeVerdict(true, false);
 
+        setup();
+
+        computerMark(0, 1);
+        computerMark(1, 1);
+        computerMark(2, 1);
+        assertRefereeVerdict(false, true);
+    }
+
+    @Test
+    public void markingAColumn_CausesAWinner() {
+        computerMark(0, 0);
+        computerMark(0, 1);
+        computerMark(0, 2);
+        assertRefereeVerdict(false, true);
+
+        setup();
+
+        playerMark(2, 0);
+        playerMark(2, 1);
+        playerMark(2, 2);
+        assertRefereeVerdict(true, false);
+    }
+
+    @Test
+    public void markingACross_CausesAWinner() {
+        computerMark(0, 0);
+        computerMark(1, 1);
+        computerMark(2, 2);
+        assertRefereeVerdict(false, true);
+
+        setup();
+
+        playerMark(0, 0);
+        playerMark(1, 1);
+        playerMark(2, 2);
         assertRefereeVerdict(true, false);
     }
 
     private void playerMark(int x, int y) {
         matrix.playerMark(new TicTacToeCoordinates(x, y));
+    }
+
+    private void computerMark(int x, int y) {
+        matrix.computerMark(new TicTacToeCoordinates(x, y));
     }
 
     private void assertRefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
