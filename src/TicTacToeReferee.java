@@ -2,21 +2,37 @@ import Coordinates.TicTacToeCoordinates;
 
 public class TicTacToeReferee {
 
-    private final CellMatrix matrix;
-
-    public TicTacToeReferee(CellMatrix matrix) {
-        this.matrix = matrix;
+    public TicTacToeReferee() {
     }
 
-    public boolean thereIsAWinner() {
-        return playerIsTheWinner();
+    public RefereeVerdict generateRefereeVerdict(CellMatrix matrix) {
+        boolean playerIsTheWinner = !matrix.isCellEmpty(new TicTacToeCoordinates(0, 0));
+        boolean computerIsTheWinner = false;
+        return new RefereeVerdict(playerIsTheWinner, computerIsTheWinner);
+
     }
 
-    public boolean playerIsTheWinner() {
-        return !matrix.isCellEmpty(new TicTacToeCoordinates(0,0));
-    }
+    public class RefereeVerdict {
 
-    public boolean computerIsTheWinner() {
-        return false;
+        private final boolean playerIsTheWinner;
+        private final boolean computerIsTheWinner;
+
+        public RefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
+
+            this.playerIsTheWinner = playerIsTheWinner;
+            this.computerIsTheWinner = computerIsTheWinner;
+        }
+
+        public boolean thereIsAWinner() {
+            return playerIsTheWinner();
+        }
+
+        public boolean playerIsTheWinner() {
+            return playerIsTheWinner;
+        }
+
+        public boolean computerIsTheWinner() {
+            return false;
+        }
     }
 }
