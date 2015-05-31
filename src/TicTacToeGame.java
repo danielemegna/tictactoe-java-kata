@@ -10,10 +10,16 @@ public class TicTacToeGame {
 
     private String playerName;
     private CellMatrix matrix;
+    private final List<Set<TicTacToeCoordinates>> winningCombinations;
 
     public TicTacToeGame(String playerName) {
         this.playerName = playerName;
         this.matrix = new CellMatrix();
+        this.winningCombinations = initWinningCombinationsSet();
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 
     public void playerMark(int x, int y) {
@@ -30,8 +36,6 @@ public class TicTacToeGame {
 
     public boolean playerWon() {
 
-        List<Set<TicTacToeCoordinates>> winningCombinations = getWinningCombinationsSet();
-
         for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
             boolean isMatrixCompatible = true;
             for (TicTacToeCoordinates c : winningCombination)
@@ -45,7 +49,7 @@ public class TicTacToeGame {
     }
 
     public boolean computerWon() {
-        List<Set<TicTacToeCoordinates>> winningCombinations = getWinningCombinationsSet();
+        List<Set<TicTacToeCoordinates>> winningCombinations = initWinningCombinationsSet();
 
         for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
             boolean isMatrixCompatible = true;
@@ -59,33 +63,24 @@ public class TicTacToeGame {
         return false;
     }
 
-    private List<Set<TicTacToeCoordinates>> getWinningCombinationsSet() {
-        return new ArrayList<Set<TicTacToeCoordinates>>() {{
-                add(new HashSet<TicTacToeCoordinates>() {{
-                    add(new TicTacToeCoordinates(0,0));
-                    add(new TicTacToeCoordinates(1,0));
-                    add(new TicTacToeCoordinates(2,0));
-                }});
-                add(new HashSet<TicTacToeCoordinates>() {{
-                    add(new TicTacToeCoordinates(2,0));
-                    add(new TicTacToeCoordinates(2,1));
-                    add(new TicTacToeCoordinates(2,2));
-                }});
-                add(new HashSet<TicTacToeCoordinates>() {{
-                    add(new TicTacToeCoordinates(0,0));
-                    add(new TicTacToeCoordinates(0,1));
-                    add(new TicTacToeCoordinates(0,2));
-                }});
-                add(new HashSet<TicTacToeCoordinates>() {{
-                    add(new TicTacToeCoordinates(0,1));
-                    add(new TicTacToeCoordinates(1,1));
-                    add(new TicTacToeCoordinates(2,1));
-                }});
-            }};
-    }
+    private List<Set<TicTacToeCoordinates>> initWinningCombinationsSet() {
+        List<Set<TicTacToeCoordinates>> wc = new ArrayList<>();
 
-    public String getPlayerName() {
-        return playerName;
+        for(int i = 0; i < 3; i++) {
+            final int index = i;
+            wc.add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(0, index));
+                add(new TicTacToeCoordinates(1, index));
+                add(new TicTacToeCoordinates(2, index));
+            }});
+            wc.add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(index, 0));
+                add(new TicTacToeCoordinates(index, 1));
+                add(new TicTacToeCoordinates(index, 2));
+            }});
+        }
+
+        return wc;
     }
 
     private boolean isCellPlayerMarked(TicTacToeCoordinates c) {
