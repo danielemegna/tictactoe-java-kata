@@ -57,8 +57,8 @@ public class TicTacToeGameTest {
         game.computerMark(0, 1);
         game.computerMark(0, 2);
         assertTrue("Fail asserting markingAColumn_CausesAWinner", game.thereIsAWinner());
-        assertTrue("Fail asserting playerWon", game.computerWon());
         assertFalse("Fail asserting playerWon", game.playerWon());
+        assertTrue("Fail asserting playerWon", game.computerWon());
 
         setup();
 
@@ -68,6 +68,25 @@ public class TicTacToeGameTest {
         assertTrue("Fail asserting markingAColumn_CausesAWinner", game.thereIsAWinner());
         assertTrue("Fail asserting playerWon", game.playerWon());
         assertFalse("Fail asserting playerWon", game.computerWon());
+    }
+
+    @Test
+    public void markingACross_CausesAWinner() {
+        game.computerMark(0, 0);
+        game.computerMark(1, 1);
+        game.computerMark(2, 2);
+        assertTrue("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
+        assertTrue("Fail asserting playerWon", game.computerWon());
+        assertFalse("Fail asserting playerWon", game.playerWon());
+
+        setup();
+
+        game.playerMark(0, 0);
+        game.playerMark(1, 1);
+        game.playerMark(2, 2);
+        assertTrue("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
+        assertFalse("Fail asserting playerWon", game.computerWon());
+        assertTrue("Fail asserting playerWon", game.playerWon());
     }
 
 

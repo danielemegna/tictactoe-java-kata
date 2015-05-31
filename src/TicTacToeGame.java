@@ -78,6 +78,11 @@ public class TicTacToeGame {
                 add(new TicTacToeCoordinates(index, 1));
                 add(new TicTacToeCoordinates(index, 2));
             }});
+            wc.add(new HashSet<TicTacToeCoordinates>() {{
+                add(new TicTacToeCoordinates(index, index));
+                add(new TicTacToeCoordinates(index, index));
+                add(new TicTacToeCoordinates(index, index));
+            }});
         }
 
         return wc;
