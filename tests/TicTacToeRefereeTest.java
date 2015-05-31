@@ -1,35 +1,46 @@
 import Coordinates.TicTacToeCoordinates;
+import TicTacToeCell.Cell;
+import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class TicTacToeRefereeTest {
 
+
+    private CellMatrix matrix;
+    private TicTacToeReferee referee;
+    private TicTacToeReferee.RefereeVerdict verdict;
+
+    @Before
+    public void setup() {
+        referee = new TicTacToeReferee();
+        matrix = new CellMatrix();
+    }
+
     @Test
     public void givenAnEmptyMatrix_refereeSeeNoWinner() {
-        TicTacToeReferee r = new TicTacToeReferee();
-        TicTacToeReferee.RefereeVerdict rv = r.generateRefereeVerdict(new CellMatrix());
-
-        assertFalse(rv.thereIsAWinner());
-        assertFalse(rv.playerIsTheWinner());
-        assertFalse(rv.computerIsTheWinner());
+        assertRefereeVerdict(false, false);
     }
 
     @Test
     public void aMatrixWithAMarkedRow_hasAWinner() {
-        TicTacToeReferee r = new TicTacToeReferee();
+        playerMark(0, 0);
+        playerMark(0, 1);
+        playerMark(0, 2);
 
-        CellMatrix m = new CellMatrix();
-        m.playerMark(new TicTacToeCoordinates(0,0));
-        m.playerMark(new TicTacToeCoordinates(0,1));
-        m.playerMark(new TicTacToeCoordinates(0,2));
+        assertRefereeVerdict(true, false);
+    }
 
+    private void playerMark(int x, int y) {
+        matrix.playerMark(new TicTacToeCoordinates(x, y));
+    }
 
-        TicTacToeReferee.RefereeVerdict rv = r.generateRefereeVerdict(m);
-
-        assertTrue(rv.thereIsAWinner());
-        assertTrue(rv.playerIsTheWinner());
-        assertFalse(rv.computerIsTheWinner());
+    private void assertRefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
+        verdict = referee.generateRefereeVerdict(matrix);
+        assertEquals(playerIsTheWinner, verdict.playerIsTheWinner());
+        assertEquals(computerIsTheWinner, verdict.computerIsTheWinner());
     }
 }
