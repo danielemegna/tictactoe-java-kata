@@ -15,7 +15,7 @@ public class TicTacToeGame {
     public TicTacToeGame(String playerName) {
         this.playerName = playerName;
         this.matrix = new CellMatrix();
-        this.winningCombinations = initWinningCombinationsSet();
+        this.winningCombinations = initWinningCombinations();
     }
 
     public String getPlayerName() {
@@ -36,9 +36,9 @@ public class TicTacToeGame {
 
     public boolean playerWon() {
 
-        for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
+        for(Set<TicTacToeCoordinates> wc : winningCombinations) {
             boolean isMatrixCompatible = true;
-            for (TicTacToeCoordinates c : winningCombination)
+            for (TicTacToeCoordinates c : wc)
                 isMatrixCompatible = isMatrixCompatible & isCellPlayerMarked(c);
 
             if(isMatrixCompatible)
@@ -49,7 +49,6 @@ public class TicTacToeGame {
     }
 
     public boolean computerWon() {
-        List<Set<TicTacToeCoordinates>> winningCombinations = initWinningCombinationsSet();
 
         for(Set<TicTacToeCoordinates> winningCombination : winningCombinations) {
             boolean isMatrixCompatible = true;
@@ -63,7 +62,7 @@ public class TicTacToeGame {
         return false;
     }
 
-    private List<Set<TicTacToeCoordinates>> initWinningCombinationsSet() {
+    private List<Set<TicTacToeCoordinates>> initWinningCombinations() {
         List<Set<TicTacToeCoordinates>> wc = new ArrayList<>();
 
         for(int i = 0; i < 3; i++) {
