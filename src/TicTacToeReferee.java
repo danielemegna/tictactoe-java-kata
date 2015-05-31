@@ -1,13 +1,19 @@
+import Coordinates.TicTacToeCoordinates;
+
 public class TicTacToeReferee {
-    public TicTacToeReferee(CellMatrix cellMatrix) {
+
+    private final CellMatrix matrix;
+
+    public TicTacToeReferee(CellMatrix matrix) {
+        this.matrix = matrix;
     }
 
     public boolean thereIsAWinner() {
-        return false;
+        return playerIsTheWinner();
     }
 
     public boolean playerIsTheWinner() {
-        return false;
+        return !matrix.isCellEmpty(new TicTacToeCoordinates(0,0));
     }
 
     public boolean computerIsTheWinner() {
