@@ -27,6 +27,12 @@ public class RefereeTest {
     }
 
     @Test
+    public void markingACell_hasNoWinner() {
+        playerMark(0, 0);
+        assertRefereeVerdict(false, false);
+    }
+
+    @Test
     public void markingARow_CausesAWinner() {
         playerMark(0, 0);
         playerMark(1, 0);

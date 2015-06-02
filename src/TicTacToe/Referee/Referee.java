@@ -52,12 +52,13 @@ public class Referee {
                 add(new Coordinates(index, 1));
                 add(new Coordinates(index, 2));
             }});
-            wc.add(new HashSet<Coordinates>() {{
-                add(new Coordinates(index, index));
-                add(new Coordinates(index, index));
-                add(new Coordinates(index, index));
-            }});
         }
+
+        wc.add(new HashSet<Coordinates>() {{
+            add(new Coordinates(0, 0));
+            add(new Coordinates(1, 1));
+            add(new Coordinates(2, 2));
+        }});
 
         return wc;
     }
