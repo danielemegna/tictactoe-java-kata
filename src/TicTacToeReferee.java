@@ -67,7 +67,6 @@ public class TicTacToeReferee {
         private final boolean computerIsTheWinner;
 
         public RefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
-
             this.playerIsTheWinner = playerIsTheWinner;
             this.computerIsTheWinner = computerIsTheWinner;
         }
