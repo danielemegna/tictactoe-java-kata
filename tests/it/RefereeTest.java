@@ -33,6 +33,21 @@ public class RefereeTest {
     }
 
     @Test
+    public void markingEveryCellWithoutWinner() {
+        computerMark(0, 0);
+          playerMark(1, 0);
+          playerMark(2, 0);
+          playerMark(0, 1);
+        computerMark(1, 1);
+        computerMark(2, 1);
+          playerMark(0, 2);
+        computerMark(1, 2);
+          playerMark(2, 2);
+
+        assertRefereeVerdict(false, false);
+    }
+
+    @Test
     public void markingARow_CausesAWinner() {
         playerMark(0, 0);
         playerMark(1, 0);
