@@ -1,3 +1,3 @@
-package TicTacToeCell;
+package TicTacToe.Cell;
 
 public class AlreadyMarkedCellAttemptException extends RuntimeException { }

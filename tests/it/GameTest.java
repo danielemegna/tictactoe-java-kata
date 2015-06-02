@@ -1,16 +1,18 @@
+package it;
+
+import TicTacToe.Game;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
-public class TicTacToeGameTest {
+public class GameTest {
 
-    private TicTacToeGame game;
+    private Game game;
 
     @Before
     public void setup() {
-        this.game = new TicTacToeGame("Player name");
+        this.game = new Game("Player name");
     }
 
     @Test
@@ -25,11 +27,11 @@ public class TicTacToeGameTest {
         String failMessage = "Expected CoordinateOutOfBoundsException not catched";
 
         try { game.playerMark(0, 3); fail(failMessage); }
-        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
         try { game.computerMark(5, 1); fail(failMessage); }
-        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
         try { game.playerMark(42, 13); fail(failMessage); }
-        catch(Coordinates.CoordinateOutOfBoundsException ex) {}
+        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
     }
 
     @Test

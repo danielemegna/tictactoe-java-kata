@@ -1,19 +1,24 @@
-import Coordinates.TicTacToeCoordinates;
+package it;
+
+import TicTacToe.Coordinates.Coordinates;
+import TicTacToe.Cell.Matrix;
+import TicTacToe.Referee.Referee;
+import TicTacToe.Referee.Verdict;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class TicTacToeRefereeTest {
+public class RefereeTest {
 
-    private CellMatrix matrix;
-    private TicTacToeReferee referee;
-    private TicTacToeReferee.RefereeVerdict verdict;
+    private Matrix matrix;
+    private Referee referee;
+    private Verdict verdict;
 
     @Before
     public void setup() {
-        referee = new TicTacToeReferee();
-        matrix = new CellMatrix();
+        referee = new Referee();
+        matrix = new Matrix();
     }
 
     @Test
@@ -67,11 +72,11 @@ public class TicTacToeRefereeTest {
     }
 
     private void playerMark(int x, int y) {
-        matrix.playerMark(new TicTacToeCoordinates(x, y));
+        matrix.playerMark(new Coordinates(x, y));
     }
 
     private void computerMark(int x, int y) {
-        matrix.computerMark(new TicTacToeCoordinates(x, y));
+        matrix.computerMark(new Coordinates(x, y));
     }
 
     private void assertRefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {

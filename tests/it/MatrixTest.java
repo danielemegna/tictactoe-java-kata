@@ -1,26 +1,28 @@
-import TicTacToeCell.AlreadyMarkedCellAttemptException;
-import TicTacToeCell.CellStateEnum;
-import Coordinates.TicTacToeCoordinates;
+package it;
+
+import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
+import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Coordinates.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-public class CellMatrixTest {
+public class MatrixTest {
 
-    private CellMatrix cellMatrix;
+    private Matrix cellMatrix;
 
     @Before
     public void setup() {
-        this.cellMatrix = new CellMatrix();
+        this.cellMatrix = new Matrix();
     }
 
     @Test
     public void inANewCellMatrix_CellsAreEmpty() {
         for(int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                TicTacToeCoordinates c = new TicTacToeCoordinates(x, y);
+                Coordinates c = new Coordinates(x, y);
                 assertCellState(c, CellStateEnum.Empty);
             }
         }
@@ -28,41 +30,41 @@ public class CellMatrixTest {
 
     @Test
     public void playerCanMarkEmptyCells() {
-        TicTacToeCoordinates c;
+        Coordinates c;
 
-        c = new TicTacToeCoordinates(0, 1);
+        c = new Coordinates(0, 1);
         cellMatrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
-        c = new TicTacToeCoordinates(1, 1);
+        c = new Coordinates(1, 1);
         cellMatrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
     }
 
     @Test
     public void computerCanMarkEmptyCells() {
-        TicTacToeCoordinates c;
+        Coordinates c;
 
-        c = new TicTacToeCoordinates(0, 1);
+        c = new Coordinates(0, 1);
         cellMatrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
-        c = new TicTacToeCoordinates(2, 1);
+        c = new Coordinates(2, 1);
         cellMatrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        cellMatrix.playerMark(new TicTacToeCoordinates(0, 1));
-        cellMatrix.playerMark(new TicTacToeCoordinates(2, 1));
-        cellMatrix.computerMark(new TicTacToeCoordinates(1, 0));
-        cellMatrix.computerMark(new TicTacToeCoordinates(2, 2));
+        cellMatrix.playerMark(new Coordinates(0, 1));
+        cellMatrix.playerMark(new Coordinates(2, 1));
+        cellMatrix.computerMark(new Coordinates(1, 0));
+        cellMatrix.computerMark(new Coordinates(2, 2));
 
-        assertCellState(new TicTacToeCoordinates(0, 0), CellStateEnum.Empty);
-        assertCellState(new TicTacToeCoordinates(1, 1), CellStateEnum.Empty);
-        assertCellState(new TicTacToeCoordinates(1, 2), CellStateEnum.Empty);
+        assertCellState(new Coordinates(0, 0), CellStateEnum.Empty);
+        assertCellState(new Coordinates(1, 1), CellStateEnum.Empty);
+        assertCellState(new Coordinates(1, 2), CellStateEnum.Empty);
     }
 
-    private void assertCellState(TicTacToeCoordinates c, CellStateEnum expected) {
+    private void assertCellState(Coordinates c, CellStateEnum expected) {
         CellStateEnum actual = cellMatrix.getCellState(c);
         assertEquals(
             "Fail asserting cell state at coordinates [" + c + "] ." +
@@ -74,15 +76,15 @@ public class CellMatrixTest {
     @Test
     public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException() {
         String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
-        TicTacToeCoordinates[] toBeTested = new TicTacToeCoordinates[] {
-            new TicTacToeCoordinates(0, 0),
-            new TicTacToeCoordinates(1, 1)
+        Coordinates[] toBeTested = new Coordinates[] {
+            new Coordinates(0, 0),
+            new Coordinates(1, 1)
         };
 
         cellMatrix.playerMark(toBeTested[0]);
         cellMatrix.computerMark(toBeTested[1]);
 
-        for(TicTacToeCoordinates c : toBeTested) {
+        for(Coordinates c : toBeTested) {
             try {
                 cellMatrix.playerMark(c);
                 fail(failMessage);

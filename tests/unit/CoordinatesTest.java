@@ -1,22 +1,22 @@
-import Coordinates.CoordinateOutOfBoundsException;
-import Coordinates.TicTacToeCoordinates;
+package unit;
+
+import TicTacToe.Coordinates.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-public class TicTacToeCoordinatesTest {
+public class CoordinatesTest {
 
     @Test
     public void trivialInstantiateAndGetCoordinates()
     {
-        TicTacToeCoordinates c;
+        Coordinates c;
 
-        c= new TicTacToeCoordinates(0, 1);
+        c= new Coordinates(0, 1);
         assertEquals(0, c.getX());
         assertEquals(1, c.getY());
 
-        c= new TicTacToeCoordinates(2, 0);
+        c= new Coordinates(2, 0);
         assertEquals(2, c.getX());
         assertEquals(0, c.getY());
     }
@@ -27,11 +27,11 @@ public class TicTacToeCoordinatesTest {
     {
         String failMessage = "Expected CoordinateOutOfBoundsException not catched";
 
-        try { new TicTacToeCoordinates(0, 3); fail(failMessage); }
+        try { new Coordinates(0, 3); fail(failMessage); }
         catch(CoordinateOutOfBoundsException ex) {}
-        try { new TicTacToeCoordinates(5, 1); fail(failMessage); }
+        try { new Coordinates(5, 1); fail(failMessage); }
         catch(CoordinateOutOfBoundsException ex) {}
-        try { new TicTacToeCoordinates(42, 13); fail(failMessage); }
+        try { new Coordinates(42, 13); fail(failMessage); }
         catch(CoordinateOutOfBoundsException ex) {}
     }
 

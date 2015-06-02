@@ -1,6 +1,6 @@
-import TicTacToeCell.Cell;
-import TicTacToeCell.CellStateEnum;
-import TicTacToeCell.AlreadyMarkedCellAttemptException;
+package unit;
+
+import TicTacToe.Cell.*;
 import org.junit.Before;
 import org.junit.Test;
 
