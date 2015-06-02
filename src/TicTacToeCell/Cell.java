@@ -11,6 +11,10 @@ public class Cell {
         return state;
     }
 
+    public boolean isEmpty() {
+        return state == CellStateEnum.Empty;
+    }
+
     public void playerMark() {
         markWithState(CellStateEnum.PlayerMarked);
     }
@@ -24,9 +28,5 @@ public class Cell {
             throw new AlreadyMarkedCellAttemptException();
 
         state = newState;
-    }
-
-    public boolean isEmpty() {
-        return state == CellStateEnum.Empty;
     }
 }

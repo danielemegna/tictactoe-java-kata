@@ -17,10 +17,6 @@ public class CellMatrix {
         return getCell(c).getState();
     }
 
-    public boolean isCellEmpty(TicTacToeCoordinates c) {
-        return getCell(c).isEmpty();
-    }
-
     public void playerMark(TicTacToeCoordinates c) {
         getCell(c).playerMark();
     }
