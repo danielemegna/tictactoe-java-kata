@@ -19,19 +19,17 @@ public class TicTacToeReferee {
         boolean computerIsTheWinner = false;
 
         for(Set<TicTacToeCoordinates> wc : winningCombinations) {
-            playerIsTheWinner = true;
-            computerIsTheWinner = true;
+            playerIsTheWinner = computerIsTheWinner = true;
+
             for (TicTacToeCoordinates c : wc) {
-                playerIsTheWinner =
-                    playerIsTheWinner && (matrix.getCellState(c) == CellStateEnum.PlayerMarked);
-                computerIsTheWinner =
-                    computerIsTheWinner && (matrix.getCellState(c) == CellStateEnum.ComputerMarked);
+                CellStateEnum cellState = matrix.getCellState(c);
+                playerIsTheWinner &= (cellState == CellStateEnum.PlayerMarked);
+                computerIsTheWinner &= (cellState == CellStateEnum.ComputerMarked);
             }
 
             if(playerIsTheWinner || computerIsTheWinner)
                 break;
         }
-
 
         return new RefereeVerdict(playerIsTheWinner, computerIsTheWinner);
     }
