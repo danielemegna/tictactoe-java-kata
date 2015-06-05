@@ -28,4 +28,15 @@ public class Matrix {
     private Cell getCell(Coordinates c) {
         return matrix[c.getX()][c.getY()];
     }
+
+    public boolean isFull() {
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (getCellState(new Coordinates(x, y)) == CellStateEnum.Empty)
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }

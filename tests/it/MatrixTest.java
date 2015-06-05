@@ -20,12 +20,17 @@ public class MatrixTest {
 
     @Test
     public void inANewCellMatrix_CellsAreEmpty() {
-        for(int x = 0; x < 3; x++) {
+        for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 Coordinates c = new Coordinates(x, y);
                 assertCellState(c, CellStateEnum.Empty);
             }
         }
+    }
+
+    @Test
+    public void aNewMatrixIsNotFull() {
+        assertFalse(cellMatrix.isFull());
     }
 
     @Test
@@ -67,9 +72,9 @@ public class MatrixTest {
     private void assertCellState(Coordinates c, CellStateEnum expected) {
         CellStateEnum actual = cellMatrix.getCellState(c);
         assertEquals(
-            "Fail asserting cell state at coordinates [" + c + "] ." +
-            "Actual [" + actual + "], expected [" + expected + "]",
-            expected, actual
+                "Fail asserting cell state at coordinates [" + c + "] ." +
+                        "Actual [" + actual + "], expected [" + expected + "]",
+                expected, actual
         );
     }
 
@@ -94,6 +99,15 @@ public class MatrixTest {
                 fail(failMessage);
             } catch (AlreadyMarkedCellAttemptException ex) {}
         }
+    }
+
+    @Test
+    public void markingEveryCell_matrixIsFull() {
+        for(int x = 0; x < 3; x++)
+            for(int y = 0; y < 3; y++)
+                cellMatrix.playerMark(new Coordinates(x, y));
+
+        assertTrue(cellMatrix.isFull());
     }
 
 }

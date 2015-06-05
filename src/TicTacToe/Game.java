@@ -43,4 +43,8 @@ public class Game {
         Verdict v = referee.generateRefereeVerdict(matrix);
         return v.computerIsTheWinner();
     }
+
+    public boolean isFinished() {
+        return matrix.isFull();
+    }
 }
