@@ -11,26 +11,25 @@ import static org.junit.Assert.*;
 
 public class MatrixTest {
 
-    private Matrix cellMatrix;
+    private Matrix matrix;
 
     @Before
     public void setup() {
-        this.cellMatrix = new Matrix();
+        this.matrix = new Matrix();
     }
 
     @Test
     public void inANewCellMatrix_CellsAreEmpty() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                Coordinates c = new Coordinates(x, y);
-                assertCellState(c, CellStateEnum.Empty);
+                assertCellState(new Coordinates(x, y), CellStateEnum.Empty);
             }
         }
     }
 
     @Test
     public void aNewMatrixIsNotFull() {
-        assertFalse(cellMatrix.isFull());
+        assertFalse(matrix.isFull());
     }
 
     @Test
@@ -38,10 +37,10 @@ public class MatrixTest {
         Coordinates c;
 
         c = new Coordinates(0, 1);
-        cellMatrix.playerMark(c);
+        matrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
         c = new Coordinates(1, 1);
-        cellMatrix.playerMark(c);
+        matrix.playerMark(c);
         assertCellState(c, CellStateEnum.PlayerMarked);
     }
 
@@ -50,19 +49,19 @@ public class MatrixTest {
         Coordinates c;
 
         c = new Coordinates(0, 1);
-        cellMatrix.computerMark(c);
+        matrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
         c = new Coordinates(2, 1);
-        cellMatrix.computerMark(c);
+        matrix.computerMark(c);
         assertCellState(c, CellStateEnum.ComputerMarked);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        cellMatrix.playerMark(new Coordinates(0, 1));
-        cellMatrix.playerMark(new Coordinates(2, 1));
-        cellMatrix.computerMark(new Coordinates(1, 0));
-        cellMatrix.computerMark(new Coordinates(2, 2));
+        matrix.playerMark(new Coordinates(0, 1));
+        matrix.playerMark(new Coordinates(2, 1));
+        matrix.computerMark(new Coordinates(1, 0));
+        matrix.computerMark(new Coordinates(2, 2));
 
         assertCellState(new Coordinates(0, 0), CellStateEnum.Empty);
         assertCellState(new Coordinates(1, 1), CellStateEnum.Empty);
@@ -70,7 +69,7 @@ public class MatrixTest {
     }
 
     private void assertCellState(Coordinates c, CellStateEnum expected) {
-        CellStateEnum actual = cellMatrix.getCellState(c);
+        CellStateEnum actual = matrix.getCellState(c);
         assertEquals(
                 "Fail asserting cell state at coordinates [" + c + "] ." +
                         "Actual [" + actual + "], expected [" + expected + "]",
@@ -86,16 +85,16 @@ public class MatrixTest {
             new Coordinates(1, 1)
         };
 
-        cellMatrix.playerMark(toBeTested[0]);
-        cellMatrix.computerMark(toBeTested[1]);
+        matrix.playerMark(toBeTested[0]);
+        matrix.computerMark(toBeTested[1]);
 
         for(Coordinates c : toBeTested) {
             try {
-                cellMatrix.playerMark(c);
+                matrix.playerMark(c);
                 fail(failMessage);
             } catch (AlreadyMarkedCellAttemptException ex) {}
             try {
-                cellMatrix.computerMark(c);
+                matrix.computerMark(c);
                 fail(failMessage);
             } catch (AlreadyMarkedCellAttemptException ex) {}
         }
@@ -105,9 +104,9 @@ public class MatrixTest {
     public void markingEveryCell_matrixIsFull() {
         for(int x = 0; x < 3; x++)
             for(int y = 0; y < 3; y++)
-                cellMatrix.playerMark(new Coordinates(x, y));
+                matrix.playerMark(new Coordinates(x, y));
 
-        assertTrue(cellMatrix.isFull());
+        assertTrue(matrix.isFull());
     }
 
 }
