@@ -20,7 +20,7 @@ public class Main {
             Game game = new Game(name);
             System.out.println("Are you ready " + game.getPlayerName() + "? We're starting!");
 
-            while (!game.thereIsAWinner()) {
+            while (true) {
                 System.out.print(game.getPlayerName() + " do your game (x y): ");
 
                 try {
@@ -41,8 +41,18 @@ public class Main {
                     continue;
                 }
 
-                if (game.playerWon())
+                if (game.playerWon()) {
                     System.out.println("Congratulations " + game.getPlayerName() + "! You won!");
+                    break;
+                }
+                if (game.computerWon()) {
+                    System.out.println("You lose, computer won!");
+                    break;
+                }
+                if (game.isFinished()) {
+                    System.out.println("The grid is full.. spare!");
+                    break;
+                }
             }
 
             System.out.print("Play again? (y/n) ");
