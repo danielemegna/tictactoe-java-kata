@@ -88,8 +88,11 @@ public class GameTest {
 
     @Test
     public void markingACross_CausesAWinner() {
+        game.playerMark(0, 1);
         game.computerMark(0, 0);
+        game.playerMark(0, 2);
         game.computerMark(1, 1);
+        game.playerMark(2, 0);
         game.computerMark(2, 2);
         assertTrue("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
         assertTrue("Fail asserting playerWon", game.computerWon());
@@ -98,7 +101,9 @@ public class GameTest {
         setup();
 
         game.playerMark(2, 0);
+        game.computerMark(2, 1);
         game.playerMark(1, 1);
+        game.computerMark(2, 2);
         game.playerMark(0, 2);
         assertTrue("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.computerWon());
@@ -107,11 +112,11 @@ public class GameTest {
 
     @Test
     public void markingEveryCellWithoutWinner() {
-        game.computerMark(0, 0);
           game.playerMark(1, 0);
+        game.computerMark(0, 0);
           game.playerMark(2, 0);
-          game.playerMark(0, 1);
         game.computerMark(1, 1);
+          game.playerMark(0, 1);
         game.computerMark(2, 1);
           game.playerMark(0, 2);
         game.computerMark(1, 2);
