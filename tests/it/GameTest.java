@@ -41,7 +41,9 @@ public class GameTest {
     @Test
     public void markingARow_CausesAWinner() {
         game.playerMark(0, 0);
+        game.computerMark(0, 1);
         game.playerMark(1, 0);
+        game.computerMark(0, 2);
         game.playerMark(2, 0);
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
         assertTrue("Fail asserting playerWon", game.playerWon());
@@ -49,8 +51,11 @@ public class GameTest {
 
         setup();
 
+        game.playerMark(0, 0);
         game.computerMark(0, 1);
+        game.playerMark(1, 2);
         game.computerMark(1, 1);
+        game.playerMark(2, 2);
         game.computerMark(2, 1);
         assertTrue("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
         assertTrue("Fail asserting playerWon", game.computerWon());
@@ -59,8 +64,11 @@ public class GameTest {
 
     @Test
     public void markingAColumn_CausesAWinner() {
+        game.playerMark(1, 0);
         game.computerMark(0, 0);
+        game.playerMark(2, 0);
         game.computerMark(0, 1);
+        game.playerMark(2, 2);
         game.computerMark(0, 2);
         assertTrue("Fail asserting markingAColumn_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.playerWon());
@@ -69,7 +77,9 @@ public class GameTest {
         setup();
 
         game.playerMark(2, 0);
+        game.computerMark(0, 0);
         game.playerMark(2, 1);
+        game.computerMark(0, 1);
         game.playerMark(2, 2);
         assertTrue("Fail asserting markingAColumn_CausesAWinner", game.thereIsAWinner());
         assertTrue("Fail asserting playerWon", game.playerWon());
