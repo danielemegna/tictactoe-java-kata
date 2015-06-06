@@ -60,6 +60,12 @@ public class Referee {
             add(new Coordinates(2, 2));
         }});
 
+        wc.add(new HashSet<Coordinates>() {{
+            add(new Coordinates(2, 0));
+            add(new Coordinates(1, 1));
+            add(new Coordinates(0, 2));
+        }});
+
         return wc;
     }
 }

@@ -97,9 +97,9 @@ public class GameTest {
 
         setup();
 
-        game.playerMark(0, 0);
+        game.playerMark(2, 0);
         game.playerMark(1, 1);
-        game.playerMark(2, 2);
+        game.playerMark(0, 2);
         assertTrue("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.computerWon());
         assertTrue("Fail asserting playerWon", game.playerWon());
