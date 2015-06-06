@@ -10,11 +10,13 @@ public class Game {
     private String playerName;
     private Matrix matrix;
     private Referee referee;
+    private boolean isPlayerTurn;
 
     public Game(String playerName) {
         this.playerName = playerName;
         this.matrix = new Matrix();
         this.referee = new Referee();
+        this.isPlayerTurn = true;
     }
 
     public String getPlayerName() {
@@ -22,11 +24,19 @@ public class Game {
     }
 
     public void playerMark(int x, int y) {
+        if(!isPlayerTurn)
+            throw new GameTurnException();
+
         matrix.playerMark(new Coordinates(x, y));
+        isPlayerTurn = false;
     }
 
     public void computerMark(int x, int y) {
+        if(isPlayerTurn)
+            throw new GameTurnException();
+
         matrix.computerMark(new Coordinates(x, y));
+        isPlayerTurn = true;
     }
 
     public boolean thereIsAWinner() {

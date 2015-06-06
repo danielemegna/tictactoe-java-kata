@@ -1,6 +1,7 @@
 package it;
 
 import TicTacToe.Game;
+import TicTacToe.GameTurnException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,8 +33,12 @@ public class GameTest {
 
         try { game.playerMark(0, 3); fail(failMessage); }
         catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
+        game.playerMark(0, 0);
+
         try { game.computerMark(5, 1); fail(failMessage); }
         catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
+        game.computerMark(0, 1);
+
         try { game.playerMark(42, 13); fail(failMessage); }
         catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
     }
@@ -128,5 +133,17 @@ public class GameTest {
         assertTrue("Fail asserting game is finished", game.isMatrixFull());
     }
 
+    @Test
+    public void playersCannotMarkTwice_itsOtherPlayerTurn() {
+        String failMessage = "Expected GameTurnException not catched";
+
+        game.playerMark(0, 0);
+        try { game.playerMark(0, 1); fail(failMessage); }
+        catch(GameTurnException ex) {}
+
+        game.computerMark(0, 1);
+        try { game.computerMark(0, 1); fail(failMessage); }
+        catch(GameTurnException ex) {}
+    }
 
 }
