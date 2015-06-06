@@ -44,7 +44,7 @@ public class Game {
         return v.computerIsTheWinner();
     }
 
-    public boolean isFinished() {
+    public boolean isMatrixFull() {
         return matrix.isFull();
     }
 }

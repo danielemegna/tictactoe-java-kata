@@ -22,7 +22,7 @@ public class GameTest {
         assertFalse("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.computerWon());
         assertFalse("Fail asserting playerWon", game.playerWon());
-        assertFalse("Fail asserting game is finished", game.isFinished());
+        assertFalse("Fail asserting game is finished", game.isMatrixFull());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class GameTest {
         assertFalse("Fail asserting markingACross_CausesAWinner", game.thereIsAWinner());
         assertFalse("Fail asserting playerWon", game.computerWon());
         assertFalse("Fail asserting playerWon", game.playerWon());
-        assertTrue("Fail asserting game is finished", game.isFinished());
+        assertTrue("Fail asserting game is finished", game.isMatrixFull());
     }
 
 

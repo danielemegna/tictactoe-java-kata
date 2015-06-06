@@ -49,7 +49,7 @@ public class Main {
                     System.out.println("You lose, computer won!");
                     break;
                 }
-                if (game.isFinished()) {
+                if (game.isMatrixFull()) {
                     System.out.println("The grid is full.. spare!");
                     break;
                 }
