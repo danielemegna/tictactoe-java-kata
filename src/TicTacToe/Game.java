@@ -1,6 +1,7 @@
 package TicTacToe;
 
 import TicTacToe.Cell.Matrix;
+import TicTacToe.ComputerPlayer.ComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;

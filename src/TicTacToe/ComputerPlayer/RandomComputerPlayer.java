@@ -1,4 +1,4 @@
-package TicTacToe;
+package TicTacToe.ComputerPlayer;
 
 import TicTacToe.Cell.CellStateEnum;
 import TicTacToe.Cell.Matrix;

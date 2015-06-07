@@ -1,4 +1,5 @@
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
+import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
 import TicTacToe.*;
 
