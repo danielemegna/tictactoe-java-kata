@@ -21,7 +21,7 @@ public class Main {
             System.out.println("Are you ready " + game.getPlayerName() + "? We're starting!");
 
             while (true) {
-                System.out.print(game.getPlayerName() + " do your game (x y): ");
+                System.out.print(game.getPlayerName() + " make your move (x y): ");
 
                 try {
                     String input = r.readLine();
@@ -47,11 +47,11 @@ public class Main {
                 }
 
                 if (game.isMatrixFull()) {
-                    System.out.println("The grid is full.. spare!");
+                    System.out.println("The grid is full.. tie!");
                     break;
                 }
 
-                game.doAComputerGame();
+                game.doTheNextComputerMove();
 
                 if (game.computerWon()) {
                     System.out.println("You lose, computer won!");
@@ -59,7 +59,7 @@ public class Main {
                 }
 
                 if (game.isMatrixFull()) {
-                    System.out.println("The grid is full.. spare!");
+                    System.out.println("The grid is full.. tie!");
                     break;
                 }
             }

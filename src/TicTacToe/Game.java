@@ -62,7 +62,7 @@ public class Game {
         return matrix.isFull();
     }
 
-    public void doAComputerGame() {
+    public void doTheNextComputerMove() {
         Coordinates c = computerPlayer.establishTheNextMove(matrix);
         computerMark(c.getX(), c.getY());
     }
