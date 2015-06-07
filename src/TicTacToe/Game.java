@@ -8,12 +8,16 @@ import TicTacToe.Referee.Verdict;
 public class Game {
 
     private String playerName;
+    private ComputerPlayer computerPlayer;
+
     private Matrix matrix;
     private Referee referee;
     private boolean isPlayerTurn;
 
-    public Game(String playerName) {
+    public Game(String playerName, ComputerPlayer computerPlayer) {
         this.playerName = playerName;
+        this.computerPlayer = computerPlayer;
+
         this.matrix = new Matrix();
         this.referee = new Referee();
         this.isPlayerTurn = true;
@@ -56,5 +60,9 @@ public class Game {
 
     public boolean isMatrixFull() {
         return matrix.isFull();
+    }
+
+    public void doAComputerGame() {
+        computerPlayer.doAGame(this, matrix);
     }
 }

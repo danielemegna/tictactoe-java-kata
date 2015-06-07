@@ -13,7 +13,7 @@ public class GameTest {
 
     @Before
     public void setup() {
-        this.game = new Game("Player name");
+        this.game = new Game("Player name", null);
     }
 
     @Test
