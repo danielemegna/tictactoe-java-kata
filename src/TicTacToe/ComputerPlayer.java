@@ -1,7 +1,8 @@
 package TicTacToe;
 
 import TicTacToe.Cell.Matrix;
+import TicTacToe.Coordinates.Coordinates;
 
 public interface ComputerPlayer {
-    void doAGame(Game game, Matrix matrix);
+    Coordinates establishTheNextMove(Matrix matrix);
 }

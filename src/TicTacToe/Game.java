@@ -63,6 +63,7 @@ public class Game {
     }
 
     public void doAComputerGame() {
-        computerPlayer.doAGame(this, matrix);
+        Coordinates c = computerPlayer.establishTheNextMove(matrix);
+        computerMark(c.getX(), c.getY());
     }
 }
