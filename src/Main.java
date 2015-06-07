@@ -1,7 +1,6 @@
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
-import TicTacToe.Game;
-import TicTacToe.RandomComputerPlayer;
+import TicTacToe.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class Main {
             System.out.print("What's your name? ");
             String name = r.readLine();
 
-            Game game = new Game(name, new RandomComputerPlayer());
+            Game game = new Game(name, new SystematicComputerPlayer());
             System.out.println("Are you ready " + game.getPlayerName() + "? We're starting!");
 
             while (true) {
