@@ -16,4 +16,12 @@ public class Coordinates {
     public int getX() { return x; }
     public int getY() { return y; }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Coordinates))
+            return super.equals(o);
+
+        Coordinates that = (Coordinates)o;
+        return this.x == that.x && this.y == that.y;
+    }
 }
