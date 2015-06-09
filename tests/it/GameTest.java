@@ -2,6 +2,7 @@ package it;
 
 import TicTacToe.Game;
 import TicTacToe.GameTurnException;
+import mocks.FakeComputerPlayer;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package it;
+package mocks;
 
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
