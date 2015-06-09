@@ -58,11 +58,6 @@ public class Main {
                     System.out.println("You lose, computer won!");
                     break;
                 }
-
-                if (game.isMatrixFull()) {
-                    System.out.println("The grid is full.. tie!");
-                    break;
-                }
             }
 
             System.out.print("Play again? (y/n) ");
