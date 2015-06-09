@@ -8,7 +8,10 @@ public class SystematicComputerPlayer implements ComputerPlayer {
 
     public Coordinates establishTheNextMove(Matrix matrix) {
 
-        return new Coordinates(0, 0);
+        if(matrix.getCellState(new Coordinates(0,0)) == CellStateEnum.Empty)
+            return new Coordinates(0, 0);
+
+        return new Coordinates(1, 0);
 
         /*for(int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {

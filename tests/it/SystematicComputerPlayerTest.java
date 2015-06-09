@@ -16,4 +16,13 @@ public class SystematicComputerPlayerTest {
 
         assertEquals(new Coordinates(0, 0), cp.establishTheNextMove(m));
     }
+
+    @Test
+    public void SystematicComputer_isAlwaysPredictable() {
+        Matrix m = new Matrix();
+        SystematicComputerPlayer cp = new SystematicComputerPlayer();
+
+        m.playerMark(new Coordinates(0, 0));
+        assertEquals(new Coordinates(1, 0), cp.establishTheNextMove(m));
+    }
 }
