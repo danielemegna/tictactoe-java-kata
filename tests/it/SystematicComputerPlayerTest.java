@@ -27,5 +27,9 @@ public class SystematicComputerPlayerTest {
         m.computerMark(new Coordinates(1, 0));
         m.playerMark(new Coordinates(2, 0));
         assertEquals(new Coordinates(0, 1), cp.establishTheNextMove(m));
+        m.computerMark(new Coordinates(0, 1));
+        m.playerMark(new Coordinates(2, 1));
+        assertEquals(new Coordinates(1, 1), cp.establishTheNextMove(m));
+        m.computerMark(new Coordinates(1, 1));
     }
 }
