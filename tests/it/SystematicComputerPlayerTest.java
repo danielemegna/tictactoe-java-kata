@@ -1,12 +1,14 @@
 package it;
 
 import TicTacToe.Cell.Matrix;
+import TicTacToe.ComputerPlayer.ComputerPlayerChoiceException;
 import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class SystematicComputerPlayerTest {
 
@@ -21,7 +23,7 @@ public class SystematicComputerPlayerTest {
 
     @Test
     public void withEmptyMatrix_SystematicComputerPlayerWillChooseZeroZero() {
-        assertEquals(new Coordinates(0, 0), cp.establishTheNextMove(m));
+        assertNextMoveAndMarkIt(new Coordinates(0, 0));
     }
 
     @Test
@@ -32,6 +34,16 @@ public class SystematicComputerPlayerTest {
         assertNextMoveAndMarkIt(new Coordinates(0, 1));
         m.playerMark(new Coordinates(2, 1));
         assertNextMoveAndMarkIt(new Coordinates(1, 1));
+        m.playerMark(new Coordinates(1, 2));
+        assertNextMoveAndMarkIt(new Coordinates(0, 2));
+        assertNextMoveAndMarkIt(new Coordinates(2, 2));
+
+        try {
+            cp.establishTheNextMove(m);
+            fail("Expected ComputerPlayerChoiceException not catched");
+        } catch(ComputerPlayerChoiceException ex) {
+            assertEquals("SystematicComputerPlayer cannot find an Empty cell for its game", ex.getMessage());
+        }
     }
 
     private void assertNextMoveAndMarkIt(Coordinates expected) {

@@ -16,6 +16,6 @@ public class SystematicComputerPlayer implements ComputerPlayer {
             }
         }
 
-        throw new RuntimeException("SystematicComputerPlayer cannot find an Empty cell for its game");
+        throw new ComputerPlayerChoiceException("SystematicComputerPlayer cannot find an Empty cell for its game");
     }
 }
