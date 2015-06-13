@@ -16,4 +16,13 @@ public class TerminalDisplayTest {
         String expected = "- - -\n- - -\n- - -";
         assertEquals(expected, d.show(new Matrix()));
     }
+
+    @Test
+    public void displayAPlayerMarkAsX() {
+        Display d = new TerminalDisplay();
+        String expected = "- X -\n- - -\n- - -";
+        Matrix m = new Matrix();
+        m.playerMark(new Coordinates(1, 0));
+        assertEquals(expected, d.show(m));
+    }
 }
