@@ -2,70 +2,81 @@ import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
 import TicTacToe.*;
+import TicTacToe.Display.TerminalDisplay;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException {
-        BufferedReader r = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String args[]) throws IOException, InterruptedException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintStream ps = System.out;
+
+        ps.println("Welcome!");
+        ps.print("What's your name? ");
+        String name = br.readLine();
 
         boolean exit;
         do {
-            System.out.println("Welcome!");
-            System.out.print("What's your name? ");
-            String name = r.readLine();
 
-            Game game = new Game(name, new SystematicComputerPlayer());
-            System.out.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+
+            Game game = new Game(name, new SystematicComputerPlayer(), new TerminalDisplay());
+            ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+
+            game.updateDisplay(ps);
 
             while (true) {
-                System.out.print(game.getPlayerName() + " make your move (x y): ");
+                ps.print(game.getPlayerName() + " make your move (x y): ");
 
                 try {
-                    String input = r.readLine();
-                    String[] coordinates = input.split(" ");
-                    int x = Integer.valueOf(coordinates[0]);
-                    int y = Integer.valueOf(coordinates[1]);
+                    String input = br.readLine();
+                    int x = Integer.valueOf(String.valueOf(input.charAt(0)));
+                    int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
                     game.playerMark(x, y);
-                    System.out.println("Coordinates [" + x + ", " + y + "] marked.");
+                    ps.println("Coordinates [" + x + ", " + y + "] marked.");
                 } catch (CoordinateOutOfBoundsException ex) {
-                    System.out.println("Invalid coordinates.. retry");
+                    ps.println("Invalid coordinates.. retry");
                     continue;
                 } catch (AlreadyMarkedCellAttemptException ex) {
-                    System.out.println("Cell already marked.. retry.");
+                    ps.println("Cell already marked.. retry.");
                     continue;
                 } catch (Exception ex) {
-                    System.out.println("Invalid input.. retry");
+                    ps.println("Invalid input.. retry");
                     continue;
                 }
 
+                game.updateDisplay(ps);
+
                 if (game.playerWon()) {
-                    System.out.println("Congratulations " + game.getPlayerName() + "! You won!");
+                    ps.println("Congratulations " + game.getPlayerName() + "! You won!");
                     break;
                 }
 
                 if (game.isMatrixFull()) {
-                    System.out.println("The grid is full.. tie!");
+                    ps.println("The grid is full.. tie!");
                     break;
                 }
 
+                ps.println("Computer is thinking...");
+                Thread.sleep(2000);
+
                 game.doTheNextComputerMove();
+                game.updateDisplay(ps);
 
                 if (game.computerWon()) {
-                    System.out.println("You lose, computer won!");
+                    ps.println("You lose, computer won!");
                     break;
                 }
             }
 
-            System.out.print("Play again? (y/n) ");
-            exit = !r.readLine().startsWith("y");
+            ps.print("Play again? (y/n) ");
+            exit = !br.readLine().startsWith("y");
 
         } while(!exit);
 
-        System.out.println("Shutting down ...");
-
+        ps.println("Shutting down ...");
     }
 }

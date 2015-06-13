@@ -3,8 +3,12 @@ package TicTacToe;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
+import TicTacToe.Display.Display;
+import TicTacToe.Display.TerminalDisplay;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
+
+import java.io.PrintStream;
 
 public class Game {
 
@@ -14,10 +18,12 @@ public class Game {
     private Matrix matrix;
     private Referee referee;
     private boolean isPlayerTurn;
+    private Display display;
 
-    public Game(String playerName, ComputerPlayer computerPlayer) {
+    public Game(String playerName, ComputerPlayer computerPlayer, Display display) {
         this.playerName = playerName;
         this.computerPlayer = computerPlayer;
+        this.display = display;
 
         this.matrix = new Matrix();
         this.referee = new Referee();
@@ -66,5 +72,9 @@ public class Game {
     public void doTheNextComputerMove() {
         Coordinates c = computerPlayer.establishTheNextMove(matrix);
         computerMark(c.getX(), c.getY());
+    }
+
+    public void updateDisplay(PrintStream out) {
+        out.println(display.show(matrix));
     }
 }

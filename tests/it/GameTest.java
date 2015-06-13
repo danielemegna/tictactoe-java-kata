@@ -3,6 +3,7 @@ package it;
 import TicTacToe.Game;
 import TicTacToe.GameTurnException;
 import mocks.FakeComputerPlayer;
+import mocks.FakeDisplay;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class GameTest {
 
     @Before
     public void setup() {
-        this.game = new Game("Player name", new FakeComputerPlayer());
+        this.game = new Game("Player name", new FakeComputerPlayer(), new FakeDisplay());
     }
 
     @Test
