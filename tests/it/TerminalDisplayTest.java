@@ -25,4 +25,18 @@ public class TerminalDisplayTest {
         m.playerMark(new Coordinates(1, 0));
         assertEquals(expected, d.show(m));
     }
+
+    @Test
+    public void displaySomePlayerMarks() {
+        Display d = new TerminalDisplay();
+        String expected = "- X -\nX - -\n- X X";
+
+        Matrix m = new Matrix();
+        m.playerMark(new Coordinates(1, 0));
+        m.playerMark(new Coordinates(0, 1));
+        m.playerMark(new Coordinates(1, 2));
+        m.playerMark(new Coordinates(2, 2));
+
+        assertEquals(expected, d.show(m));
+    }
 }
