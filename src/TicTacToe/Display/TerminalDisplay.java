@@ -21,9 +21,14 @@ public class TerminalDisplay implements Display {
 
     private String rowToString(int y, Matrix matrix) {
         return y + " " +
-            cellStateToChar(matrix.getCellState(new Coordinates(0, y))) + " " +
-            cellStateToChar(matrix.getCellState(new Coordinates(1, y))) + " " +
-            cellStateToChar(matrix.getCellState(new Coordinates(2, y))) + "\n";
+            cellToChar(0, y, matrix) + " " +
+            cellToChar(1, y, matrix) + " " +
+            cellToChar(2, y, matrix) + "\n";
+    }
+
+    private char cellToChar(int x, int y, Matrix matrix) {
+        CellStateEnum state = matrix.getCellState(new Coordinates(x, y));
+        return cellStateToChar(state);
     }
 
     private char cellStateToChar(CellStateEnum cellState) {
