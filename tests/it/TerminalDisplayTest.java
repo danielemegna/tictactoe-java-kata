@@ -22,18 +22,20 @@ public class TerminalDisplayTest {
 
     @Test
     public void showAnEmptyMatrix() {
-        String expected = "- - -\n" +
-                          "- - -\n" +
-                          "- - -";
+        String expected =   "  0 1 2\n" +
+                            "0 - - -\n" +
+                            "1 - - -\n" +
+                            "2 - - -";
 
         assertEquals(expected, display.show(matrix));
     }
 
     @Test
     public void showAPlayerMarkAsX() {
-        String expected = "- X -\n" +
-                          "- - -\n" +
-                          "- - -";
+        String expected =   "  0 1 2\n" +
+                            "0 - X -\n" +
+                            "1 - - -\n" +
+                            "2 - - -";
 
         matrix.playerMark(new Coordinates(1, 0));
         assertEquals(expected, display.show(matrix));
@@ -41,9 +43,10 @@ public class TerminalDisplayTest {
 
     @Test
     public void showSomePlayerMarks() {
-        String expected = "- X -\n" +
-                          "X - -\n" +
-                          "- X X";
+        String expected =   "  0 1 2\n" +
+                            "0 - X -\n" +
+                            "1 X - -\n" +
+                            "2 - X X";
 
         matrix.playerMark(new Coordinates(1, 0));
         matrix.playerMark(new Coordinates(0, 1));
@@ -55,9 +58,10 @@ public class TerminalDisplayTest {
 
     @Test
     public void showSomeComputerMarksAsO() {
-        String expected = "- - O\n" +
-                          "- - O\n" +
-                          "O O -";
+        String expected =   "  0 1 2\n" +
+                            "0 - - O\n" +
+                            "1 - - O\n" +
+                            "2 O O -";
 
         matrix.computerMark(new Coordinates(2, 0));
         matrix.computerMark(new Coordinates(2, 1));
@@ -69,9 +73,10 @@ public class TerminalDisplayTest {
 
     @Test
     public void showFullMixedMarkedMatrix() {
-        String expected = "O O X\n" +
-                          "X X O\n" +
-                          "O X X";
+        String expected =   "  0 1 2\n" +
+                            "0 O O X\n" +
+                            "1 X X O\n" +
+                            "2 O X X";
 
         matrix.computerMark(new Coordinates(0, 0));
         matrix.computerMark(new Coordinates(1, 0));
