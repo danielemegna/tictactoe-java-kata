@@ -52,4 +52,18 @@ public class TerminalDisplayTest {
 
         assertEquals(expected, display.show(matrix));
     }
+
+    @Test
+    public void showSomeComputerMarksAsO() {
+        String expected = "- - O\n" +
+                          "- - O\n" +
+                          "O O -";
+
+        matrix.computerMark(new Coordinates(2, 0));
+        matrix.computerMark(new Coordinates(2, 1));
+        matrix.computerMark(new Coordinates(0, 2));
+        matrix.computerMark(new Coordinates(1, 2));
+
+        assertEquals(expected, display.show(matrix));
+    }
 }

@@ -24,6 +24,8 @@ public class TerminalDisplay implements Display {
         switch(cellState) {
             case PlayerMarked:
                 return 'X';
+            case ComputerMarked:
+                return 'O';
             default:
                 return '-';
         }
