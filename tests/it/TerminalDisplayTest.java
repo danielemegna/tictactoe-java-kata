@@ -66,4 +66,23 @@ public class TerminalDisplayTest {
 
         assertEquals(expected, display.show(matrix));
     }
+
+    @Test
+    public void showFullMixedMarkedMatrix() {
+        String expected = "O O X\n" +
+                          "X X O\n" +
+                          "O X X";
+
+        matrix.computerMark(new Coordinates(0, 0));
+        matrix.computerMark(new Coordinates(1, 0));
+          matrix.playerMark(new Coordinates(2, 0));
+          matrix.playerMark(new Coordinates(0, 1));
+          matrix.playerMark(new Coordinates(1, 1));
+        matrix.computerMark(new Coordinates(2, 1));
+        matrix.computerMark(new Coordinates(0, 2));
+          matrix.playerMark(new Coordinates(1, 2));
+          matrix.playerMark(new Coordinates(2, 2));
+
+        assertEquals(expected, display.show(matrix));
+    }
 }
