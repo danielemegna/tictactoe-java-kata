@@ -31,6 +31,12 @@ public class UnbeatableComputerPlayerTest {
         assertNextMove(1, 1);
     }
 
+    @Test
+    public void choosesZeroZeroAsNotFirstMoveIfOneOneNotAvailable() {
+        matrix.playerMark(new Coordinates(1, 1));
+        assertNextMove(0, 0);
+    }
+
     private void assertNextMove(int x, int y) {
         Coordinates expected = new Coordinates(x, y);
         Coordinates actual = cp.establishTheNextMove(matrix);
