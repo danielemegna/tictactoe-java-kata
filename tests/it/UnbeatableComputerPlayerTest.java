@@ -18,4 +18,14 @@ public class UnbeatableComputerPlayerTest {
         Coordinates c = cp.establishTheNextMove(matrix);
         assertEquals(new Coordinates(0, 0), c);
     }
+
+    @Test
+    public void choosesOneOneAsNotFirstMoveIfAvailable() {
+        ComputerPlayer cp = new UnbeatableComputerPlayer();
+        Matrix matrix = new Matrix();
+        matrix.playerMark(new Coordinates(0, 0));
+
+        Coordinates c = cp.establishTheNextMove(matrix);
+        assertEquals(new Coordinates(1, 1), c);
+    }
 }
