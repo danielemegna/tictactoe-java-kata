@@ -13,20 +13,32 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
         if(c != null)
             return c;
 
-        if(matrix.getCellState(new Coordinates(1, 1)) == CellStateEnum.PlayerMarked)
+        if(isPlayerMarked(1, 1, matrix))
             return new Coordinates(0, 0);
 
         return new Coordinates(1, 1);
     }
 
     private Coordinates winSituation(Matrix matrix) {
-        if (matrix.getCellState(new Coordinates(0, 1)) == CellStateEnum.ComputerMarked &&
-            matrix.getCellState(new Coordinates(1, 1)) == CellStateEnum.ComputerMarked &&
-            matrix.getCellState(new Coordinates(2, 1)) == CellStateEnum.Empty) {
+        if (isComputerMarked(0, 1, matrix) &&
+            isComputerMarked(1, 1, matrix) &&
+            isEmpty(2, 1, matrix)) {
             return new Coordinates(2, 1);
         }
 
         return null;
+    }
+
+    private boolean isEmpty(int x, int y, Matrix matrix) {
+        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.Empty;
+    }
+
+    private boolean isComputerMarked(int x, int y, Matrix matrix) {
+        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.ComputerMarked;
+    }
+
+    private boolean isPlayerMarked(int x, int y, Matrix matrix) {
+        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.PlayerMarked;
     }
 
 }
