@@ -27,13 +27,13 @@ public class UnbeatableComputerPlayerTest {
 
     @Test
     public void choosesOneOneAsNotFirstMoveIfAvailable() {
-        matrix.playerMark(new Coordinates(0, 0));
+        playerMark(0, 0);
         assertNextMove(1, 1);
     }
 
     @Test
     public void choosesZeroZeroAsNotFirstMoveIfOneOneNotAvailable() {
-        matrix.playerMark(new Coordinates(1, 1));
+        playerMark(1, 1);
         assertNextMove(0, 0);
     }
 
@@ -41,5 +41,9 @@ public class UnbeatableComputerPlayerTest {
         Coordinates expected = new Coordinates(x, y);
         Coordinates actual = cp.establishTheNextMove(matrix);
         assertEquals(expected, actual);
+    }
+
+    private void playerMark(int x, int y) {
+        matrix.playerMark(new Coordinates(x, y));
     }
 }
