@@ -21,11 +21,6 @@ public class UnbeatableComputerPlayerTest {
     }
 
     @Test
-    public void cpAlwaysChoosesOneOneAsFirstMove() {
-        assertNextMove(1, 1);
-    }
-
-    @Test
     public void choosesOneOneAsNotFirstMoveIfAvailable() {
         playerMark(0, 0);
         assertNextMove(1, 1);
