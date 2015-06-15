@@ -47,6 +47,17 @@ public class UnbeatableComputerPlayerTest {
         assertNextMove(0, 0);
     }
 
+    @Test
+    public void winSituation() {
+        playerMark(0, 0);
+        computerMark(1, 1);
+        playerMark(2, 2);
+        computerMark(0, 1);
+        playerMark(1, 2);
+
+        assertNextMove(2, 1);
+    }
+
     private void assertNextMove(int x, int y) {
         Coordinates expected = new Coordinates(x, y);
         Coordinates actual = cp.establishTheNextMove(matrix);
@@ -55,5 +66,9 @@ public class UnbeatableComputerPlayerTest {
 
     private void playerMark(int x, int y) {
         matrix.playerMark(new Coordinates(x, y));
+    }
+
+    private void computerMark(int x, int y) {
+        matrix.computerMark(new Coordinates(x, y));
     }
 }
