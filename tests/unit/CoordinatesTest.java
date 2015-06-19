@@ -23,7 +23,7 @@ public class CoordinatesTest {
 
 
     @Test
-    public void createTrisCoordinatesWithWrongParams_throwsACoordinateOutOfBoundsException()
+    public void createCoordinatesWithWrongParams_throwsACoordinateOutOfBoundsException()
     {
         String failMessage = "Expected CoordinateOutOfBoundsException not catched";
 
