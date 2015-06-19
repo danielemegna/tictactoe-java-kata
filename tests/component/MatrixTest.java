@@ -2,7 +2,7 @@ package component;
 
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
-import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Cell.CellState;
 import TicTacToe.Coordinates.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class MatrixTest {
     public void inANewCellMatrix_CellsAreEmpty() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                assertCellState(new Coordinates(x, y), CellStateEnum.Empty);
+                assertCellState(new Coordinates(x, y), CellState.Empty);
             }
         }
     }
@@ -38,10 +38,10 @@ public class MatrixTest {
 
         c = new Coordinates(0, 1);
         matrix.playerMark(c);
-        assertCellState(c, CellStateEnum.PlayerMarked);
+        assertCellState(c, CellState.PlayerMarked);
         c = new Coordinates(1, 1);
         matrix.playerMark(c);
-        assertCellState(c, CellStateEnum.PlayerMarked);
+        assertCellState(c, CellState.PlayerMarked);
     }
 
     @Test
@@ -50,10 +50,10 @@ public class MatrixTest {
 
         c = new Coordinates(0, 1);
         matrix.computerMark(c);
-        assertCellState(c, CellStateEnum.ComputerMarked);
+        assertCellState(c, CellState.ComputerMarked);
         c = new Coordinates(2, 1);
         matrix.computerMark(c);
-        assertCellState(c, CellStateEnum.ComputerMarked);
+        assertCellState(c, CellState.ComputerMarked);
     }
 
     @Test
@@ -63,13 +63,13 @@ public class MatrixTest {
         matrix.computerMark(new Coordinates(1, 0));
         matrix.computerMark(new Coordinates(2, 2));
 
-        assertCellState(new Coordinates(0, 0), CellStateEnum.Empty);
-        assertCellState(new Coordinates(1, 1), CellStateEnum.Empty);
-        assertCellState(new Coordinates(1, 2), CellStateEnum.Empty);
+        assertCellState(new Coordinates(0, 0), CellState.Empty);
+        assertCellState(new Coordinates(1, 1), CellState.Empty);
+        assertCellState(new Coordinates(1, 2), CellState.Empty);
     }
 
-    private void assertCellState(Coordinates c, CellStateEnum expected) {
-        CellStateEnum actual = matrix.getCellState(c);
+    private void assertCellState(Coordinates c, CellState expected) {
+        CellState actual = matrix.getCellState(c);
         assertEquals(
                 "Fail asserting cell state at coordinates [" + c + "] ." +
                         "Actual [" + actual + "], expected [" + expected + "]",

@@ -1,6 +1,6 @@
 package TicTacToe.ComputerPlayer;
 
-import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Cell.CellState;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
 
@@ -18,7 +18,7 @@ public class RandomComputerPlayer implements ComputerPlayer {
     public Coordinates establishTheNextMove(Matrix matrix) {
         while(true) {
             Coordinates c = new Coordinates(random.nextInt(3), random.nextInt(3));
-            if(matrix.getCellState(c) == CellStateEnum.Empty)
+            if(matrix.getCellState(c) == CellState.Empty)
                 return c;
         }
     }

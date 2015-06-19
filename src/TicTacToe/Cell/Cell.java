@@ -1,30 +1,30 @@
 package TicTacToe.Cell;
 
 public class Cell {
-    private CellStateEnum state;
+    private CellState state;
 
     public Cell() {
-        state = CellStateEnum.Empty;
+        state = CellState.Empty;
     }
 
-    public CellStateEnum getState() {
+    public CellState getState() {
         return state;
     }
 
     public boolean isEmpty() {
-        return state == CellStateEnum.Empty;
+        return state == CellState.Empty;
     }
 
     public void playerMark() {
-        markWithState(CellStateEnum.PlayerMarked);
+        markWithState(CellState.PlayerMarked);
     }
 
     public void computerMark() {
-        markWithState(CellStateEnum.ComputerMarked);
+        markWithState(CellState.ComputerMarked);
     }
 
-    private void markWithState(CellStateEnum newState) {
-        if(this.state != CellStateEnum.Empty)
+    private void markWithState(CellState newState) {
+        if(this.state != CellState.Empty)
             throw new AlreadyMarkedCellAttemptException();
 
         state = newState;

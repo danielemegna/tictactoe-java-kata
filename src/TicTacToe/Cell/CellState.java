@@ -1,6 +1,6 @@
 package TicTacToe.Cell;
 
-public enum CellStateEnum {
+public enum CellState {
     Empty,
     PlayerMarked,
     ComputerMarked,

@@ -16,7 +16,7 @@ public class Matrix {
         this.markedCells = 0;
     }
 
-    public CellStateEnum getCellState(Coordinates c) {
+    public CellState getCellState(Coordinates c) {
         return getCell(c).getState();
     }
 

@@ -1,6 +1,6 @@
 package TicTacToe.ComputerPlayer;
 
-import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Cell.CellState;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
 
@@ -30,15 +30,15 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
     }
 
     private boolean isEmpty(int x, int y, Matrix matrix) {
-        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.Empty;
+        return matrix.getCellState(new Coordinates(x, y)) == CellState.Empty;
     }
 
     private boolean isComputerMarked(int x, int y, Matrix matrix) {
-        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.ComputerMarked;
+        return matrix.getCellState(new Coordinates(x, y)) == CellState.ComputerMarked;
     }
 
     private boolean isPlayerMarked(int x, int y, Matrix matrix) {
-        return matrix.getCellState(new Coordinates(x, y)) == CellStateEnum.PlayerMarked;
+        return matrix.getCellState(new Coordinates(x, y)) == CellState.PlayerMarked;
     }
 
 }

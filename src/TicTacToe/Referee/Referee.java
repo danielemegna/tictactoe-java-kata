@@ -2,7 +2,7 @@ package TicTacToe.Referee;
 
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Cell.CellState;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,9 +25,9 @@ public class Referee {
             playerIsTheWinner = computerIsTheWinner = true;
 
             for (Coordinates c : wc) {
-                CellStateEnum cellState = matrix.getCellState(c);
-                playerIsTheWinner &= (cellState == CellStateEnum.PlayerMarked);
-                computerIsTheWinner &= (cellState == CellStateEnum.ComputerMarked);
+                CellState cellState = matrix.getCellState(c);
+                playerIsTheWinner &= (cellState == CellState.PlayerMarked);
+                computerIsTheWinner &= (cellState == CellState.ComputerMarked);
             }
 
             if(playerIsTheWinner || computerIsTheWinner)

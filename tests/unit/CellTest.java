@@ -17,14 +17,14 @@ public class CellTest {
 
     @Test
     public void aNewCellIsEmpty() {
-        assertEquals(CellStateEnum.Empty, cell.getState());
+        assertEquals(CellState.Empty, cell.getState());
         assertTrue(cell.isEmpty());
     }
 
     @Test
     public void playerCanMarkAnEmptyCell() {
         cell.playerMark();
-        assertEquals(CellStateEnum.PlayerMarked, cell.getState());
+        assertEquals(CellState.PlayerMarked, cell.getState());
         assertFalse(cell.isEmpty());
     }
 
@@ -40,7 +40,7 @@ public class CellTest {
     @Test
     public void computerCanMarkAnEmptyCell() {
         cell.computerMark();
-        assertEquals(CellStateEnum.ComputerMarked, cell.getState());
+        assertEquals(CellState.ComputerMarked, cell.getState());
     }
 
     @Test

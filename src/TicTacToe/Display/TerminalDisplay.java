@@ -1,6 +1,6 @@
 package TicTacToe.Display;
 
-import TicTacToe.Cell.CellStateEnum;
+import TicTacToe.Cell.CellState;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
 
@@ -27,11 +27,11 @@ public class TerminalDisplay implements Display {
     }
 
     private char cellToChar(int x, int y, Matrix matrix) {
-        CellStateEnum state = matrix.getCellState(new Coordinates(x, y));
+        CellState state = matrix.getCellState(new Coordinates(x, y));
         return cellStateToChar(state);
     }
 
-    private char cellStateToChar(CellStateEnum cellState) {
+    private char cellStateToChar(CellState cellState) {
         switch(cellState) {
             case PlayerMarked:
                 return 'X';
