@@ -30,11 +30,11 @@ public class Matrix {
         this.markedCells++;
     }
 
-    private Cell getCell(Coordinates c) {
-        return matrix[c.getX()][c.getY()];
-    }
-
     public boolean isFull() {
         return (this.markedCells == 3 * 3);
+    }
+
+    private Cell getCell(Coordinates c) {
+        return matrix[c.getX()][c.getY()];
     }
 }

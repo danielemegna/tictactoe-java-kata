@@ -14,11 +14,11 @@ public class Game {
 
     private String playerName;
     private ComputerPlayer computerPlayer;
+    private Display display;
 
     private Matrix matrix;
     private Referee referee;
     private boolean isPlayerTurn;
-    private Display display;
 
     public Game(String playerName, ComputerPlayer computerPlayer, Display display) {
         this.playerName = playerName;
