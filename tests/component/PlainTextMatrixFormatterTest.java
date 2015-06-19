@@ -2,47 +2,47 @@ package component;
 
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Display.Display;
-import TicTacToe.Display.TerminalDisplay;
+import TicTacToe.Display.MatrixFormatter;
+import TicTacToe.Display.PlainTextMatrixFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TerminalDisplayTest {
+public class PlainTextMatrixFormatterTest {
 
-    private Display display;
+    private MatrixFormatter formatter;
     private Matrix matrix;
 
     @Before
     public void setup() {
-        display = new TerminalDisplay();
+        formatter = new PlainTextMatrixFormatter();
         matrix = new Matrix();
     }
 
     @Test
-    public void showAnEmptyMatrix() {
+    public void formatAnEmptyMatrix() {
         String expected =   "  0 1 2\n" +
                             "0 - - -\n" +
                             "1 - - -\n" +
                             "2 - - -\n";
 
-        assertEquals(expected, display.show(matrix));
+        assertEquals(expected, formatter.format(matrix));
     }
 
     @Test
-    public void showAPlayerMarkAsX() {
+    public void formatAPlayerMarkAsX() {
         String expected =   "  0 1 2\n" +
                             "0 - X -\n" +
                             "1 - - -\n" +
                             "2 - - -\n";
 
         matrix.playerMark(new Coordinates(1, 0));
-        assertEquals(expected, display.show(matrix));
+        assertEquals(expected, formatter.format(matrix));
     }
 
     @Test
-    public void showSomePlayerMarks() {
+    public void formatSomePlayerMarks() {
         String expected =   "  0 1 2\n" +
                             "0 - X -\n" +
                             "1 X - -\n" +
@@ -53,11 +53,11 @@ public class TerminalDisplayTest {
         matrix.playerMark(new Coordinates(1, 2));
         matrix.playerMark(new Coordinates(2, 2));
 
-        assertEquals(expected, display.show(matrix));
+        assertEquals(expected, formatter.format(matrix));
     }
 
     @Test
-    public void showSomeComputerMarksAsO() {
+    public void formatSomeComputerMarksAsO() {
         String expected =   "  0 1 2\n" +
                             "0 - - O\n" +
                             "1 - - O\n" +
@@ -68,11 +68,11 @@ public class TerminalDisplayTest {
         matrix.computerMark(new Coordinates(0, 2));
         matrix.computerMark(new Coordinates(1, 2));
 
-        assertEquals(expected, display.show(matrix));
+        assertEquals(expected, formatter.format(matrix));
     }
 
     @Test
-    public void showFullMixedMarkedMatrix() {
+    public void formatFullMixedMarkedMatrix() {
         String expected =   "  0 1 2\n" +
                             "0 O O X\n" +
                             "1 X X O\n" +
@@ -88,6 +88,6 @@ public class TerminalDisplayTest {
           matrix.playerMark(new Coordinates(1, 2));
           matrix.playerMark(new Coordinates(2, 2));
 
-        assertEquals(expected, display.show(matrix));
+        assertEquals(expected, formatter.format(matrix));
     }
 }

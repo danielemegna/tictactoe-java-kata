@@ -4,9 +4,9 @@ import TicTacToe.Cell.CellState;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.Coordinates.Coordinates;
 
-public class TerminalDisplay implements Display {
+public class PlainTextMatrixFormatter implements MatrixFormatter {
 
-    public String show(Matrix matrix) {
+    public String format(Matrix matrix) {
 
         String result = firstHeaderRow();
         for (int y = 0; y < 3; y++)
