@@ -1,4 +1,4 @@
-package it;
+package component;
 
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.ComputerPlayerChoiceException;

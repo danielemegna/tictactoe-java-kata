@@ -1,4 +1,4 @@
-package it;
+package component;
 
 import TicTacToe.Game;
 import TicTacToe.GameTurnException;

@@ -1,4 +1,4 @@
-package it;
+package component;
 
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Cell.Matrix;
