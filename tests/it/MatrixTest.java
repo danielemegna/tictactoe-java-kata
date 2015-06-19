@@ -78,26 +78,43 @@ public class MatrixTest {
     }
 
     @Test
-    public void markingTwiceTheSameCell_throwsAnAlreadyMarkedCellAttemptException() {
+    public void playersCannotMarkCellTwice() {
         String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
-        Coordinates[] toBeTested = new Coordinates[] {
-            new Coordinates(0, 0),
-            new Coordinates(1, 1)
-        };
 
-        matrix.playerMark(toBeTested[0]);
-        matrix.computerMark(toBeTested[1]);
+        Coordinates playerMarked = new Coordinates(0, 0);
+        Coordinates computerMarked = new Coordinates(1, 1);
 
-        for(Coordinates c : toBeTested) {
-            try {
-                matrix.playerMark(c);
-                fail(failMessage);
-            } catch (AlreadyMarkedCellAttemptException ex) {}
-            try {
-                matrix.computerMark(c);
-                fail(failMessage);
-            } catch (AlreadyMarkedCellAttemptException ex) {}
-        }
+        matrix.playerMark(playerMarked);
+        matrix.computerMark(computerMarked);
+
+        try {
+            matrix.playerMark(playerMarked);
+            fail(failMessage);
+        } catch (AlreadyMarkedCellAttemptException ex) {}
+        try {
+            matrix.computerMark(computerMarked);
+            fail(failMessage);
+        } catch (AlreadyMarkedCellAttemptException ex) {}
+    }
+
+    @Test
+    public void playersCannotMarkCellsAlreadyMarkedByOthers() {
+        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
+
+        Coordinates playerMarked = new Coordinates(0, 0);
+        Coordinates computerMarked = new Coordinates(1, 1);
+
+        matrix.playerMark(playerMarked);
+        matrix.computerMark(computerMarked);
+
+        try {
+            matrix.playerMark(computerMarked);
+            fail(failMessage);
+        } catch (AlreadyMarkedCellAttemptException ex) {}
+        try {
+            matrix.computerMark(playerMarked);
+            fail(failMessage);
+        } catch (AlreadyMarkedCellAttemptException ex) {}
     }
 
     @Test
