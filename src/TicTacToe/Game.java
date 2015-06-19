@@ -3,23 +3,21 @@ package TicTacToe;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Display.MatrixFormatter;
+import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
-
-import java.io.PrintStream;
 
 public class Game {
 
     private String playerName;
     private ComputerPlayer computerPlayer;
-    private MatrixFormatter display;
+    private ConsoleDisplay display;
 
     private Matrix matrix;
     private Referee referee;
     private boolean isPlayerTurn;
 
-    public Game(String playerName, ComputerPlayer computerPlayer, MatrixFormatter display) {
+    public Game(String playerName, ComputerPlayer computerPlayer, ConsoleDisplay display) {
         this.playerName = playerName;
         this.computerPlayer = computerPlayer;
         this.display = display;
@@ -73,7 +71,7 @@ public class Game {
         computerMark(c.getX(), c.getY());
     }
 
-    public void updateDisplay(PrintStream out) {
-        out.println(display.format(matrix));
+    public void updateDisplay() {
+        display.update(matrix);
     }
 }

@@ -2,7 +2,7 @@ import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
 import TicTacToe.*;
-import TicTacToe.Display.TerminalDisplay;
+import TicTacToe.Display.ConsoleDisplay;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,12 +21,10 @@ public class Main {
 
         boolean exit;
         do {
-
-
-            Game game = new Game(name, new SystematicComputerPlayer(), new TerminalDisplay());
+            Game game = new Game(name, new SystematicComputerPlayer(), new ConsoleDisplay(ps));
             ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
 
-            game.updateDisplay(ps);
+            game.updateDisplay();
 
             while (true) {
                 ps.print(game.getPlayerName() + " make your move (x y): ");
@@ -48,7 +46,7 @@ public class Main {
                     continue;
                 }
 
-                game.updateDisplay(ps);
+                game.updateDisplay();
 
                 if (game.playerWon()) {
                     ps.println("Congratulations " + game.getPlayerName() + "! You won!");
@@ -64,7 +62,7 @@ public class Main {
                 Thread.sleep(2000);
 
                 game.doTheNextComputerMove();
-                game.updateDisplay(ps);
+                game.updateDisplay();
 
                 if (game.computerWon()) {
                     ps.println("You lose, computer won!");
