@@ -35,4 +35,19 @@ public class CoordinatesTest {
         catch(CoordinateOutOfBoundsException ex) {}
     }
 
+    @Test
+    public void coordinatesAreValueObjects () {
+        Coordinates zeroZero = new Coordinates(0, 0);
+        Coordinates anotherZeroZero = new Coordinates(0, 0);
+        Coordinates differentCoordinates = new Coordinates(1, 0);
+
+        assertEquals(zeroZero, anotherZeroZero);
+        assertEquals(zeroZero.hashCode(), anotherZeroZero.hashCode());
+
+        assertNotEquals(zeroZero, differentCoordinates);
+        assertNotEquals(anotherZeroZero, differentCoordinates);
+        assertNotEquals(zeroZero.hashCode(), differentCoordinates.hashCode());
+        assertNotEquals(anotherZeroZero.hashCode(), differentCoordinates.hashCode());
+    }
+
 }

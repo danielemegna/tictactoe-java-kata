@@ -24,4 +24,11 @@ public class Coordinates {
         Coordinates that = (Coordinates)o;
         return this.x == that.x && this.y == that.y;
     }
+
+    @Override
+    public int hashCode() {
+        return Integer.valueOf(
+            String.valueOf(this.x) + String.valueOf(this.y)
+        );
+    }
 }
