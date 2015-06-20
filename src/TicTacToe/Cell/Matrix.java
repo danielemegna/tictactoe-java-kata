@@ -2,6 +2,9 @@ package TicTacToe.Cell;
 
 import TicTacToe.Coordinates.Coordinates;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Matrix {
 
     private Cell[][] matrix;
@@ -36,5 +39,18 @@ public class Matrix {
 
     private Cell getCell(Coordinates c) {
         return matrix[c.getX()][c.getY()];
+    }
+
+    public Set<Coordinates> getEmptyCoordinates() {
+        Set<Coordinates> emptyCoordinates = new HashSet<Coordinates>();
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                Coordinates c = new Coordinates(x, y);
+                if (getCellState(c) == CellState.Empty)
+                    emptyCoordinates.add(new Coordinates(x, y));
+            }
+        }
+
+        return emptyCoordinates;
     }
 }

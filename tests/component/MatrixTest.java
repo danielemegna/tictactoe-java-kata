@@ -7,6 +7,8 @@ import TicTacToe.Coordinates.Coordinates;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 public class MatrixTest {
@@ -124,6 +126,53 @@ public class MatrixTest {
                 matrix.playerMark(new Coordinates(x, y));
 
         assertTrue(matrix.isFull());
+    }
+
+    @Test
+    public void matrixCanReturnAllTheEmptyCoordinates() {
+        Set<Coordinates> emptyCoordinates;
+
+        emptyCoordinates = matrix.getEmptyCoordinates();
+        assertEquals(9, emptyCoordinates.size());
+        assertTrue(
+            "Empty coordinates set doesn't contains expected coordinates",
+            emptyCoordinates.contains(new Coordinates(1, 1))
+        );
+
+        matrix.playerMark(new Coordinates(1, 1));
+        emptyCoordinates = matrix.getEmptyCoordinates();
+        assertEquals(8, emptyCoordinates.size());
+        assertFalse(
+            "Empty coordinates set contains unexpected coordinates",
+            emptyCoordinates.contains(new Coordinates(1, 1))
+        );
+
+        matrix.computerMark(new Coordinates(0, 0));
+        emptyCoordinates = matrix.getEmptyCoordinates();
+        assertEquals(7, emptyCoordinates.size());
+        assertFalse(
+            "Empty coordinates set contains unexpected coordinates",
+            emptyCoordinates.contains(new Coordinates(0, 0))
+        );
+
+        matrix.playerMark(new Coordinates(0, 1));
+        matrix.computerMark(new Coordinates(0, 2));
+        matrix.playerMark(new Coordinates(1, 0));
+        matrix.computerMark(new Coordinates(1, 2));
+        matrix.playerMark(new Coordinates(2, 0));
+        matrix.computerMark(new Coordinates(2, 1));
+
+        emptyCoordinates = matrix.getEmptyCoordinates();
+        assertEquals(1, emptyCoordinates.size());
+        assertTrue(
+            "Empty coordinates set doesn't contains expected coordinates",
+            emptyCoordinates.contains(new Coordinates(2, 2))
+        );
+
+        matrix.playerMark(new Coordinates(2, 2));
+
+        emptyCoordinates = matrix.getEmptyCoordinates();
+        assertEquals(0, emptyCoordinates.size());
     }
 
 }
