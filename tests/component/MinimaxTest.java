@@ -3,7 +3,6 @@ package component;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -29,7 +28,6 @@ public class MinimaxTest {
     }
 
     @Test
-    @Ignore
     public void winnerWithAMoveAndTwoPossibilities() {
         Minimax minimax = new Minimax();
         Matrix matrix = new Matrix();
