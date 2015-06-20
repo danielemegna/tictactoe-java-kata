@@ -37,10 +37,6 @@ public class Matrix {
         return (this.markedCells == 3 * 3);
     }
 
-    private Cell getCell(Coordinates c) {
-        return matrix[c.getX()][c.getY()];
-    }
-
     public Set<Coordinates> getEmptyCoordinates() {
         Set<Coordinates> emptyCoordinates = new HashSet<Coordinates>();
         for(int x = 0; x < 3; x++) {
@@ -52,5 +48,28 @@ public class Matrix {
         }
 
         return emptyCoordinates;
+    }
+
+    public Matrix clone() {
+        Matrix clone = new Matrix();
+        for(int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                Coordinates c = new Coordinates(x, y);
+                if(this.getCellState(c) == CellState.PlayerMarked) {
+                    clone.playerMark(c);
+                    continue;
+                }
+                if(this.getCellState(c) == CellState.ComputerMarked) {
+                    clone.computerMark(c);
+                    continue;
+                }
+            }
+        }
+
+        return clone;
+    }
+
+    private Cell getCell(Coordinates c) {
+        return matrix[c.getX()][c.getY()];
     }
 }

@@ -175,4 +175,23 @@ public class MatrixTest {
         assertEquals(0, emptyCoordinates.size());
     }
 
+    @Test
+    public void matrixIsClonable() {
+        Coordinates makedBeforeClone = new Coordinates(0, 0);
+        Coordinates markedAfterClone = new Coordinates(0, 1);
+        Coordinates markedOnClone = new Coordinates(0, 2);
+
+        matrix.playerMark(makedBeforeClone);
+        Matrix clone = matrix.clone();
+        matrix.playerMark(markedAfterClone);
+        clone.playerMark(markedOnClone);
+
+        assertEquals(CellState.PlayerMarked,    matrix.getCellState(makedBeforeClone));
+        assertEquals(CellState.PlayerMarked,    clone.getCellState(makedBeforeClone));
+        assertEquals(CellState.PlayerMarked,    matrix.getCellState(markedAfterClone));
+        assertEquals(CellState.Empty,           clone.getCellState(markedAfterClone));
+        assertEquals(CellState.Empty,           matrix.getCellState(markedOnClone));
+        assertEquals(CellState.PlayerMarked,    clone.getCellState(markedOnClone));
+    }
+
 }
