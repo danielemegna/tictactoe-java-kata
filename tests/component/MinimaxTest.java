@@ -3,6 +3,7 @@ package component;
 import TicTacToe.Cell.Matrix;
 import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +26,27 @@ public class MinimaxTest {
 
         int actual = minimax.calcolateMoveValue(new Coordinates(1, 1), matrix);
         assertEquals(0, actual);
+    }
+
+    @Test
+    @Ignore
+    public void winnerWithAMoveAndTwoPossibilities() {
+        Minimax minimax = new Minimax();
+        Matrix matrix = new Matrix();
+
+          matrix.playerMark(new Coordinates(0, 0));
+        matrix.computerMark(new Coordinates(1, 0));
+          matrix.playerMark(new Coordinates(2, 0));
+          matrix.playerMark(new Coordinates(0, 1));
+        matrix.computerMark(new Coordinates(1, 1));
+          matrix.playerMark(new Coordinates(2, 1));
+        matrix.computerMark(new Coordinates(0, 2));
+
+        int winnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        assertEquals(1, winnerMoveValue);
+
+        int tieMoveValue = minimax.calcolateMoveValue(new Coordinates(2, 2), matrix);
+        assertEquals(0, tieMoveValue);
     }
 
 }
