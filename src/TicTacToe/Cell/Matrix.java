@@ -7,14 +7,14 @@ import java.util.Set;
 
 public class Matrix {
 
-    private Cell[][] matrix;
+    private Cell[][] cells;
     private int markedCells;
 
     public Matrix() {
-        this.matrix = new Cell[3][3];
+        this.cells = new Cell[3][3];
         for(int x = 0; x < 3; x++)
             for(int y = 0; y < 3; y++)
-                this.matrix[x][y] = new Cell();
+                this.cells[x][y] = new Cell();
 
         this.markedCells = 0;
     }
@@ -70,6 +70,6 @@ public class Matrix {
     }
 
     private Cell getCell(Coordinates c) {
-        return matrix[c.getX()][c.getY()];
+        return cells[c.getX()][c.getY()];
     }
 }
