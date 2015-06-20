@@ -35,7 +35,7 @@ public class MinimaxTest {
     }
 
     @Test
-    public void winnerWithAMoveAndTwoPossibilities() {
+    public void computerWinnerWithAMoveAndTwoPossibilities() {
           playerMark(0, 0);
         computerMark(1, 0);
           playerMark(2, 0);
@@ -44,8 +44,8 @@ public class MinimaxTest {
           playerMark(2, 1);
         computerMark(0, 2);
 
-        int winnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
-        assertEquals(1, winnerMoveValue);
+        int computerWinnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        assertEquals(1, computerWinnerMoveValue);
 
         int tieMoveValue = minimax.calcolateMoveValue(new Coordinates(2, 2), matrix);
         assertEquals(0, tieMoveValue);
