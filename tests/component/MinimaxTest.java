@@ -25,6 +25,7 @@ public class MinimaxTest {
         computerMark(1, 0);
         computerMark(2, 0);
         computerMark(0, 1);
+                  //(1, 1)
           playerMark(2, 1);
           playerMark(0, 2);
           playerMark(1, 2);
@@ -43,12 +44,36 @@ public class MinimaxTest {
         computerMark(1, 1);
           playerMark(2, 1);
         computerMark(0, 2);
+                  //(1, 2);
+                  //(2, 2);
 
         int computerWinnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(1, computerWinnerMoveValue);
 
         int tieMoveValue = minimax.calcolateMoveValue(new Coordinates(2, 2), matrix);
         assertEquals(0, tieMoveValue);
+    }
+
+    @Test
+    public void computerHasThreePossibilities_andOneBlockPlayerWin() {
+        computerMark(0, 0);
+          playerMark(1, 0);
+        computerMark(2, 0);
+                  //(0, 1)
+          playerMark(1, 1);
+        computerMark(2, 1);
+                  //(0, 2)
+                  //(1, 2)
+          playerMark(2, 2);
+
+        int playerCanStillWin = minimax.calcolateMoveValue(new Coordinates(0, 1), matrix);
+        assertEquals(-1, playerCanStillWin);
+
+        int anotherPlayerCanStillWin = minimax.calcolateMoveValue(new Coordinates(0, 2), matrix);
+        assertEquals(-1, anotherPlayerCanStillWin);
+
+        int thisMoveBlockPlayerWin = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        assertEquals(0, thisMoveBlockPlayerWin);
     }
 
     private void playerMark(int x, int y) {
