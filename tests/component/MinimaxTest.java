@@ -21,15 +21,11 @@ public class MinimaxTest {
 
     @Test
     public void lastTieMove_worthZero() {
-          playerMark(0, 0);
-        computerMark(1, 0);
-        computerMark(2, 0);
-        computerMark(0, 1);
-                  //(1, 1)
-          playerMark(2, 1);
-          playerMark(0, 2);
-          playerMark(1, 2);
-        computerMark(2, 2);
+        markMatrixFromString(
+            "XOO" +
+            "O X" +
+            "XXO"
+        );
 
         int actual = minimax.calcolateMoveValue(new Coordinates(1, 1), matrix);
         assertEquals(0, actual);
@@ -37,15 +33,11 @@ public class MinimaxTest {
 
     @Test
     public void computerWinnerWithAMoveAndTwoPossibilities() {
-          playerMark(0, 0);
-        computerMark(1, 0);
-          playerMark(2, 0);
-          playerMark(0, 1);
-        computerMark(1, 1);
-          playerMark(2, 1);
-        computerMark(0, 2);
-                  //(1, 2);
-                  //(2, 2);
+        markMatrixFromString(
+            "XOX" +
+            "XOX" +
+            "O  "
+        );
 
         int computerWinnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(1, computerWinnerMoveValue);
@@ -56,15 +48,11 @@ public class MinimaxTest {
 
     @Test
     public void computerHasThreePossibilities_andOneBlockPlayerWin() {
-        computerMark(0, 0);
-          playerMark(1, 0);
-        computerMark(2, 0);
-                  //(0, 1)
-          playerMark(1, 1);
-        computerMark(2, 1);
-                  //(0, 2)
-                  //(1, 2)
-          playerMark(2, 2);
+        markMatrixFromString(
+            "OXO" +
+            " XO" +
+            "  X"
+        );
 
         int playerCanStillWin = minimax.calcolateMoveValue(new Coordinates(0, 1), matrix);
         assertEquals(-1, playerCanStillWin);
@@ -74,6 +62,22 @@ public class MinimaxTest {
 
         int thisMoveBlockPlayerWin = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(0, thisMoveBlockPlayerWin);
+    }
+
+    private void markMatrixFromString(String s) {
+        int index = 0;
+        for(int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                switch(s.charAt(index++)) {
+                    case 'X':
+                        playerMark(x, y);
+                        break;
+                    case 'O':
+                        computerMark(x, y);
+                        break;
+                }
+            }
+        }
     }
 
     private void playerMark(int x, int y) {
