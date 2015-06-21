@@ -64,6 +64,27 @@ public class MinimaxTest {
         assertEquals(0, thisMoveBlockPlayerWin);
     }
 
+    @Test
+    public void computerHasFourPossibilities() {
+        markMatrixFromString(
+            "  X" +
+            "XOO" +
+            "  X"
+        );
+
+        int playerHasTwoPossibilitesToWin = minimax.calcolateMoveValue(new Coordinates(0, 0), matrix);
+        assertEquals(-2, playerHasTwoPossibilitesToWin);
+
+        playerHasTwoPossibilitesToWin = minimax.calcolateMoveValue(new Coordinates(0, 2), matrix);
+        assertEquals(-2, playerHasTwoPossibilitesToWin);
+
+        int playerAndComputerHasTheSamePossibilities = minimax.calcolateMoveValue(new Coordinates(1, 0), matrix);
+        assertEquals(0, playerAndComputerHasTheSamePossibilities);
+
+        playerAndComputerHasTheSamePossibilities = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        assertEquals(0, playerAndComputerHasTheSamePossibilities);
+    }
+
     private void markMatrixFromString(String s) {
         int index = 0;
         for(int y = 0; y < 3; y++) {
