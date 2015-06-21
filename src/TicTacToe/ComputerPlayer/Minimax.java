@@ -30,12 +30,16 @@ public class Minimax {
         if(matrix.isFull())
             return 0;
 
-        int sum = 0;
-        Set<Coordinates> emptyCoordinates = clone.getEmptyCoordinates();
-        for(Coordinates nextMove : emptyCoordinates)
-            sum += calcolateComputerMoveValue(nextMove, clone, !isComputerTurn);
+        return sumOfRemainingEmptyPossibilities(clone, isComputerTurn);
+    }
 
-        return sum;
+    private int sumOfRemainingEmptyPossibilities(Matrix matrix, boolean isComputerTurn) {
+        int result = 0;
+
+        for(Coordinates c : matrix.getEmptyCoordinates())
+            result += calcolateComputerMoveValue(c, matrix, !isComputerTurn);
+
+        return result;
     }
 
     private Matrix cloneAndMarkMatrix(Coordinates c, Matrix matrix, boolean isComputerTurn) {
