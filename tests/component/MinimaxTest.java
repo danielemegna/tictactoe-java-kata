@@ -27,7 +27,7 @@ public class MinimaxTest {
             "XXO"
         );
 
-        int actual = minimax.calcolateMoveValue(new Coordinates(1, 1), matrix);
+        int actual = minimax.calcolateComputerMoveValue(new Coordinates(1, 1), matrix);
         assertEquals(0, actual);
     }
 
@@ -39,10 +39,10 @@ public class MinimaxTest {
             "O  "
         );
 
-        int computerWinnerMoveValue = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        int computerWinnerMoveValue = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(1, computerWinnerMoveValue);
 
-        int tieMoveValue = minimax.calcolateMoveValue(new Coordinates(2, 2), matrix);
+        int tieMoveValue = minimax.calcolateComputerMoveValue(new Coordinates(2, 2), matrix);
         assertEquals(0, tieMoveValue);
     }
 
@@ -54,13 +54,13 @@ public class MinimaxTest {
             "  X"
         );
 
-        int playerCanStillWin = minimax.calcolateMoveValue(new Coordinates(0, 1), matrix);
+        int playerCanStillWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 1), matrix);
         assertEquals(-1, playerCanStillWin);
 
-        int anotherPlayerCanStillWin = minimax.calcolateMoveValue(new Coordinates(0, 2), matrix);
+        int anotherPlayerCanStillWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
         assertEquals(-1, anotherPlayerCanStillWin);
 
-        int thisMoveBlockPlayerWin = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        int thisMoveBlockPlayerWin = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(0, thisMoveBlockPlayerWin);
     }
 
@@ -72,16 +72,16 @@ public class MinimaxTest {
             "  X"
         );
 
-        int playerHasTwoPossibilitesToWin = minimax.calcolateMoveValue(new Coordinates(0, 0), matrix);
+        int playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 0), matrix);
         assertEquals(-2, playerHasTwoPossibilitesToWin);
 
-        playerHasTwoPossibilitesToWin = minimax.calcolateMoveValue(new Coordinates(0, 2), matrix);
+        playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
         assertEquals(-2, playerHasTwoPossibilitesToWin);
 
-        int playerAndComputerHasTheSamePossibilities = minimax.calcolateMoveValue(new Coordinates(1, 0), matrix);
+        int playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
         assertEquals(0, playerAndComputerHasTheSamePossibilities);
 
-        playerAndComputerHasTheSamePossibilities = minimax.calcolateMoveValue(new Coordinates(1, 2), matrix);
+        playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(0, playerAndComputerHasTheSamePossibilities);
     }
 
