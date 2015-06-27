@@ -18,12 +18,11 @@ public class GameTest {
 
     @Test
     public void someAssertsOnNewGame() {
-        assertFalse(game.thereIsAWinner());
         assertEquals("Player name", game.getPlayerName());
-        assertFalse("Fail asserting markingARow_CausesAWinner", game.thereIsAWinner());
-        assertFalse("Fail asserting playerWon", game.computerWon());
-        assertFalse("Fail asserting playerWon", game.playerWon());
-        assertFalse("Fail asserting game is finished", game.isMatrixFull());
+        assertFalse(game.thereIsAWinner());
+        assertFalse(game.computerWon());
+        assertFalse(game.playerWon());
+        assertFalse(game.isMatrixFull());
     }
 
     @Test
@@ -116,7 +115,7 @@ public class GameTest {
     }
 
     @Test
-    public void markingEveryCellWithoutWinner() {
+    public void markingEveryCellWithoutWinnerTestCase() {
           game.playerMark(1, 0);
         game.computerMark(0, 0);
           game.playerMark(2, 0);
