@@ -5,8 +5,6 @@ import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 
-import java.util.Set;
-
 public class Minimax {
 
     private final Referee referee;
@@ -30,16 +28,22 @@ public class Minimax {
         if(matrix.isFull())
             return 0;
 
-        return sumOfRemainingEmptyPossibilities(clone, isComputerTurn);
+        return valueOfRemainingEmptyPossibilities(clone, isComputerTurn);
     }
 
-    private int sumOfRemainingEmptyPossibilities(Matrix matrix, boolean isComputerTurn) {
-        int result = 0;
+    private int valueOfRemainingEmptyPossibilities(Matrix matrix, boolean isComputerTurn) {
+        int minValue = 0;
+        int maxValue = 0;
+        for(Coordinates c : matrix.getEmptyCoordinates()) {
+            int value = calcolateComputerMoveValue(c, matrix, !isComputerTurn);
+            minValue = Math.min(minValue, value);
+            maxValue = Math.max(maxValue, value);
+        }
 
-        for(Coordinates c : matrix.getEmptyCoordinates())
-            result += calcolateComputerMoveValue(c, matrix, !isComputerTurn);
+        if(isComputerTurn)
+            return minValue;
 
-        return result;
+        return maxValue;
     }
 
     private Matrix cloneAndMarkMatrix(Coordinates c, Matrix matrix, boolean isComputerTurn) {
