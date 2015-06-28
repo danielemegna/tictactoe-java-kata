@@ -31,4 +31,9 @@ public class Coordinates {
             String.valueOf(this.x) + String.valueOf(this.y)
         );
     }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + ", " + getY() + ")";
+    }
 }
