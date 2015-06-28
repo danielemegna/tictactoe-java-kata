@@ -1,5 +1,5 @@
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
-import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
+import TicTacToe.ComputerPlayer.*;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
 import TicTacToe.*;
 import TicTacToe.Display.ConsoleDisplay;
@@ -21,7 +21,7 @@ public class Main {
 
         boolean exit;
         do {
-            Game game = new Game(name, new SystematicComputerPlayer(), new ConsoleDisplay(ps));
+            Game game = new Game(name, new UnbeatableComputerPlayer(), new ConsoleDisplay(ps));
             ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
 
             game.updateDisplay();
