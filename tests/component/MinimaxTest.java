@@ -85,7 +85,6 @@ public class MinimaxTest {
     }
 
     @Test
-    @Ignore
     public void computerHasFourPossibilities() {
         markMatrixFromString(
             "  X" +
@@ -94,16 +93,49 @@ public class MinimaxTest {
         );
 
         int playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 0), matrix);
-        assertEquals(-2, playerHasTwoPossibilitesToWin);
+        assertEquals(0, playerHasTwoPossibilitesToWin);
 
         playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
-        assertEquals(-2, playerHasTwoPossibilitesToWin);
+        assertEquals(0, playerHasTwoPossibilitesToWin);
 
         int playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
         assertEquals(0, playerAndComputerHasTheSamePossibilities);
 
         playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
         assertEquals(0, playerAndComputerHasTheSamePossibilities);
+    }
+
+    @Test
+    public void centerCellIsTheOnlyWayToAvoidDefeat() {
+        markMatrixFromString(
+            "X  " +
+            "   " +
+            "   "
+        );
+
+        int centerCellMove = minimax.calcolateComputerMoveValue(new Coordinates(1, 1), matrix);
+        assertEquals(0, centerCellMove);
+
+        int playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(0, 1), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 0), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 1), matrix);
+        assertEquals(-1, playerWillWinForSure);
+
+        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 2), matrix);
+        assertEquals(-1, playerWillWinForSure);
     }
 
     private void markMatrixFromString(String s) {

@@ -14,41 +14,46 @@ public class Minimax {
     }
 
     public int calcolateComputerMoveValue(Coordinates move, Matrix matrix) {
-        return calcolateComputerMoveValue(move, matrix, true);
-    }
-
-    private int calcolateComputerMoveValue(Coordinates move, Matrix matrix, boolean isComputerTurn) {
-        Matrix clone = cloneAndMarkMatrix(move, matrix, isComputerTurn);
+        Matrix clone = cloneAndMarkMatrix(move, matrix, true);
 
         Verdict v = referee.generateRefereeVerdict(clone);
-        if(v.playerIsTheWinner())
-            return -1;
         if(v.computerIsTheWinner())
             return 1;
-        if(matrix.isFull())
+        if(clone.isFull())
             return 0;
 
-        return valueOfRemainingEmptyPossibilities(clone, isComputerTurn);
+        return valueOfRemainingEmptyPossibilities(clone);
     }
 
-    private int valueOfRemainingEmptyPossibilities(Matrix matrix, boolean isComputerTurn) {
-        int minValue = 0;
-        int maxValue = 0;
+    private int valueOfRemainingEmptyPossibilities(Matrix matrix) {
+
+        int minValue = 1;
         for(Coordinates c : matrix.getEmptyCoordinates()) {
-            int value = calcolateComputerMoveValue(c, matrix, !isComputerTurn);
-            minValue = Math.min(minValue, value);
-            maxValue = Math.max(maxValue, value);
+            Matrix clone = cloneAndMarkMatrix(c, matrix, false);
+
+            Verdict v = referee.generateRefereeVerdict(clone);
+            if(v.playerIsTheWinner())
+                return -1;
+            if(clone.isFull()) {
+                minValue = Math.min(0, minValue);
+                continue;
+
+            }
+
+            int maxValue = -1;
+            for(Coordinates c2 : clone.getEmptyCoordinates()) {
+                int value = calcolateComputerMoveValue(c2, clone);
+                maxValue = Math.max(maxValue, value);
+            }
+            minValue = Math.min(maxValue, minValue);
         }
 
-        if(isComputerTurn)
-            return minValue;
-
-        return maxValue;
+        return minValue;
     }
 
-    private Matrix cloneAndMarkMatrix(Coordinates c, Matrix matrix, boolean isComputerTurn) {
+    private Matrix cloneAndMarkMatrix(Coordinates c, Matrix matrix, boolean asComputer) {
         Matrix clone = matrix.clone();
-        if(isComputerTurn)
+        if(asComputer)
             clone.computerMark(c);
         else
             clone.playerMark(c);
