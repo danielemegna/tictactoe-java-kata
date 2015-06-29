@@ -28,41 +28,41 @@ public class MinimaxTest {
             "XXO"
         );
 
-        int actual = minimax.calcolateComputerMoveValue(new Coordinates(1, 1), matrix);
-        assertEquals(0, actual);
+        int lastTieMoveValue = evaluateMove(1, 1);
+        assertEquals(0, lastTieMoveValue);
     }
 
     @Test
-    public void computerWinnerWithAMoveAndTwoPossibilities() {
+    public void computerWinWithAMove() {
         markMatrixFromString(
             "XOX" +
             "XOX" +
             "O  "
         );
 
-        int computerWinnerMoveValue = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
-        assertEquals(1, computerWinnerMoveValue);
+        int computerWinMoveValue = evaluateMove(1, 2);
+        assertEquals(1, computerWinMoveValue);
 
-        int tieMoveValue = minimax.calcolateComputerMoveValue(new Coordinates(2, 2), matrix);
+        int tieMoveValue = evaluateMove(2, 2);
         assertEquals(0, tieMoveValue);
     }
 
     @Test
-    public void computerHasThreePossibilities_andOneBlocksPlayerWin() {
+    public void computerHasThreePossibilities_andOnlyOneBlocksPlayerWin() {
         markMatrixFromString(
             "OXO" +
             " XO" +
             "  X"
         );
 
-        int playerCanStillWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 1), matrix);
+        int playerCanStillWin = evaluateMove(0, 1);
         assertEquals(-1, playerCanStillWin);
 
-        playerCanStillWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
+        playerCanStillWin = evaluateMove(0, 2);
         assertEquals(-1, playerCanStillWin);
 
-        int thisMoveBlockPlayerWin = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
-        assertEquals(0, thisMoveBlockPlayerWin);
+        int thisMoveBlocksPlayerWin = evaluateMove(1, 2);
+        assertEquals(0, thisMoveBlocksPlayerWin);
     }
 
     @Test
@@ -73,36 +73,28 @@ public class MinimaxTest {
             "OXX"
         );
 
-        int playerCanWinWithTheNextMove = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
+        int playerCanWinWithTheNextMove = evaluateMove(1, 0);
         assertEquals(-1, playerCanWinWithTheNextMove);
 
-        playerCanWinWithTheNextMove = minimax.calcolateComputerMoveValue(new Coordinates(2, 1), matrix);
+        playerCanWinWithTheNextMove = evaluateMove(2, 1);
         assertEquals(-1, playerCanWinWithTheNextMove);
 
-        int computerWinMove = minimax.calcolateComputerMoveValue(new Coordinates(1, 1), matrix);
+        int computerWinMove = evaluateMove(1, 1);
         assertEquals(1, computerWinMove);
-
     }
 
     @Test
-    public void computerHasFourPossibilities() {
+    public void computerHasFourPossibilitiesThatWorthZero() {
         markMatrixFromString(
             "  X" +
             "XOO" +
             "  X"
         );
 
-        int playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 0), matrix);
-        assertEquals(0, playerHasTwoPossibilitesToWin);
-
-        playerHasTwoPossibilitesToWin = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
-        assertEquals(0, playerHasTwoPossibilitesToWin);
-
-        int playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
-        assertEquals(0, playerAndComputerHasTheSamePossibilities);
-
-        playerAndComputerHasTheSamePossibilities = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
-        assertEquals(0, playerAndComputerHasTheSamePossibilities);
+        assertEquals(0, evaluateMove(0, 0));
+        assertEquals(0, evaluateMove(0, 2));
+        assertEquals(0, evaluateMove(1, 0));
+        assertEquals(0, evaluateMove(1, 2));
     }
 
     @Test
@@ -113,29 +105,28 @@ public class MinimaxTest {
             "   "
         );
 
-        int centerCellMove = minimax.calcolateComputerMoveValue(new Coordinates(1, 1), matrix);
+        int centerCellMove = evaluateMove(1, 1);
         assertEquals(0, centerCellMove);
 
-        int playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(0, 1), matrix);
-        assertEquals(-1, playerWillWinForSure);
+        assertEquals(-1, evaluateMove(0, 1));
+        assertEquals(-1, evaluateMove(0, 2));
+        assertEquals(-1, evaluateMove(1, 0));
+        assertEquals(-1, evaluateMove(1, 2));
+        assertEquals(-1, evaluateMove(2, 0));
+        assertEquals(-1, evaluateMove(2, 1));
+        assertEquals(-1, evaluateMove(2, 2));
+    }
 
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(0, 2), matrix);
-        assertEquals(-1, playerWillWinForSure);
+    private int evaluateMove(int x, int y) {
+        return minimax.calcolateComputerMoveValue(new Coordinates(x, y), matrix);
+    }
 
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(1, 0), matrix);
-        assertEquals(-1, playerWillWinForSure);
+    private void playerMark(int x, int y) {
+        matrix.playerMark(new Coordinates(x, y));
+    }
 
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(1, 2), matrix);
-        assertEquals(-1, playerWillWinForSure);
-
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 0), matrix);
-        assertEquals(-1, playerWillWinForSure);
-
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 1), matrix);
-        assertEquals(-1, playerWillWinForSure);
-
-        playerWillWinForSure = minimax.calcolateComputerMoveValue(new Coordinates(2, 2), matrix);
-        assertEquals(-1, playerWillWinForSure);
+    private void computerMark(int x, int y) {
+        matrix.computerMark(new Coordinates(x, y));
     }
 
     private void markMatrixFromString(String s) {
@@ -153,13 +144,4 @@ public class MinimaxTest {
             }
         }
     }
-
-    private void playerMark(int x, int y) {
-        matrix.playerMark(new Coordinates(x, y));
-    }
-
-    private void computerMark(int x, int y) {
-        matrix.computerMark(new Coordinates(x, y));
-    }
-
 }
