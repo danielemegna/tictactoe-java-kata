@@ -117,6 +117,28 @@ public class MinimaxTest {
         assertEquals(-1, evaluateMove(2, 2));
     }
 
+    @Test
+    public void computerWillBeWinnerWithAMove() {
+        markMatrixFromString(
+            "  X" +
+            "   " +
+            "  O"
+        );
+
+        // winning moves
+        assertEquals(1, evaluateMove(0, 0));
+        assertEquals(1, evaluateMove(0, 2));
+        assertEquals(1, evaluateMove(1, 2));
+
+        // tie moves
+        assertEquals(0, evaluateMove(0, 1));
+        assertEquals(0, evaluateMove(1, 0));
+        assertEquals(0, evaluateMove(1, 1));
+
+        // loose move
+        assertEquals(-1, evaluateMove(2, 1));
+    }
+
     private int evaluateMove(int x, int y) {
         return minimax.calcolateComputerMoveValue(new Coordinates(x, y), matrix);
     }
