@@ -150,6 +150,18 @@ public class GameTest {
         try { game.computerMark(0, 0); fail("Expected GameTurnException not catched"); }
         catch(GameTurnException ex) {}
 
+        game.playerMark(0, 1);
+        game.computerMark(0, 0);
+    }
+
+    @Test
+    public void alsoComputerCanStartsFirst() {
+        game = new Game("Player", false, null, null);
+
+        try { game.playerMark(0, 0); fail("Expected GameTurnException not catched"); }
+        catch(GameTurnException ex) {}
+
+        game.computerMark(0, 1);
         game.playerMark(0, 0);
     }
 
