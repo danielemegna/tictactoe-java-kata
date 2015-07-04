@@ -17,46 +17,58 @@ public class Main {
 
         ps.println("Welcome!");
         ps.print("What's your name? ");
-        String name = br.readLine();
+        final String name = br.readLine();
 
         boolean exit;
         do {
-            Game game = new Game(name, new UnbeatableComputerPlayer(), new ConsoleDisplay(ps));
-            ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+            ps.print("Do you want to start first? (y/n)");
+            final boolean playerStartFirst = br.readLine().startsWith("y");
 
+            Game game = new Game(
+                name, playerStartFirst,
+                new UnbeatableComputerPlayer(),
+                new ConsoleDisplay(ps)
+            );
+
+            ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
             game.updateDisplay();
 
+            boolean skipNextPlayerMove = !playerStartFirst;
             while (true) {
-                ps.print(game.getPlayerName() + " make your move (x y): ");
+                if(!skipNextPlayerMove) {
+                    ps.print(game.getPlayerName() + " make your move (x y): ");
 
-                try {
-                    String input = br.readLine();
-                    int x = Integer.valueOf(String.valueOf(input.charAt(0)));
-                    int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
-                    game.playerMark(x, y);
-                    ps.println("Coordinates [" + x + ", " + y + "] marked.");
-                } catch (CoordinateOutOfBoundsException ex) {
-                    ps.println("Invalid coordinates.. retry");
-                    continue;
-                } catch (AlreadyMarkedCellAttemptException ex) {
-                    ps.println("Cell already marked.. retry.");
-                    continue;
-                } catch (Exception ex) {
-                    ps.println("Invalid input.. retry");
-                    continue;
+                    try {
+                        String input = br.readLine();
+                        int x = Integer.valueOf(String.valueOf(input.charAt(0)));
+                        int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
+                        game.playerMark(x, y);
+                        ps.println("Coordinates [" + x + ", " + y + "] marked.");
+                    } catch (CoordinateOutOfBoundsException ex) {
+                        ps.println("Invalid coordinates.. retry");
+                        continue;
+                    } catch (AlreadyMarkedCellAttemptException ex) {
+                        ps.println("Cell already marked.. retry.");
+                        continue;
+                    } catch (Exception ex) {
+                        ps.println("Invalid input.. retry");
+                        continue;
+                    }
+
+                    game.updateDisplay();
+
+                    if (game.playerWon()) {
+                        ps.println("Congratulations " + game.getPlayerName() + "! You won!");
+                        break;
+                    }
+
+                    if (game.isMatrixFull()) {
+                        ps.println("The grid is full.. tie!");
+                        break;
+                    }
                 }
 
-                game.updateDisplay();
-
-                if (game.playerWon()) {
-                    ps.println("Congratulations " + game.getPlayerName() + "! You won!");
-                    break;
-                }
-
-                if (game.isMatrixFull()) {
-                    ps.println("The grid is full.. tie!");
-                    break;
-                }
+                skipNextPlayerMove = false;
 
                 ps.println("Computer is thinking...");
                 Thread.sleep(2000);
