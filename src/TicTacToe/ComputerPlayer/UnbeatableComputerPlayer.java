@@ -17,7 +17,7 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
 
         for(Coordinates c : matrix.getEmptyCoordinates()) {
             int currentMoveValue = minimax.calcolateComputerMoveValue(c, matrix);
-            if(currentMoveValue == 1)
+            if(currentMoveValue == 2)
                 return c;
 
             if(currentMoveValue > maxMoveValue) {

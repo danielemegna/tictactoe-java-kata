@@ -33,7 +33,7 @@ public class MinimaxTest {
     }
 
     @Test
-    public void computerWinWithAMove() {
+    public void computerWinWithAMove_worthTwo() {
         markMatrixFromString(
             "XOX" +
             "XOX" +
@@ -41,14 +41,14 @@ public class MinimaxTest {
         );
 
         int computerWinMoveValue = evaluateMove(1, 2);
-        assertEquals(1, computerWinMoveValue);
+        assertEquals(2, computerWinMoveValue);
 
         int tieMoveValue = evaluateMove(2, 2);
         assertEquals(0, tieMoveValue);
     }
 
     @Test
-    public void computerHasThreePossibilities_andOnlyOneBlocksPlayerWin() {
+    public void computerHasThreePossibilities_onlyOneBlocksPlayerWin() {
         markMatrixFromString(
             "OXO" +
             " XO" +
@@ -80,7 +80,7 @@ public class MinimaxTest {
         assertEquals(-1, playerCanWinWithTheNextMove);
 
         int computerWinMove = evaluateMove(1, 1);
-        assertEquals(1, computerWinMove);
+        assertEquals(2, computerWinMove);
     }
 
     @Test
@@ -118,14 +118,14 @@ public class MinimaxTest {
     }
 
     @Test
-    public void computerWillBeWinnerWithAMove() {
+    public void someMovesLeadComputerToSureWin() {
         markMatrixFromString(
             "  X" +
             "   " +
             "  O"
         );
 
-        // winning moves
+        // win moves
         assertEquals(1, evaluateMove(0, 0));
         assertEquals(1, evaluateMove(0, 2));
         assertEquals(1, evaluateMove(1, 2));
@@ -135,7 +135,7 @@ public class MinimaxTest {
         assertEquals(0, evaluateMove(1, 0));
         assertEquals(0, evaluateMove(1, 1));
 
-        // loose move
+        // defeat move
         assertEquals(-1, evaluateMove(2, 1));
     }
 

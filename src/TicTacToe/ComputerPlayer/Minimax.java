@@ -19,7 +19,7 @@ public class Minimax {
 
         Verdict v = referee.generateRefereeVerdict(clone);
         if(v.computerIsTheWinner())
-            return 1;
+            return 2;
         if(clone.isFull())
             return 0;
 
@@ -54,7 +54,7 @@ public class Minimax {
 
         for(Coordinates c : clone.getEmptyCoordinates()) {
             int currentMoveValue = calcolateComputerMoveValue(c, clone);
-            if(currentMoveValue == 1)
+            if(currentMoveValue == 2)
                 return 1;
 
             maxMoveValue = Math.max(maxMoveValue, currentMoveValue);
