@@ -12,18 +12,22 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
     }
 
     public Coordinates establishTheNextMove(Matrix matrix) {
-        int maxValue = -1000;
+        int maxMoveValue = -1;
         Coordinates maxValueCoordinates = null;
+
         for(Coordinates c : matrix.getEmptyCoordinates()) {
-            int value = minimax.calcolateComputerMoveValue(c, matrix);
-            if(value > maxValue) {
-                maxValue = value;
+            int currentMoveValue = minimax.calcolateComputerMoveValue(c, matrix);
+            if(currentMoveValue == 1)
+                return c;
+
+            if(currentMoveValue > maxMoveValue) {
+                maxMoveValue = currentMoveValue;
                 maxValueCoordinates = c;
             }
         }
 
         if(maxValueCoordinates == null)
-            throw new ComputerPlayerChoiceException("UnbeatableComputerPlayer cannot establish the next move");
+            throw new ComputerPlayerChoiceException("UnbeatableComputerPlayer cannot establish the next move! :o");
 
         return maxValueCoordinates;
     }
