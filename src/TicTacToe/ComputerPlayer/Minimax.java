@@ -14,7 +14,8 @@ public class Minimax {
     }
 
     public int calcolateComputerMoveValue(Coordinates move, Matrix matrix) {
-        Matrix clone = cloneAndMarkMatrix(move, matrix, true);
+        Matrix clone = matrix.clone();
+        clone.computerMark(move);
 
         Verdict v = referee.generateRefereeVerdict(clone);
         if(v.computerIsTheWinner())
@@ -22,42 +23,44 @@ public class Minimax {
         if(clone.isFull())
             return 0;
 
-        return valueOfRemainingEmptyPossibilities(clone);
+        return minPlayerMoveValueChoosable(clone);
     }
 
-    private int valueOfRemainingEmptyPossibilities(Matrix matrix) {
+    private int minPlayerMoveValueChoosable(Matrix matrix) {
+        int minPlayerMoveValue = 1;
 
-        int minValue = 1;
         for(Coordinates c : matrix.getEmptyCoordinates()) {
-            Matrix clone = cloneAndMarkMatrix(c, matrix, false);
+            Matrix clone = matrix.clone();
+            clone.playerMark(c);
 
             Verdict v = referee.generateRefereeVerdict(clone);
             if(v.playerIsTheWinner())
                 return -1;
+
             if(clone.isFull()) {
-                minValue = Math.min(0, minValue);
+                minPlayerMoveValue = Math.min(0, minPlayerMoveValue);
                 continue;
-
             }
 
-            int maxValue = -1;
-            for(Coordinates c2 : clone.getEmptyCoordinates()) {
-                int value = calcolateComputerMoveValue(c2, clone);
-                maxValue = Math.max(maxValue, value);
-            }
-            minValue = Math.min(maxValue, minValue);
+            int maxComputerMoveValue = maxComputerMoveValueChoosable(clone);
+            minPlayerMoveValue = Math.min(minPlayerMoveValue, maxComputerMoveValue);
         }
 
-        return minValue;
+        return minPlayerMoveValue;
     }
 
-    private Matrix cloneAndMarkMatrix(Coordinates c, Matrix matrix, boolean asComputer) {
-        Matrix clone = matrix.clone();
-        if(asComputer)
-            clone.computerMark(c);
-        else
-            clone.playerMark(c);
+    private int maxComputerMoveValueChoosable(Matrix clone) {
+        int maxMoveValue = -1;
 
-        return clone;
+        for(Coordinates c : clone.getEmptyCoordinates()) {
+            int currentMoveValue = calcolateComputerMoveValue(c, clone);
+            if(currentMoveValue == 1)
+                return 1;
+
+            maxMoveValue = Math.max(maxMoveValue, currentMoveValue);
+        }
+
+        return maxMoveValue;
     }
+
 }
