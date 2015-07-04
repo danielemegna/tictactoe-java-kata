@@ -17,14 +17,14 @@ public class Game {
     private Referee referee;
     private boolean isPlayerTurn;
 
-    public Game(String playerName, ComputerPlayer computerPlayer, ConsoleDisplay display) {
+    public Game(String playerName, boolean playerStartFirst, ComputerPlayer computerPlayer, ConsoleDisplay display) {
         this.playerName = playerName;
         this.computerPlayer = computerPlayer;
         this.display = display;
+        this.isPlayerTurn = playerStartFirst;
 
         this.matrix = new Matrix();
         this.referee = new Referee();
-        this.isPlayerTurn = true;
     }
 
     public String getPlayerName() {

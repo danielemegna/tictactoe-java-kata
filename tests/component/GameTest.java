@@ -13,7 +13,7 @@ public class GameTest {
 
     @Before
     public void setup() {
-        this.game = new Game("Player name", null, null);
+        this.game = new Game("Player name", true, null, null);
     }
 
     @Test
@@ -143,6 +143,14 @@ public class GameTest {
         game.computerMark(0, 1);
         try { game.computerMark(0, 1); fail(failMessage); }
         catch(GameTurnException ex) {}
+    }
+
+    @Test
+    public void playerStartsFirstTestCase() {
+        try { game.computerMark(0, 0); fail("Expected GameTurnException not catched"); }
+        catch(GameTurnException ex) {}
+
+        game.playerMark(0, 0);
     }
 
 }
