@@ -80,6 +80,10 @@ public class Main {
                     ps.println("You lose, computer won!");
                     break;
                 }
+                if (game.isMatrixFull()) {
+                    ps.println("The grid is full.. tie!");
+                    break;
+                }
             }
 
             ps.print("Play again? (y/n) ");
