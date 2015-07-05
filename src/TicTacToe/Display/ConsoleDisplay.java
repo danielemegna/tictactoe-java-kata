@@ -1,21 +1,21 @@
 package TicTacToe.Display;
 
 import TicTacToe.Cell.Matrix;
-import java.io.PrintStream;
+import TicTacToe.UserCommunicator;
 
 public class ConsoleDisplay {
-    private final PrintStream printStream;
+    private final UserCommunicator userCommunicator;
     private final MatrixFormatter matrixFormatter;
 
 
-    public ConsoleDisplay(PrintStream ps) {
-        this.printStream = ps;
+    public ConsoleDisplay(UserCommunicator uc) {
+        this.userCommunicator = uc;
         this.matrixFormatter = new PlainTextMatrixFormatter();
     }
 
     public void update(Matrix matrix) {
         String formattedString = matrixFormatter.format(matrix);
-        printStream.print(formattedString);
+        userCommunicator.print(formattedString);
     }
 
 }

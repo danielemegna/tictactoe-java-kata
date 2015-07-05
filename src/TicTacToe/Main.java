@@ -1,32 +1,28 @@
+package TicTacToe;
+
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.ComputerPlayer.*;
 import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
-import TicTacToe.*;
 import TicTacToe.Display.ConsoleDisplay;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException {
-        UserCommunicator uc = new UserCommunicator(
-            new BufferedReader(new InputStreamReader(System.in)),
-            System.out
-        );
+        UserCommunicator uc = new UserCommunicator(System.in, System.out);
 
         uc.println("Welcome!");
-        final String name = uc.printMessageAndReadLine("What's your name?");
+        final String name = uc.readLine("What's your name?");
 
         boolean exit;
         do {
-            final boolean playerStartFirst = uc.readYN("Do you want to start first?");
+            final boolean playerStartFirst = uc.readYN("Do you want start first?");
 
             Game game = new Game(
                 name, playerStartFirst,
                 new UnbeatableComputerPlayer(),
-                new ConsoleDisplay(System.out)
+                new ConsoleDisplay(uc)
             );
 
             uc.println("Are you ready " + game.getPlayerName() + "? We're starting!");
@@ -37,7 +33,7 @@ public class Main {
                 if(!skipNextPlayerMove) {
 
                     try {
-                        String input = uc.printMessageAndReadLine(game.getPlayerName() + " make your move (x y):");
+                        String input = uc.readLine(game.getPlayerName() + " make your move (x y):");
                         int x = Integer.valueOf(String.valueOf(input.charAt(0)));
                         int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
                         game.playerMark(x, y);
