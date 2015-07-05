@@ -1,16 +1,16 @@
 package TicTacToe.Display;
 
 import TicTacToe.Cell.CellState;
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
-public class PlainTextMatrixFormatter implements MatrixFormatter {
+public class PlainTextBoardFormatter implements BoardFormatter {
 
-    public String format(Matrix matrix) {
+    public String format(Board board) {
 
         String result = firstHeaderRow();
         for (int y = 0; y < 3; y++)
-            result += rowToString(y, matrix);
+            result += rowToString(y, board);
 
         return result;
     }
@@ -19,15 +19,15 @@ public class PlainTextMatrixFormatter implements MatrixFormatter {
         return "  0 1 2\n";
     }
 
-    private String rowToString(int y, Matrix matrix) {
+    private String rowToString(int y, Board board) {
         return y + " " +
-            cellToChar(0, y, matrix) + " " +
-            cellToChar(1, y, matrix) + " " +
-            cellToChar(2, y, matrix) + "\n";
+            cellToChar(0, y, board) + " " +
+            cellToChar(1, y, board) + " " +
+            cellToChar(2, y, board) + "\n";
     }
 
-    private char cellToChar(int x, int y, Matrix matrix) {
-        CellState state = matrix.getCellState(new Coordinates(x, y));
+    private char cellToChar(int x, int y, Board board) {
+        CellState state = board.getCellState(new Coordinates(x, y));
         return cellStateToChar(state);
     }
 

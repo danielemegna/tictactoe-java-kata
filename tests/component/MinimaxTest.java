@@ -1,10 +1,9 @@
 package component;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -12,17 +11,17 @@ import static org.junit.Assert.assertEquals;
 public class MinimaxTest {
 
     private Minimax minimax;
-    private Matrix matrix;
+    private Board board;
 
     @Before
     public void setup() {
         this.minimax = new Minimax();
-        this.matrix = new Matrix();
+        this.board = new Board();
     }
 
     @Test
     public void lastTieMove_worthZero() {
-        markMatrixFromString(
+        markBoardFromString(
             "XOO" +
             "O X" +
             "XXO"
@@ -34,7 +33,7 @@ public class MinimaxTest {
 
     @Test
     public void computerWinWithAMove_worthTwo() {
-        markMatrixFromString(
+        markBoardFromString(
             "XOX" +
             "XOX" +
             "O  "
@@ -49,7 +48,7 @@ public class MinimaxTest {
 
     @Test
     public void computerHasThreePossibilities_onlyOneBlocksPlayerWin() {
-        markMatrixFromString(
+        markBoardFromString(
             "OXO" +
             " XO" +
             "  X"
@@ -67,7 +66,7 @@ public class MinimaxTest {
 
     @Test
     public void ifPlayerCanWinAtTheNextMove_moveValueIsMinusOne() {
-        markMatrixFromString(
+        markBoardFromString(
             "X O" +
             "O  " +
             "OXX"
@@ -85,7 +84,7 @@ public class MinimaxTest {
 
     @Test
     public void computerHasFourPossibilitiesThatWorthZero() {
-        markMatrixFromString(
+        markBoardFromString(
             "  X" +
             "XOO" +
             "  X"
@@ -99,7 +98,7 @@ public class MinimaxTest {
 
     @Test
     public void centerCellIsTheOnlyWayToAvoidDefeat() {
-        markMatrixFromString(
+        markBoardFromString(
             "X  " +
             "   " +
             "   "
@@ -119,7 +118,7 @@ public class MinimaxTest {
 
     @Test
     public void someMovesLeadComputerToSureWin() {
-        markMatrixFromString(
+        markBoardFromString(
             "  X" +
             "   " +
             "  O"
@@ -140,18 +139,18 @@ public class MinimaxTest {
     }
 
     private int evaluateMove(int x, int y) {
-        return minimax.calcolateComputerMoveValue(new Coordinates(x, y), matrix);
+        return minimax.calcolateComputerMoveValue(new Coordinates(x, y), board);
     }
 
     private void playerMark(int x, int y) {
-        matrix.playerMark(new Coordinates(x, y));
+        board.playerMark(new Coordinates(x, y));
     }
 
     private void computerMark(int x, int y) {
-        matrix.computerMark(new Coordinates(x, y));
+        board.computerMark(new Coordinates(x, y));
     }
 
-    private void markMatrixFromString(String s) {
+    private void markBoardFromString(String s) {
         int index = 0;
         for(int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {

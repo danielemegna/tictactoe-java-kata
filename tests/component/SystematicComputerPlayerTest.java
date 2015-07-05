@@ -1,6 +1,6 @@
 package component;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayerChoiceException;
 import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
@@ -12,17 +12,17 @@ import static org.junit.Assert.fail;
 
 public class SystematicComputerPlayerTest {
 
-    private Matrix m;
+    private Board m;
     private SystematicComputerPlayer cp;
 
     @Before
     public void setup() {
-        this.m = new Matrix();
+        this.m = new Board();
         this.cp = new SystematicComputerPlayer();
     }
 
     @Test
-    public void withEmptyMatrix_SystematicComputerPlayerWillChooseZeroZero() {
+    public void withEmptyBoard_SystematicComputerPlayerWillChooseZeroZero() {
         assertNextMoveAndMarkIt(new Coordinates(0, 0));
     }
 

@@ -1,7 +1,7 @@
 package component;
 
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 import org.junit.Before;
@@ -11,18 +11,18 @@ import static org.junit.Assert.*;
 
 public class RefereeTest {
 
-    private Matrix matrix;
+    private Board board;
     private Referee referee;
     private Verdict verdict;
 
     @Before
     public void setup() {
         referee = new Referee();
-        matrix = new Matrix();
+        board = new Board();
     }
 
     @Test
-    public void givenAnEmptyMatrix_refereeSeeNoWinner() {
+    public void givenAnEmptyBoard_refereeSeeNoWinner() {
         assertRefereeVerdict(false, false);
     }
 
@@ -93,15 +93,15 @@ public class RefereeTest {
     }
 
     private void playerMark(int x, int y) {
-        matrix.playerMark(new Coordinates(x, y));
+        board.playerMark(new Coordinates(x, y));
     }
 
     private void computerMark(int x, int y) {
-        matrix.computerMark(new Coordinates(x, y));
+        board.computerMark(new Coordinates(x, y));
     }
 
     private void assertRefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
-        verdict = referee.generateRefereeVerdict(matrix);
+        verdict = referee.generateRefereeVerdict(board);
         assertEquals(playerIsTheWinner, verdict.playerIsTheWinner());
         assertEquals(computerIsTheWinner, verdict.computerIsTheWinner());
     }

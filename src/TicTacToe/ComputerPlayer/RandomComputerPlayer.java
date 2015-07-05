@@ -1,7 +1,7 @@
 package TicTacToe.ComputerPlayer;
 
 import TicTacToe.Cell.CellState;
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
 import java.util.Random;
@@ -15,10 +15,10 @@ public class RandomComputerPlayer implements ComputerPlayer {
     }
 
 
-    public Coordinates establishTheNextMove(Matrix matrix) {
+    public Coordinates establishTheNextMove(Board board) {
         while(true) {
             Coordinates c = new Coordinates(random.nextInt(3), random.nextInt(3));
-            if(matrix.getCellState(c) == CellState.Empty)
+            if(board.getCellState(c) == CellState.Empty)
                 return c;
         }
     }

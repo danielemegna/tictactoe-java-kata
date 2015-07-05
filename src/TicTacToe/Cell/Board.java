@@ -5,12 +5,12 @@ import TicTacToe.Coordinates.Coordinates;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Matrix {
+public class Board {
 
     private Cell[][] cells;
     private int markedCells;
 
-    public Matrix() {
+    public Board() {
         this.cells = new Cell[3][3];
         for(int x = 0; x < 3; x++)
             for(int y = 0; y < 3; y++)
@@ -38,7 +38,7 @@ public class Matrix {
     }
 
     public Set<Coordinates> getEmptyCoordinates() {
-        Set<Coordinates> emptyCoordinates = new HashSet<Coordinates>();
+        Set<Coordinates> emptyCoordinates = new HashSet<>();
         for(int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 Coordinates c = new Coordinates(x, y);
@@ -50,8 +50,8 @@ public class Matrix {
         return emptyCoordinates;
     }
 
-    public Matrix clone() {
-        Matrix clone = new Matrix();
+    public Board clone() {
+        Board clone = new Board();
         for(int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 Coordinates c = new Coordinates(x, y);

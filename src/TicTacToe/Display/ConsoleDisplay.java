@@ -1,20 +1,20 @@
 package TicTacToe.Display;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.IOBridge;
 
 public class ConsoleDisplay {
     private final IOBridge io;
-    private final MatrixFormatter matrixFormatter;
+    private final BoardFormatter boardFormatter;
 
 
     public ConsoleDisplay(IOBridge io) {
         this.io = io;
-        this.matrixFormatter = new PlainTextMatrixFormatter();
+        this.boardFormatter = new PlainTextBoardFormatter();
     }
 
-    public void update(Matrix matrix) {
-        String formattedString = matrixFormatter.format(matrix);
+    public void update(Board board) {
+        String formattedString = boardFormatter.format(board);
         io.print(formattedString);
     }
 

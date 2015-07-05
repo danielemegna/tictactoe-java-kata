@@ -64,7 +64,7 @@ public class Main {
                     io.println("Congratulations " + game.getPlayerName() + "! You won!");
                     break;
                 }
-                if (game.isMatrixFull()) {
+                if (game.isBoardFull()) {
                     io.println("The grid is full.. tie!");
                     break;
                 }
@@ -80,7 +80,7 @@ public class Main {
                 io.println("You lose, computer won!");
                 break;
             }
-            if (game.isMatrixFull()) {
+            if (game.isBoardFull()) {
                 io.println("The grid is full.. tie!");
                 break;
             }

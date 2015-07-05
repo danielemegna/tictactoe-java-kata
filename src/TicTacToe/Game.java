@@ -1,6 +1,6 @@
 package TicTacToe;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.ConsoleDisplay;
@@ -13,7 +13,7 @@ public class Game {
     private ComputerPlayer computerPlayer;
     private ConsoleDisplay display;
 
-    private Matrix matrix;
+    private Board board;
     private Referee referee;
     private boolean isPlayerTurn;
 
@@ -23,7 +23,7 @@ public class Game {
         this.display = display;
         this.isPlayerTurn = playerStartFirst;
 
-        this.matrix = new Matrix();
+        this.board = new Board();
         this.referee = new Referee();
     }
 
@@ -35,7 +35,7 @@ public class Game {
         if(!isPlayerTurn)
             throw new GameTurnException();
 
-        matrix.playerMark(new Coordinates(x, y));
+        board.playerMark(new Coordinates(x, y));
         isPlayerTurn = false;
     }
 
@@ -43,35 +43,35 @@ public class Game {
         if(isPlayerTurn)
             throw new GameTurnException();
 
-        matrix.computerMark(new Coordinates(x, y));
+        board.computerMark(new Coordinates(x, y));
         isPlayerTurn = true;
     }
 
     public boolean thereIsAWinner() {
-        Verdict v = referee.generateRefereeVerdict(matrix);
+        Verdict v = referee.generateRefereeVerdict(board);
         return v.thereIsAWinner();
     }
 
     public boolean playerWon() {
-        Verdict v = referee.generateRefereeVerdict(matrix);
+        Verdict v = referee.generateRefereeVerdict(board);
         return v.playerIsTheWinner();
     }
 
     public boolean computerWon() {
-        Verdict v = referee.generateRefereeVerdict(matrix);
+        Verdict v = referee.generateRefereeVerdict(board);
         return v.computerIsTheWinner();
     }
 
-    public boolean isMatrixFull() {
-        return matrix.isFull();
+    public boolean isBoardFull() {
+        return board.isFull();
     }
 
     public void doTheNextComputerMove() {
-        Coordinates c = computerPlayer.establishTheNextMove(matrix);
+        Coordinates c = computerPlayer.establishTheNextMove(board);
         computerMark(c.getX(), c.getY());
     }
 
     public void updateDisplay() {
-        display.update(matrix);
+        display.update(board);
     }
 }

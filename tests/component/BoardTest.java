@@ -1,6 +1,6 @@
 package component;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.Cell.CellState;
 import TicTacToe.Coordinates.Coordinates;
@@ -11,17 +11,17 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
-public class MatrixTest {
+public class BoardTest {
 
-    private Matrix matrix;
+    private Board board;
 
     @Before
     public void setup() {
-        this.matrix = new Matrix();
+        this.board = new Board();
     }
 
     @Test
-    public void inANewCellMatrix_CellsAreEmpty() {
+    public void inANewCellBoard_CellsAreEmpty() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 assertCellState(new Coordinates(x, y), CellState.Empty);
@@ -30,8 +30,8 @@ public class MatrixTest {
     }
 
     @Test
-    public void aNewMatrixIsNotFull() {
-        assertFalse(matrix.isFull());
+    public void aNewBoardIsNotFull() {
+        assertFalse(board.isFull());
     }
 
     @Test
@@ -39,10 +39,10 @@ public class MatrixTest {
         Coordinates c;
 
         c = new Coordinates(0, 1);
-        matrix.playerMark(c);
+        board.playerMark(c);
         assertCellState(c, CellState.PlayerMarked);
         c = new Coordinates(1, 1);
-        matrix.playerMark(c);
+        board.playerMark(c);
         assertCellState(c, CellState.PlayerMarked);
     }
 
@@ -51,19 +51,19 @@ public class MatrixTest {
         Coordinates c;
 
         c = new Coordinates(0, 1);
-        matrix.computerMark(c);
+        board.computerMark(c);
         assertCellState(c, CellState.ComputerMarked);
         c = new Coordinates(2, 1);
-        matrix.computerMark(c);
+        board.computerMark(c);
         assertCellState(c, CellState.ComputerMarked);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        matrix.playerMark(new Coordinates(0, 1));
-        matrix.playerMark(new Coordinates(2, 1));
-        matrix.computerMark(new Coordinates(1, 0));
-        matrix.computerMark(new Coordinates(2, 2));
+        board.playerMark(new Coordinates(0, 1));
+        board.playerMark(new Coordinates(2, 1));
+        board.computerMark(new Coordinates(1, 0));
+        board.computerMark(new Coordinates(2, 2));
 
         assertCellState(new Coordinates(0, 0), CellState.Empty);
         assertCellState(new Coordinates(1, 1), CellState.Empty);
@@ -71,7 +71,7 @@ public class MatrixTest {
     }
 
     private void assertCellState(Coordinates c, CellState expected) {
-        CellState actual = matrix.getCellState(c);
+        CellState actual = board.getCellState(c);
         assertEquals(
                 "Fail asserting cell state at coordinates [" + c + "] ." +
                         "Actual [" + actual + "], expected [" + expected + "]",
@@ -86,15 +86,15 @@ public class MatrixTest {
         Coordinates playerMarked = new Coordinates(0, 0);
         Coordinates computerMarked = new Coordinates(1, 1);
 
-        matrix.playerMark(playerMarked);
-        matrix.computerMark(computerMarked);
+        board.playerMark(playerMarked);
+        board.computerMark(computerMarked);
 
         try {
-            matrix.playerMark(playerMarked);
+            board.playerMark(playerMarked);
             fail(failMessage);
         } catch (AlreadyMarkedCellAttemptException ex) {}
         try {
-            matrix.computerMark(computerMarked);
+            board.computerMark(computerMarked);
             fail(failMessage);
         } catch (AlreadyMarkedCellAttemptException ex) {}
     }
@@ -106,91 +106,91 @@ public class MatrixTest {
         Coordinates playerMarked = new Coordinates(0, 0);
         Coordinates computerMarked = new Coordinates(1, 1);
 
-        matrix.playerMark(playerMarked);
-        matrix.computerMark(computerMarked);
+        board.playerMark(playerMarked);
+        board.computerMark(computerMarked);
 
         try {
-            matrix.playerMark(computerMarked);
+            board.playerMark(computerMarked);
             fail(failMessage);
         } catch (AlreadyMarkedCellAttemptException ex) {}
         try {
-            matrix.computerMark(playerMarked);
+            board.computerMark(playerMarked);
             fail(failMessage);
         } catch (AlreadyMarkedCellAttemptException ex) {}
     }
 
     @Test
-    public void markingEveryCell_matrixIsFull() {
+    public void markingEveryCell_boardIsFull() {
         for(int x = 0; x < 3; x++)
             for(int y = 0; y < 3; y++)
-                matrix.playerMark(new Coordinates(x, y));
+                board.playerMark(new Coordinates(x, y));
 
-        assertTrue(matrix.isFull());
+        assertTrue(board.isFull());
     }
 
     @Test
-    public void matrixCanReturnAllTheEmptyCoordinates() {
+    public void boardCanReturnAllTheEmptyCoordinates() {
         Set<Coordinates> emptyCoordinates;
 
-        emptyCoordinates = matrix.getEmptyCoordinates();
+        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(9, emptyCoordinates.size());
         assertTrue(
             "Empty coordinates set doesn't contains expected coordinates",
             emptyCoordinates.contains(new Coordinates(1, 1))
         );
 
-        matrix.playerMark(new Coordinates(1, 1));
-        emptyCoordinates = matrix.getEmptyCoordinates();
+        board.playerMark(new Coordinates(1, 1));
+        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(8, emptyCoordinates.size());
         assertFalse(
             "Empty coordinates set contains unexpected coordinates",
             emptyCoordinates.contains(new Coordinates(1, 1))
         );
 
-        matrix.computerMark(new Coordinates(0, 0));
-        emptyCoordinates = matrix.getEmptyCoordinates();
+        board.computerMark(new Coordinates(0, 0));
+        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(7, emptyCoordinates.size());
         assertFalse(
             "Empty coordinates set contains unexpected coordinates",
             emptyCoordinates.contains(new Coordinates(0, 0))
         );
 
-        matrix.playerMark(new Coordinates(0, 1));
-        matrix.computerMark(new Coordinates(0, 2));
-        matrix.playerMark(new Coordinates(1, 0));
-        matrix.computerMark(new Coordinates(1, 2));
-        matrix.playerMark(new Coordinates(2, 0));
-        matrix.computerMark(new Coordinates(2, 1));
+        board.playerMark(new Coordinates(0, 1));
+        board.computerMark(new Coordinates(0, 2));
+        board.playerMark(new Coordinates(1, 0));
+        board.computerMark(new Coordinates(1, 2));
+        board.playerMark(new Coordinates(2, 0));
+        board.computerMark(new Coordinates(2, 1));
 
-        emptyCoordinates = matrix.getEmptyCoordinates();
+        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(1, emptyCoordinates.size());
         assertTrue(
             "Empty coordinates set doesn't contains expected coordinates",
             emptyCoordinates.contains(new Coordinates(2, 2))
         );
 
-        matrix.playerMark(new Coordinates(2, 2));
+        board.playerMark(new Coordinates(2, 2));
 
-        emptyCoordinates = matrix.getEmptyCoordinates();
+        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(0, emptyCoordinates.size());
     }
 
     @Test
-    public void matrixIsClonable() {
+    public void boardIsClonable() {
         Coordinates makedBeforeClone = new Coordinates(0, 0);
         Coordinates markedAfterClone = new Coordinates(0, 1);
         Coordinates markedOnClone = new Coordinates(0, 2);
 
-        matrix.playerMark(makedBeforeClone);
-        Matrix clone = matrix.clone();
-        matrix.playerMark(markedAfterClone);
+        board.playerMark(makedBeforeClone);
+        Board clone = board.clone();
+        board.playerMark(markedAfterClone);
         clone.playerMark(markedOnClone);
 
-        assertEquals(CellState.PlayerMarked,    matrix.getCellState(makedBeforeClone));
+        assertEquals(CellState.PlayerMarked,    board.getCellState(makedBeforeClone));
         assertEquals(CellState.PlayerMarked,    clone.getCellState(makedBeforeClone));
-        assertEquals(CellState.PlayerMarked,    matrix.getCellState(markedAfterClone));
+        assertEquals(CellState.PlayerMarked,    board.getCellState(markedAfterClone));
         assertEquals(CellState.Empty,           clone.getCellState(markedAfterClone));
-        assertEquals(CellState.Empty,           matrix.getCellState(markedOnClone));
+        assertEquals(CellState.Empty,           board.getCellState(markedOnClone));
         assertEquals(CellState.PlayerMarked,    clone.getCellState(markedOnClone));
     }
 

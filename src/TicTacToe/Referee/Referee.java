@@ -1,6 +1,6 @@
 package TicTacToe.Referee;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Cell.CellState;
 
@@ -17,7 +17,7 @@ public class Referee {
         this.winningCombinations = initWinningCombinations();
     }
 
-    public Verdict generateRefereeVerdict(Matrix matrix) {
+    public Verdict generateRefereeVerdict(Board board) {
         boolean playerIsTheWinner = false;
         boolean computerIsTheWinner = false;
 
@@ -25,7 +25,7 @@ public class Referee {
             playerIsTheWinner = computerIsTheWinner = true;
 
             for (Coordinates c : wc) {
-                CellState cellState = matrix.getCellState(c);
+                CellState cellState = board.getCellState(c);
                 playerIsTheWinner &= (cellState == CellState.PlayerMarked);
                 computerIsTheWinner &= (cellState == CellState.ComputerMarked);
             }

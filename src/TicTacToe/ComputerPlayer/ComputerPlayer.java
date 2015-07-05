@@ -1,8 +1,8 @@
 package TicTacToe.ComputerPlayer;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
 public interface ComputerPlayer {
-    Coordinates establishTheNextMove(Matrix matrix);
+    Coordinates establishTheNextMove(Board board);
 }

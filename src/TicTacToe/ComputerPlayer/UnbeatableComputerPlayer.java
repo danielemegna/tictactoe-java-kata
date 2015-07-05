@@ -1,6 +1,6 @@
 package TicTacToe.ComputerPlayer;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
 public class UnbeatableComputerPlayer implements ComputerPlayer {
@@ -11,12 +11,12 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
         this.minimax = new Minimax();
     }
 
-    public Coordinates establishTheNextMove(Matrix matrix) {
+    public Coordinates establishTheNextMove(Board board) {
         int maxMoveValue = -1;
         Coordinates maxValueCoordinates = null;
 
-        for(Coordinates c : matrix.getEmptyCoordinates()) {
-            int currentMoveValue = minimax.calcolateComputerMoveValue(c, matrix);
+        for(Coordinates c : board.getEmptyCoordinates()) {
+            int currentMoveValue = minimax.calcolateComputerMoveValue(c, board);
             if(currentMoveValue == 2)
                 return c;
 

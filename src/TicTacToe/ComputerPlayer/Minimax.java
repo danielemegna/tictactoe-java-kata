@@ -1,6 +1,6 @@
 package TicTacToe.ComputerPlayer;
 
-import TicTacToe.Cell.Matrix;
+import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
@@ -13,8 +13,8 @@ public class Minimax {
         this.referee = new Referee();
     }
 
-    public int calcolateComputerMoveValue(Coordinates move, Matrix matrix) {
-        Matrix clone = matrix.clone();
+    public int calcolateComputerMoveValue(Coordinates move, Board board) {
+        Board clone = board.clone();
         clone.computerMark(move);
 
         Verdict v = referee.generateRefereeVerdict(clone);
@@ -26,11 +26,11 @@ public class Minimax {
         return minPlayerMoveValueChoosable(clone);
     }
 
-    private int minPlayerMoveValueChoosable(Matrix matrix) {
+    private int minPlayerMoveValueChoosable(Board board) {
         int minPlayerMoveValue = 1;
 
-        for(Coordinates c : matrix.getEmptyCoordinates()) {
-            Matrix clone = matrix.clone();
+        for(Coordinates c : board.getEmptyCoordinates()) {
+            Board clone = board.clone();
             clone.playerMark(c);
 
             Verdict v = referee.generateRefereeVerdict(clone);
@@ -49,7 +49,7 @@ public class Minimax {
         return minPlayerMoveValue;
     }
 
-    private int maxComputerMoveValueChoosable(Matrix clone) {
+    private int maxComputerMoveValueChoosable(Board clone) {
         int maxMoveValue = -1;
 
         for(Coordinates c : clone.getEmptyCoordinates()) {
