@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class Referee {
 
-    private final List<Set<Coordinates>> winningCombinations;
+    private final List<Set<Coordinates>> winningCombinations = new ArrayList<>();
 
     public Referee() {
-        this.winningCombinations = initWinningCombinations();
+        initWinningCombinations();
     }
 
     public Verdict generateRefereeVerdict(Board board) {
@@ -37,35 +37,38 @@ public class Referee {
         return new Verdict(playerIsTheWinner, computerIsTheWinner);
     }
 
-    private List<Set<Coordinates>> initWinningCombinations() {
-        List<Set<Coordinates>> wc = new ArrayList<>();
+    private void initWinningCombinations() {
+        addLinearWinningCombinations();
+        addDiagonalWinningCombinations();
+    }
 
+    private void addLinearWinningCombinations() {
         for(int i = 0; i < 3; i++) {
             final int index = i;
-            wc.add(new HashSet<Coordinates>() {{
+            winningCombinations.add(new HashSet<Coordinates>() {{
                 add(new Coordinates(0, index));
                 add(new Coordinates(1, index));
                 add(new Coordinates(2, index));
             }});
-            wc.add(new HashSet<Coordinates>() {{
+            winningCombinations.add(new HashSet<Coordinates>() {{
                 add(new Coordinates(index, 0));
                 add(new Coordinates(index, 1));
                 add(new Coordinates(index, 2));
             }});
         }
+    }
 
-        wc.add(new HashSet<Coordinates>() {{
+    private void addDiagonalWinningCombinations() {
+        winningCombinations.add(new HashSet<Coordinates>() {{
             add(new Coordinates(0, 0));
             add(new Coordinates(1, 1));
             add(new Coordinates(2, 2));
         }});
 
-        wc.add(new HashSet<Coordinates>() {{
+        winningCombinations.add(new HashSet<Coordinates>() {{
             add(new Coordinates(2, 0));
             add(new Coordinates(1, 1));
             add(new Coordinates(0, 2));
         }});
-
-        return wc;
     }
 }
