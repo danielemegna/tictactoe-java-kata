@@ -10,89 +10,90 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException {
-        UserCommunicator uc = new UserCommunicator(System.in, System.out);
+        IOBridge io = new IOBridge(System.in, System.out);
 
-        uc.println("Welcome!");
-        final String name = uc.readLine("What's your name?");
+        io.println("Welcome!");
+        final String name = io.readLine("What's your name?");
 
         boolean exit;
         do {
-            startANewGame(name, uc);
-            exit = !uc.readYN("Play again?");
+            startANewGame(name, io);
+            exit = !io.readYN("Play again?");
         } while(!exit);
 
-        uc.println("Shutting down ...");
+        io.println("Shutting down ...");
 
     }
 
-    private static void startANewGame(String name, UserCommunicator uc) throws IOException, InterruptedException {
-        final boolean playerStartFirst = uc.readYN("Do you want start first?");
+    private static void startANewGame(String name, IOBridge io) throws IOException, InterruptedException {
+        final boolean playerStartFirst = io.readYN("Do you want start first?");
 
         Game game = new Game(
             name, playerStartFirst,
             new UnbeatableComputerPlayer(),
-            new ConsoleDisplay(uc)
+            new ConsoleDisplay(io)
         );
 
-        uc.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+        io.println("Are you ready " + game.getPlayerName() + "? We're starting!");
         game.updateDisplay();
 
         boolean skipNextPlayerMove = !playerStartFirst;
-        startTheGamePlayLoop(skipNextPlayerMove, game, uc);
+        startTheGamePlayLoop(skipNextPlayerMove, game, io);
     }
 
-    private static void startTheGamePlayLoop(boolean skipNextPlayerMove, Game game, UserCommunicator uc) throws InterruptedException {
+    private static void startTheGamePlayLoop(boolean skipNextPlayerMove, Game game, IOBridge io) throws InterruptedException {
         while (true) {
+
             if(!skipNextPlayerMove) {
                 try {
-                    playerMove(game, uc);
+                    playerMove(game, io);
                 } catch (CoordinateOutOfBoundsException ex) {
-                    uc.println("Invalid coordinates.. retry");
+                    io.println("Invalid coordinates.. retry");
                     continue;
                 } catch (AlreadyMarkedCellAttemptException ex) {
-                    uc.println("Cell already marked.. retry.");
+                    io.println("Cell already marked.. retry.");
                     continue;
                 } catch (Exception ex) {
-                    uc.println("Invalid input.. retry");
+                    io.println("Invalid input.. retry");
                     continue;
                 }
 
                 game.updateDisplay();
 
                 if (game.playerWon()) {
-                    uc.println("Congratulations " + game.getPlayerName() + "! You won!");
+                    io.println("Congratulations " + game.getPlayerName() + "! You won!");
                     break;
                 }
-
                 if (game.isMatrixFull()) {
-                    uc.println("The grid is full.. tie!");
+                    io.println("The grid is full.. tie!");
                     break;
                 }
             }
 
             skipNextPlayerMove = false;
-            uc.println("Computer is thinking...");
+            io.println("Computer is thinking...");
             Thread.sleep(500);
             game.doTheNextComputerMove();
             game.updateDisplay();
 
             if (game.computerWon()) {
-                uc.println("You lose, computer won!");
+                io.println("You lose, computer won!");
                 break;
             }
             if (game.isMatrixFull()) {
-                uc.println("The grid is full.. tie!");
+                io.println("The grid is full.. tie!");
                 break;
             }
+
         }
     }
 
-    private static void playerMove(Game game, UserCommunicator uc) throws IOException {
-        String input = uc.readLine(game.getPlayerName() + " make your move (x y):");
+    private static void playerMove(Game game, IOBridge io) throws IOException {
+        String input = io.readLine(game.getPlayerName() + " make your move (x y):");
         int x = Integer.valueOf(String.valueOf(input.charAt(0)));
         int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
         game.playerMark(x, y);
-        uc.println("Coordinates [" + x + ", " + y + "] marked.");
+        io.println("Coordinates [" + x + ", " + y + "] marked.");
     }
 
 }

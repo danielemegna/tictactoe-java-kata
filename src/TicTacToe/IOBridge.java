@@ -2,12 +2,12 @@ package TicTacToe;
 
 import java.io.*;
 
-public class UserCommunicator {
+public class IOBridge {
 
     private final BufferedReader in;
     private final PrintStream out;
 
-    public UserCommunicator(InputStream in, PrintStream out) {
+    public IOBridge(InputStream in, PrintStream out) {
         this.in = new BufferedReader(new InputStreamReader(in));
         this.out = out;
     }
