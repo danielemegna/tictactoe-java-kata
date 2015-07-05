@@ -12,12 +12,12 @@ public class UnbeatableComputerPlayer implements ComputerPlayer {
     }
 
     public Coordinates establishTheNextMove(Board board) {
-        int maxMoveValue = -1;
+        int maxMoveValue = Minimax.PLAYER_WIN_VALUE;
         Coordinates maxValueCoordinates = null;
 
         for(Coordinates c : board.getEmptyCoordinates()) {
             int currentMoveValue = minimax.calcolateComputerMoveValue(c, board);
-            if(currentMoveValue == 2)
+            if(currentMoveValue == Minimax.COMPUTER_ONEMOVEWIN_VALUE)
                 return c;
 
             if(currentMoveValue > maxMoveValue) {

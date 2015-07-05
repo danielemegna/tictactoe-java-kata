@@ -7,6 +7,11 @@ import TicTacToe.Referee.Verdict;
 
 public class Minimax {
 
+    static final int COMPUTER_ONEMOVEWIN_VALUE = 2;
+    static final int COMPUTER_WIN_VALUE = 1;
+    static final int TIE_VALUE = 0;
+    static final int PLAYER_WIN_VALUE = -1;
+
     private final Referee referee;
 
     public Minimax() {
@@ -19,15 +24,15 @@ public class Minimax {
 
         Verdict v = referee.generateRefereeVerdict(clone);
         if(v.computerIsTheWinner())
-            return 2;
+            return COMPUTER_ONEMOVEWIN_VALUE;
         if(clone.isFull())
-            return 0;
+            return TIE_VALUE;
 
         return minPlayerMoveValueChoosable(clone);
     }
 
     private int minPlayerMoveValueChoosable(Board board) {
-        int minPlayerMoveValue = 1;
+        int minPlayerMoveValue = COMPUTER_WIN_VALUE;
 
         for(Coordinates c : board.getEmptyCoordinates()) {
             Board clone = board.clone();
@@ -35,10 +40,10 @@ public class Minimax {
 
             Verdict v = referee.generateRefereeVerdict(clone);
             if(v.playerIsTheWinner())
-                return -1;
+                return PLAYER_WIN_VALUE;
 
             if(clone.isFull()) {
-                minPlayerMoveValue = Math.min(0, minPlayerMoveValue);
+                minPlayerMoveValue = Math.min(TIE_VALUE, minPlayerMoveValue);
                 continue;
             }
 
@@ -50,12 +55,12 @@ public class Minimax {
     }
 
     private int maxComputerMoveValueChoosable(Board clone) {
-        int maxMoveValue = -1;
+        int maxMoveValue = PLAYER_WIN_VALUE;
 
         for(Coordinates c : clone.getEmptyCoordinates()) {
             int currentMoveValue = calcolateComputerMoveValue(c, clone);
-            if(currentMoveValue == 2)
-                return 1;
+            if(currentMoveValue == COMPUTER_ONEMOVEWIN_VALUE)
+                return COMPUTER_WIN_VALUE;
 
             maxMoveValue = Math.max(maxMoveValue, currentMoveValue);
         }

@@ -2,6 +2,7 @@ package TicTacToe;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
+import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Referee.Referee;
