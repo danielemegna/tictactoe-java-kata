@@ -21,7 +21,7 @@ public class BoardTest {
     }
 
     @Test
-    public void inANewCellBoard_CellsAreEmpty() {
+    public void inANewBoard_CellsAreEmpty() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 assertCellState(new Coordinates(x, y), CellState.Empty);
