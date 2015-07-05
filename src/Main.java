@@ -7,90 +7,88 @@ import TicTacToe.Display.ConsoleDisplay;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 
 public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintStream ps = System.out;
+        UserCommunicator uc = new UserCommunicator(
+            new BufferedReader(new InputStreamReader(System.in)),
+            System.out
+        );
 
-        ps.println("Welcome!");
-        ps.print("What's your name? ");
-        final String name = br.readLine();
+        uc.println("Welcome!");
+        final String name = uc.printMessageAndReadLine("What's your name?");
 
         boolean exit;
         do {
-            ps.print("Do you want to start first? (y/n)");
-            final boolean playerStartFirst = br.readLine().startsWith("y");
+            final boolean playerStartFirst = uc.readYN("Do you want to start first?");
 
             Game game = new Game(
                 name, playerStartFirst,
                 new UnbeatableComputerPlayer(),
-                new ConsoleDisplay(ps)
+                new ConsoleDisplay(System.out)
             );
 
-            ps.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+            uc.println("Are you ready " + game.getPlayerName() + "? We're starting!");
             game.updateDisplay();
 
             boolean skipNextPlayerMove = !playerStartFirst;
             while (true) {
                 if(!skipNextPlayerMove) {
-                    ps.print(game.getPlayerName() + " make your move (x y): ");
 
                     try {
-                        String input = br.readLine();
+                        String input = uc.printMessageAndReadLine(game.getPlayerName() + " make your move (x y):");
                         int x = Integer.valueOf(String.valueOf(input.charAt(0)));
                         int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
                         game.playerMark(x, y);
-                        ps.println("Coordinates [" + x + ", " + y + "] marked.");
+                        uc.println("Coordinates [" + x + ", " + y + "] marked.");
                     } catch (CoordinateOutOfBoundsException ex) {
-                        ps.println("Invalid coordinates.. retry");
+                        uc.println("Invalid coordinates.. retry");
                         continue;
                     } catch (AlreadyMarkedCellAttemptException ex) {
-                        ps.println("Cell already marked.. retry.");
+                        uc.println("Cell already marked.. retry.");
                         continue;
                     } catch (Exception ex) {
-                        ps.println("Invalid input.. retry");
+                        uc.println("Invalid input.. retry");
                         continue;
                     }
 
                     game.updateDisplay();
 
                     if (game.playerWon()) {
-                        ps.println("Congratulations " + game.getPlayerName() + "! You won!");
+                        uc.println("Congratulations " + game.getPlayerName() + "! You won!");
                         break;
                     }
 
                     if (game.isMatrixFull()) {
-                        ps.println("The grid is full.. tie!");
+                        uc.println("The grid is full.. tie!");
                         break;
                     }
                 }
 
                 skipNextPlayerMove = false;
 
-                ps.println("Computer is thinking...");
+                uc.println("Computer is thinking...");
                 Thread.sleep(2000);
 
                 game.doTheNextComputerMove();
                 game.updateDisplay();
 
                 if (game.computerWon()) {
-                    ps.println("You lose, computer won!");
+                    uc.println("You lose, computer won!");
                     break;
                 }
                 if (game.isMatrixFull()) {
-                    ps.println("The grid is full.. tie!");
+                    uc.println("The grid is full.. tie!");
                     break;
                 }
             }
 
-            ps.print("Play again? (y/n) ");
-            exit = !br.readLine().startsWith("y");
+            exit = !uc.readYN("Play again?");
 
         } while(!exit);
 
-        ps.println("Shutting down ...");
+        uc.println("Shutting down ...");
     }
+
 }
