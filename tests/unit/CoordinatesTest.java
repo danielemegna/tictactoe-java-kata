@@ -33,6 +33,8 @@ public class CoordinatesTest {
         catch(CoordinateOutOfBoundsException ex) {}
         try { new Coordinates(42, 13); fail(failMessage); }
         catch(CoordinateOutOfBoundsException ex) {}
+        try { new Coordinates(1, -2); fail(failMessage); }
+        catch(CoordinateOutOfBoundsException ex) {}
     }
 
     @Test

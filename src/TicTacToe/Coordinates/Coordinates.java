@@ -6,7 +6,7 @@ public class Coordinates {
     private int y;
 
     public Coordinates(int x, int y) {
-        if(x > 2 || y > 2)
+        if(x < 0 || x > 2 || y < 0 || y > 2)
             throw new CoordinateOutOfBoundsException();
 
         this.x = x;
