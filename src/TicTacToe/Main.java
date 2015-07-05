@@ -17,74 +17,82 @@ public class Main {
 
         boolean exit;
         do {
-            final boolean playerStartFirst = uc.readYN("Do you want start first?");
+            startANewGame(name, uc);
+            exit = !uc.readYN("Play again?");
+        } while(!exit);
 
-            Game game = new Game(
-                name, playerStartFirst,
-                new UnbeatableComputerPlayer(),
-                new ConsoleDisplay(uc)
-            );
+        uc.println("Shutting down ...");
 
-            uc.println("Are you ready " + game.getPlayerName() + "? We're starting!");
-            game.updateDisplay();
+    }
 
-            boolean skipNextPlayerMove = !playerStartFirst;
-            while (true) {
-                if(!skipNextPlayerMove) {
+    private static void startANewGame(String name, UserCommunicator uc) throws IOException, InterruptedException {
+        final boolean playerStartFirst = uc.readYN("Do you want start first?");
 
-                    try {
-                        String input = uc.readLine(game.getPlayerName() + " make your move (x y):");
-                        int x = Integer.valueOf(String.valueOf(input.charAt(0)));
-                        int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
-                        game.playerMark(x, y);
-                        uc.println("Coordinates [" + x + ", " + y + "] marked.");
-                    } catch (CoordinateOutOfBoundsException ex) {
-                        uc.println("Invalid coordinates.. retry");
-                        continue;
-                    } catch (AlreadyMarkedCellAttemptException ex) {
-                        uc.println("Cell already marked.. retry.");
-                        continue;
-                    } catch (Exception ex) {
-                        uc.println("Invalid input.. retry");
-                        continue;
-                    }
+        Game game = new Game(
+            name, playerStartFirst,
+            new UnbeatableComputerPlayer(),
+            new ConsoleDisplay(uc)
+        );
 
-                    game.updateDisplay();
+        uc.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+        game.updateDisplay();
 
-                    if (game.playerWon()) {
-                        uc.println("Congratulations " + game.getPlayerName() + "! You won!");
-                        break;
-                    }
+        boolean skipNextPlayerMove = !playerStartFirst;
+        startTheGamePlayLoop(skipNextPlayerMove, game, uc);
+    }
 
-                    if (game.isMatrixFull()) {
-                        uc.println("The grid is full.. tie!");
-                        break;
-                    }
+    private static void startTheGamePlayLoop(boolean skipNextPlayerMove, Game game, UserCommunicator uc) throws InterruptedException {
+        while (true) {
+            if(!skipNextPlayerMove) {
+                try {
+                    playerMove(game, uc);
+                } catch (CoordinateOutOfBoundsException ex) {
+                    uc.println("Invalid coordinates.. retry");
+                    continue;
+                } catch (AlreadyMarkedCellAttemptException ex) {
+                    uc.println("Cell already marked.. retry.");
+                    continue;
+                } catch (Exception ex) {
+                    uc.println("Invalid input.. retry");
+                    continue;
                 }
 
-                skipNextPlayerMove = false;
-
-                uc.println("Computer is thinking...");
-                Thread.sleep(2000);
-
-                game.doTheNextComputerMove();
                 game.updateDisplay();
 
-                if (game.computerWon()) {
-                    uc.println("You lose, computer won!");
+                if (game.playerWon()) {
+                    uc.println("Congratulations " + game.getPlayerName() + "! You won!");
                     break;
                 }
+
                 if (game.isMatrixFull()) {
                     uc.println("The grid is full.. tie!");
                     break;
                 }
             }
 
-            exit = !uc.readYN("Play again?");
+            skipNextPlayerMove = false;
+            uc.println("Computer is thinking...");
+            Thread.sleep(500);
+            game.doTheNextComputerMove();
+            game.updateDisplay();
 
-        } while(!exit);
+            if (game.computerWon()) {
+                uc.println("You lose, computer won!");
+                break;
+            }
+            if (game.isMatrixFull()) {
+                uc.println("The grid is full.. tie!");
+                break;
+            }
+        }
+    }
 
-        uc.println("Shutting down ...");
+    private static void playerMove(Game game, UserCommunicator uc) throws IOException {
+        String input = uc.readLine(game.getPlayerName() + " make your move (x y):");
+        int x = Integer.valueOf(String.valueOf(input.charAt(0)));
+        int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
+        game.playerMark(x, y);
+        uc.println("Coordinates [" + x + ", " + y + "] marked.");
     }
 
 }
