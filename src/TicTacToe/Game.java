@@ -2,7 +2,6 @@ package TicTacToe;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
-import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.Display;
 import TicTacToe.Referee.Referee;
@@ -10,13 +9,13 @@ import TicTacToe.Referee.Verdict;
 
 public class Game {
 
-    private String playerName;
-    private ComputerPlayer computerPlayer;
-    private Display display;
-
-    private Board board;
-    private Referee referee;
+    private final String playerName;
     private boolean isPlayerTurn;
+    private final ComputerPlayer computerPlayer;
+    private final Display display;
+
+    private final Board board;
+    private final Referee referee;
 
     public Game(String playerName, boolean playerStartFirst, ComputerPlayer computerPlayer, Display display) {
         this.playerName = playerName;
