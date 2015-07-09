@@ -2,13 +2,13 @@ package TicTacToe.Coordinates;
 
 public class Coordinates {
 
-    private static final int MAX_COORDINATE_VALUE = 2;
+    private static final int COORDINATE_BOUND_VALUE = 2;
 
     private int x;
     private int y;
 
     public Coordinates(int x, int y) {
-        if(x < 0 || x > MAX_COORDINATE_VALUE || y < 0 || y > MAX_COORDINATE_VALUE)
+        if(x < 0 || x > COORDINATE_BOUND_VALUE || y < 0 || y > COORDINATE_BOUND_VALUE)
             throw new CoordinateOutOfBoundsException();
 
         this.x = x;
@@ -21,7 +21,7 @@ public class Coordinates {
     @Override
     public boolean equals(Object o) {
         if(!(o instanceof Coordinates))
-            return super.equals(o);
+            return false;
 
         Coordinates that = (Coordinates)o;
         return this.x == that.x && this.y == that.y;
