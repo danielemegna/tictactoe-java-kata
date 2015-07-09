@@ -3,10 +3,9 @@ package TicTacToe.Display;
 import TicTacToe.Cell.Board;
 import TicTacToe.IOBridge;
 
-public class ConsoleDisplay {
+public class ConsoleDisplay implements Display {
     private final IOBridge io;
     private final BoardFormatter boardFormatter;
-
 
     public ConsoleDisplay(IOBridge io) {
         this.io = io;

@@ -4,7 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayer;
 import TicTacToe.ComputerPlayer.Minimax;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Display.ConsoleDisplay;
+import TicTacToe.Display.Display;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 
@@ -12,13 +12,13 @@ public class Game {
 
     private String playerName;
     private ComputerPlayer computerPlayer;
-    private ConsoleDisplay display;
+    private Display display;
 
     private Board board;
     private Referee referee;
     private boolean isPlayerTurn;
 
-    public Game(String playerName, boolean playerStartFirst, ComputerPlayer computerPlayer, ConsoleDisplay display) {
+    public Game(String playerName, boolean playerStartFirst, ComputerPlayer computerPlayer, Display display) {
         this.playerName = playerName;
         this.computerPlayer = computerPlayer;
         this.display = display;
