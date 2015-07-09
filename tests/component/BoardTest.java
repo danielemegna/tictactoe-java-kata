@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
+    public static final int BOARD_DIMENSION = 3;
     private Board board;
 
     @Before
@@ -22,8 +23,8 @@ public class BoardTest {
 
     @Test
     public void inANewBoard_CellsAreEmpty() {
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
+        for (int x = 0; x < BOARD_DIMENSION; x++) {
+            for (int y = 0; y < BOARD_DIMENSION; y++) {
                 assertCellState(new Coordinates(x, y), CellState.Empty);
             }
         }
@@ -135,26 +136,19 @@ public class BoardTest {
         emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(9, emptyCoordinates.size());
         assertTrue(
-            "Empty coordinates set doesn't contains expected coordinates",
-            emptyCoordinates.contains(new Coordinates(1, 1))
+                "Empty coordinates set doesn't contains expected coordinates",
+                emptyCoordinates.contains(new Coordinates(1, 1))
         );
 
         board.playerMark(new Coordinates(1, 1));
         emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(8, emptyCoordinates.size());
         assertFalse(
-            "Empty coordinates set contains unexpected coordinates",
-            emptyCoordinates.contains(new Coordinates(1, 1))
+                "Empty coordinates set contains unexpected coordinates",
+                emptyCoordinates.contains(new Coordinates(1, 1))
         );
 
         board.computerMark(new Coordinates(0, 0));
-        emptyCoordinates = board.getEmptyCoordinates();
-        assertEquals(7, emptyCoordinates.size());
-        assertFalse(
-            "Empty coordinates set contains unexpected coordinates",
-            emptyCoordinates.contains(new Coordinates(0, 0))
-        );
-
         board.playerMark(new Coordinates(0, 1));
         board.computerMark(new Coordinates(0, 2));
         board.playerMark(new Coordinates(1, 0));
@@ -164,13 +158,16 @@ public class BoardTest {
 
         emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(1, emptyCoordinates.size());
+        assertFalse(
+                "Empty coordinates set contains unexpected coordinates",
+                emptyCoordinates.contains(new Coordinates(0, 0))
+        );
         assertTrue(
             "Empty coordinates set doesn't contains expected coordinates",
             emptyCoordinates.contains(new Coordinates(2, 2))
         );
 
         board.playerMark(new Coordinates(2, 2));
-
         emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(0, emptyCoordinates.size());
     }
