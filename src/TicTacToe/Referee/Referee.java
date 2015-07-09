@@ -45,17 +45,25 @@ public class Referee {
     private void addLinearWinningCombinations() {
         for(int i = 0; i < 3; i++) {
             final int index = i;
-            winningCombinations.add(new HashSet<Coordinates>() {{
-                add(new Coordinates(0, index));
-                add(new Coordinates(1, index));
-                add(new Coordinates(2, index));
-            }});
-            winningCombinations.add(new HashSet<Coordinates>() {{
-                add(new Coordinates(index, 0));
-                add(new Coordinates(index, 1));
-                add(new Coordinates(index, 2));
-            }});
+            addWinningRowAtIndex(index);
+            addWinningColumnAtIndex(index);
         }
+    }
+
+    private void addWinningColumnAtIndex(final int index) {
+        winningCombinations.add(new HashSet<Coordinates>() {{
+            add(new Coordinates(index, 0));
+            add(new Coordinates(index, 1));
+            add(new Coordinates(index, 2));
+        }});
+    }
+
+    private void addWinningRowAtIndex(final int index) {
+        winningCombinations.add(new HashSet<Coordinates>() {{
+            add(new Coordinates(0, index));
+            add(new Coordinates(1, index));
+            add(new Coordinates(2, index));
+        }});
     }
 
     private void addDiagonalWinningCombinations() {
