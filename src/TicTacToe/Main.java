@@ -21,12 +21,12 @@ public class Main {
             exit = !io.readYN("Play again?");
         } while(!exit);
 
-        io.println("Shutting down ...");
+        io.println("Shutting down ... bye bye!");
 
     }
 
     private static void startANewGame(String name, IOBridge io) throws IOException, InterruptedException {
-        final boolean playerStartFirst = io.readYN("Do you want start first?");
+        final boolean playerStartFirst = io.readYN("Do you want start first " + name + "?");
 
         Game game = new Game(
             name, playerStartFirst,
@@ -35,6 +35,8 @@ public class Main {
         );
 
         io.println("Are you ready " + game.getPlayerName() + "? We're starting!");
+        io.println("Your moves will be marked as X\n");
+
         game.updateDisplay();
 
         boolean skipNextPlayerMove = !playerStartFirst;
