@@ -18,10 +18,8 @@ public class Referee {
     }
 
     public Verdict generateRefereeVerdict(Board board) {
-        boolean playerIsTheWinner = false;
-        boolean computerIsTheWinner = false;
-
         for(Set<Coordinates> wc : winningCombinations) {
+            boolean playerIsTheWinner, computerIsTheWinner;
             playerIsTheWinner = computerIsTheWinner = true;
 
             for (Coordinates c : wc) {
@@ -30,11 +28,13 @@ public class Referee {
                 computerIsTheWinner &= (cellState == CellState.ComputerMarked);
             }
 
-            if(playerIsTheWinner || computerIsTheWinner)
-                break;
+            if(playerIsTheWinner)
+                return Verdict.playerIsTheWinner;
+            if(computerIsTheWinner)
+                return Verdict.computerIsTheWinner;
         }
 
-        return new Verdict(playerIsTheWinner, computerIsTheWinner);
+        return Verdict.thereIsNoWinner;
     }
 
     private void initWinningCombinations() {

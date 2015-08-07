@@ -23,7 +23,7 @@ public class Minimax {
         clone.computerMark(move);
 
         Verdict v = referee.generateRefereeVerdict(clone);
-        if(v.computerIsTheWinner())
+        if(v == Verdict.computerIsTheWinner)
             return COMPUTER_ONEMOVEWIN_VALUE;
         if(clone.isFull())
             return TIE_VALUE;
@@ -39,7 +39,7 @@ public class Minimax {
             clone.playerMark(c);
 
             Verdict v = referee.generateRefereeVerdict(clone);
-            if(v.playerIsTheWinner())
+            if(v == Verdict.playerIsTheWinner)
                 return PLAYER_WIN_VALUE;
 
             if(clone.isFull()) {

@@ -23,13 +23,13 @@ public class RefereeTest {
 
     @Test
     public void givenAnEmptyBoard_refereeSeeNoWinner() {
-        assertRefereeVerdict(false, false);
+        assertRefereeVerdict(Verdict.thereIsNoWinner);
     }
 
     @Test
     public void markingACell_hasNoWinner() {
         playerMark(0, 0);
-        assertRefereeVerdict(false, false);
+        assertRefereeVerdict(Verdict.thereIsNoWinner);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class RefereeTest {
         computerMark(1, 2);
           playerMark(2, 2);
 
-        assertRefereeVerdict(false, false);
+        assertRefereeVerdict(Verdict.thereIsNoWinner);
     }
 
     @Test
@@ -52,14 +52,14 @@ public class RefereeTest {
         playerMark(0, 0);
         playerMark(1, 0);
         playerMark(2, 0);
-        assertRefereeVerdict(true, false);
+        assertRefereeVerdict(Verdict.playerIsTheWinner);
 
         setup();
 
         computerMark(0, 1);
         computerMark(1, 1);
         computerMark(2, 1);
-        assertRefereeVerdict(false, true);
+        assertRefereeVerdict(Verdict.computerIsTheWinner);
     }
 
     @Test
@@ -67,14 +67,14 @@ public class RefereeTest {
         computerMark(0, 0);
         computerMark(0, 1);
         computerMark(0, 2);
-        assertRefereeVerdict(false, true);
+        assertRefereeVerdict(Verdict.computerIsTheWinner);
 
         setup();
 
         playerMark(2, 0);
         playerMark(2, 1);
         playerMark(2, 2);
-        assertRefereeVerdict(true, false);
+        assertRefereeVerdict(Verdict.playerIsTheWinner);
     }
 
     @Test
@@ -82,14 +82,14 @@ public class RefereeTest {
         computerMark(0, 0);
         computerMark(1, 1);
         computerMark(2, 2);
-        assertRefereeVerdict(false, true);
+        assertRefereeVerdict(Verdict.computerIsTheWinner);
 
         setup();
 
         playerMark(0, 0);
         playerMark(1, 1);
         playerMark(2, 2);
-        assertRefereeVerdict(true, false);
+        assertRefereeVerdict(Verdict.playerIsTheWinner);
     }
 
     private void playerMark(int x, int y) {
@@ -100,9 +100,8 @@ public class RefereeTest {
         board.computerMark(new Coordinates(x, y));
     }
 
-    private void assertRefereeVerdict(boolean playerIsTheWinner, boolean computerIsTheWinner) {
+    private void assertRefereeVerdict(Verdict expected) {
         verdict = referee.generateRefereeVerdict(board);
-        assertEquals(playerIsTheWinner, verdict.playerIsTheWinner());
-        assertEquals(computerIsTheWinner, verdict.computerIsTheWinner());
+        assertEquals(expected, verdict);
     }
 }

@@ -47,19 +47,12 @@ public class Game {
         isPlayerTurn = true;
     }
 
-    public boolean thereIsAWinner() {
-        Verdict v = referee.generateRefereeVerdict(board);
-        return v.thereIsAWinner();
-    }
-
     public boolean playerWon() {
-        Verdict v = referee.generateRefereeVerdict(board);
-        return v.playerIsTheWinner();
+        return referee.generateRefereeVerdict(board) == Verdict.playerIsTheWinner;
     }
 
     public boolean computerWon() {
-        Verdict v = referee.generateRefereeVerdict(board);
-        return v.computerIsTheWinner();
+        return referee.generateRefereeVerdict(board) == Verdict.computerIsTheWinner;
     }
 
     public boolean isBoardFull() {
