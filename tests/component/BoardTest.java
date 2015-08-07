@@ -4,6 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.Cell.CellState;
 import TicTacToe.Coordinates.Coordinates;
+import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,21 +14,19 @@ import static org.junit.Assert.*;
 
 public class BoardTest {
 
-    public static final int BOARD_DIMENSION = 3;
     private Board board;
+    private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        this.board = new Board();
+        board = new Board();
+        helper = new BoardTestHelper(board);
     }
 
     @Test
     public void inANewBoard_CellsAreEmpty() {
-        for (int x = 0; x < BOARD_DIMENSION; x++) {
-            for (int y = 0; y < BOARD_DIMENSION; y++) {
-                assertCellState(new Coordinates(x, y), CellState.Empty);
-            }
-        }
+        helper.assertCellState(0, 0, CellState.Empty);
+        helper.assertCellState(1, 2, CellState.Empty);
     }
 
     @Test
@@ -37,158 +36,149 @@ public class BoardTest {
 
     @Test
     public void playerCanMarkEmptyCells() {
-        Coordinates c;
-
-        c = new Coordinates(0, 1);
-        board.playerMark(c);
-        assertCellState(c, CellState.PlayerMarked);
-        c = new Coordinates(1, 1);
-        board.playerMark(c);
-        assertCellState(c, CellState.PlayerMarked);
+        helper.playerMark(0, 1);
+        helper.assertCellState(0, 1, CellState.PlayerMarked);
     }
 
     @Test
     public void computerCanMarkEmptyCells() {
-        Coordinates c;
-
-        c = new Coordinates(0, 1);
-        board.computerMark(c);
-        assertCellState(c, CellState.ComputerMarked);
-        c = new Coordinates(2, 1);
-        board.computerMark(c);
-        assertCellState(c, CellState.ComputerMarked);
+        helper.computerMark(0, 1);
+        helper.assertCellState(0, 1, CellState.ComputerMarked);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        board.playerMark(new Coordinates(0, 1));
-        board.playerMark(new Coordinates(2, 1));
-        board.computerMark(new Coordinates(1, 0));
-        board.computerMark(new Coordinates(2, 2));
+        helper.playerMark(0, 1);
+        helper.computerMark(2, 2);
 
-        assertCellState(new Coordinates(0, 0), CellState.Empty);
-        assertCellState(new Coordinates(1, 1), CellState.Empty);
-        assertCellState(new Coordinates(1, 2), CellState.Empty);
+        helper.assertCellState(0, 0, CellState.Empty);
+        helper.assertCellState(1, 2, CellState.Empty);
     }
 
-    private void assertCellState(Coordinates c, CellState expected) {
-        CellState actual = board.getCellState(c);
-        assertEquals(
-                "Fail asserting cell state at coordinates [" + c + "] ." +
-                        "Actual [" + actual + "], expected [" + expected + "]",
-                expected, actual
+    @Test(expected = AlreadyMarkedCellAttemptException.class)
+    public void playerCannotMarkCellTwice() {
+        helper.markBoardFromString(
+            "X  " +
+            " O " +
+            "   "
         );
+
+        helper.playerMark(0, 0);
     }
 
-    @Test
-    public void playersCannotMarkCellTwice() {
-        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
+    @Test(expected = AlreadyMarkedCellAttemptException.class)
+    public void playerCannotMarkCellsAlreadyMarkedByComputer() {
+        helper.markBoardFromString(
+            "X  " +
+            " O " +
+            "   "
+        );
 
-        Coordinates playerMarked = new Coordinates(0, 0);
-        Coordinates computerMarked = new Coordinates(1, 1);
-
-        board.playerMark(playerMarked);
-        board.computerMark(computerMarked);
-
-        try {
-            board.playerMark(playerMarked);
-            fail(failMessage);
-        } catch (AlreadyMarkedCellAttemptException ex) {}
-        try {
-            board.computerMark(computerMarked);
-            fail(failMessage);
-        } catch (AlreadyMarkedCellAttemptException ex) {}
-    }
-
-    @Test
-    public void playersCannotMarkCellsAlreadyMarkedByOthers() {
-        String failMessage = "Expected AlreadyMarkedCellAttemptException has not been thrown!";
-
-        Coordinates playerMarked = new Coordinates(0, 0);
-        Coordinates computerMarked = new Coordinates(1, 1);
-
-        board.playerMark(playerMarked);
-        board.computerMark(computerMarked);
-
-        try {
-            board.playerMark(computerMarked);
-            fail(failMessage);
-        } catch (AlreadyMarkedCellAttemptException ex) {}
-        try {
-            board.computerMark(playerMarked);
-            fail(failMessage);
-        } catch (AlreadyMarkedCellAttemptException ex) {}
+        helper.playerMark(1, 1);
     }
 
     @Test
     public void markingEveryCell_boardIsFull() {
         for(int x = 0; x < 3; x++)
             for(int y = 0; y < 3; y++)
-                board.playerMark(new Coordinates(x, y));
+                helper.playerMark(x, y);
 
         assertTrue(board.isFull());
     }
 
     @Test
-    public void boardCanReturnAllTheEmptyCoordinates() {
-        Set<Coordinates> emptyCoordinates;
+    public void emptyBoardReturnsAll9CoordinatesAsEmpty() {
+        Set<Coordinates> emptyCoordinates = board.getEmptyCoordinates();
 
-        emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(9, emptyCoordinates.size());
         assertTrue(
-                "Empty coordinates set doesn't contains expected coordinates",
-                emptyCoordinates.contains(new Coordinates(1, 1))
+            "Empty coordinates set doesn't contains expected coordinates",
+            emptyCoordinates.contains(new Coordinates(1, 1))
         );
+    }
 
-        board.playerMark(new Coordinates(1, 1));
-        emptyCoordinates = board.getEmptyCoordinates();
+    @Test
+    public void boardDoesntReturnsMarkedCellAsEmptyCoordinates() {
+        helper.playerMark(1, 1);
+        Set<Coordinates> emptyCoordinates = board.getEmptyCoordinates();
+
         assertEquals(8, emptyCoordinates.size());
         assertFalse(
-                "Empty coordinates set contains unexpected coordinates",
-                emptyCoordinates.contains(new Coordinates(1, 1))
+            "Empty coordinates set contains unexpected coordinates",
+            emptyCoordinates.contains(new Coordinates(1, 1))
+        );
+    }
+
+    @Test
+    public void boardWithOnlyOneEmptyCoordinates_returnsThatAsEmpty() {
+        helper.markBoardFromString(
+            "OXX" +
+            "XXO" +
+            "OO "
         );
 
-        board.computerMark(new Coordinates(0, 0));
-        board.playerMark(new Coordinates(0, 1));
-        board.computerMark(new Coordinates(0, 2));
-        board.playerMark(new Coordinates(1, 0));
-        board.computerMark(new Coordinates(1, 2));
-        board.playerMark(new Coordinates(2, 0));
-        board.computerMark(new Coordinates(2, 1));
-
-        emptyCoordinates = board.getEmptyCoordinates();
+        Set<Coordinates> emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(1, emptyCoordinates.size());
-        assertFalse(
-                "Empty coordinates set contains unexpected coordinates",
-                emptyCoordinates.contains(new Coordinates(0, 0))
-        );
         assertTrue(
             "Empty coordinates set doesn't contains expected coordinates",
             emptyCoordinates.contains(new Coordinates(2, 2))
         );
+    }
 
-        board.playerMark(new Coordinates(2, 2));
-        emptyCoordinates = board.getEmptyCoordinates();
+    @Test
+    public void fullBoardHasNoEmptyCoordinates() {
+        helper.markBoardFromString(
+            "OXX" +
+            "XXO" +
+            "OOX"
+        );
+
+        Set<Coordinates> emptyCoordinates = board.getEmptyCoordinates();
         assertEquals(0, emptyCoordinates.size());
     }
 
     @Test
-    public void boardIsClonable() {
-        Coordinates makedBeforeClone = new Coordinates(0, 0);
-        Coordinates markedAfterClone = new Coordinates(0, 1);
-        Coordinates markedOnClone = new Coordinates(0, 2);
+    public void cloningABoard_CellsRemainsMarkedOnTheClone() {
+        helper.markBoardFromString(
+            "X  " +
+            "   " +
+            " O "
+        );
 
-        board.playerMark(makedBeforeClone);
         Board clone = board.clone();
-        board.playerMark(markedAfterClone);
-        clone.playerMark(markedOnClone);
+        BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        assertEquals(CellState.PlayerMarked,    board.getCellState(makedBeforeClone));
-        assertEquals(CellState.PlayerMarked,    clone.getCellState(makedBeforeClone));
-        assertEquals(CellState.PlayerMarked,    board.getCellState(markedAfterClone));
-        assertEquals(CellState.Empty,           clone.getCellState(markedAfterClone));
-        assertEquals(CellState.Empty,           board.getCellState(markedOnClone));
-        assertEquals(CellState.PlayerMarked,    clone.getCellState(markedOnClone));
+        cloneHelper.assertCellState(0, 0, CellState.PlayerMarked);
+        cloneHelper.assertCellState(1, 2, CellState.ComputerMarked);
     }
 
+    @Test
+    public void cloningABoard_EmptyCellsRemainsEmpty() {
+        helper.markBoardFromString(
+            "XOX" +
+            "   " +
+            "X  "
+        );
+
+        Board clone = board.clone();
+        BoardTestHelper cloneHelper = new BoardTestHelper(clone);
+
+        cloneHelper.assertCellState(0, 1, CellState.Empty);
+        cloneHelper.assertCellState(2, 2, CellState.Empty);
+    }
+
+    @Test
+    public void marksOnClonedBoardDontAffectOriginOnes() {
+        helper.markBoardFromString(
+            "OOX" +
+            "   " +
+            "  O"
+        );
+
+        Board clone = board.clone();
+        BoardTestHelper cloneHelper = new BoardTestHelper(clone);
+
+        cloneHelper.playerMark(1, 1);
+        helper.assertCellState(1, 1, CellState.Empty);
+    }
 }

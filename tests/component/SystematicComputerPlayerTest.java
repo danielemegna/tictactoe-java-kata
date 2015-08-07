@@ -4,6 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.ComputerPlayer.ComputerPlayerChoiceException;
 import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
+import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,42 +13,48 @@ import static org.junit.Assert.fail;
 
 public class SystematicComputerPlayerTest {
 
-    private Board m;
-    private SystematicComputerPlayer cp;
+    private Board board;
+    private SystematicComputerPlayer computerPlayer;
+    private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        this.m = new Board();
-        this.cp = new SystematicComputerPlayer();
+        board = new Board();
+        computerPlayer = new SystematicComputerPlayer();
+        helper = new BoardTestHelper(board);
     }
 
     @Test
-    public void withEmptyBoard_SystematicComputerPlayerWillChooseZeroZero() {
-        assertNextMoveAndMarkIt(new Coordinates(0, 0));
+    public void withEmptyBoard_scpWillChoosesZeroZero() {
+        assertNextMove(0, 0);
     }
 
     @Test
-    public void SystematicComputer_isAlwaysPredictable() {
-        m.playerMark(new Coordinates(0, 0));
-        assertNextMoveAndMarkIt(new Coordinates(1, 0));
-        m.playerMark(new Coordinates(2, 0));
-        assertNextMoveAndMarkIt(new Coordinates(0, 1));
-        m.playerMark(new Coordinates(2, 1));
-        assertNextMoveAndMarkIt(new Coordinates(1, 1));
-        m.playerMark(new Coordinates(1, 2));
-        assertNextMoveAndMarkIt(new Coordinates(0, 2));
-        assertNextMoveAndMarkIt(new Coordinates(2, 2));
+    public void scp_allwaysChoosesFirstEmptyCell() {
+        helper.markBoardFromString(
+            "XO " +
+            " O " +
+            "X X"
+        );
 
-        try {
-            cp.establishTheNextMove(m);
-            fail("Expected ComputerPlayerChoiceException not catched");
-        } catch(ComputerPlayerChoiceException ex) {
-            assertEquals("SystematicComputerPlayer cannot find an Empty cell for its game", ex.getMessage());
-        }
+        assertNextMove(2, 0);
     }
 
-    private void assertNextMoveAndMarkIt(Coordinates expected) {
-        assertEquals(expected, cp.establishTheNextMove(m));
-        m.computerMark(expected);
+    @Test(expected = ComputerPlayerChoiceException.class)
+    public void withAFullBoard_scpThrowsAComputerPlayerChoiceException() {
+        helper.markBoardFromString(
+            "XOX" +
+            "XXO" +
+            "OXO"
+        );
+
+        computerPlayer.establishTheNextMove(board);
+    }
+
+    private void assertNextMove(int x, int y) {
+        assertEquals(
+            new Coordinates(x, y),
+            computerPlayer.establishTheNextMove(board)
+        );
     }
 }

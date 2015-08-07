@@ -1,9 +1,9 @@
 package component;
 
-import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Cell.Board;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
+import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,12 +13,13 @@ public class RefereeTest {
 
     private Board board;
     private Referee referee;
-    private Verdict verdict;
+    private BoardTestHelper helper;
 
     @Before
     public void setup() {
         referee = new Referee();
         board = new Board();
+        helper = new BoardTestHelper(board);
     }
 
     @Test
@@ -28,80 +29,54 @@ public class RefereeTest {
 
     @Test
     public void markingACell_hasNoWinner() {
-        playerMark(0, 0);
+        helper.playerMark(0, 0);
         assertRefereeVerdict(Verdict.thereIsNoWinner);
     }
 
     @Test
     public void markingEveryCellWithoutWinner() {
-        computerMark(0, 0);
-          playerMark(1, 0);
-          playerMark(2, 0);
-          playerMark(0, 1);
-        computerMark(1, 1);
-        computerMark(2, 1);
-          playerMark(0, 2);
-        computerMark(1, 2);
-          playerMark(2, 2);
+        helper.markBoardFromString(
+            "OXX" +
+            "XOO" +
+            "XOX"
+        );
 
         assertRefereeVerdict(Verdict.thereIsNoWinner);
     }
 
     @Test
     public void markingARow_CausesAWinner() {
-        playerMark(0, 0);
-        playerMark(1, 0);
-        playerMark(2, 0);
+        helper.markBoardFromString(
+            "XXX" +
+            " OO" +
+            "   "
+        );
+
         assertRefereeVerdict(Verdict.playerIsTheWinner);
-
-        setup();
-
-        computerMark(0, 1);
-        computerMark(1, 1);
-        computerMark(2, 1);
-        assertRefereeVerdict(Verdict.computerIsTheWinner);
     }
 
     @Test
     public void markingAColumn_CausesAWinner() {
-        computerMark(0, 0);
-        computerMark(0, 1);
-        computerMark(0, 2);
+        helper.markBoardFromString(
+            "XOX" +
+            " OX" +
+            " O "
+        );
         assertRefereeVerdict(Verdict.computerIsTheWinner);
-
-        setup();
-
-        playerMark(2, 0);
-        playerMark(2, 1);
-        playerMark(2, 2);
-        assertRefereeVerdict(Verdict.playerIsTheWinner);
     }
 
     @Test
     public void markingACross_CausesAWinner() {
-        computerMark(0, 0);
-        computerMark(1, 1);
-        computerMark(2, 2);
-        assertRefereeVerdict(Verdict.computerIsTheWinner);
-
-        setup();
-
-        playerMark(0, 0);
-        playerMark(1, 1);
-        playerMark(2, 2);
+        helper.markBoardFromString(
+            "XOO" +
+            " XO" +
+            "  X"
+        );
         assertRefereeVerdict(Verdict.playerIsTheWinner);
     }
 
-    private void playerMark(int x, int y) {
-        board.playerMark(new Coordinates(x, y));
-    }
-
-    private void computerMark(int x, int y) {
-        board.computerMark(new Coordinates(x, y));
-    }
-
     private void assertRefereeVerdict(Verdict expected) {
-        verdict = referee.generateRefereeVerdict(board);
-        assertEquals(expected, verdict);
+        Verdict v = referee.generateRefereeVerdict(board);
+        assertEquals(expected, v);
     }
 }
