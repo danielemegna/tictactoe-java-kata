@@ -11,10 +11,6 @@ public class Cell {
         return state;
     }
 
-    public boolean isEmpty() {
-        return state == CellState.Empty;
-    }
-
     public void playerMark() {
         markWithState(CellState.PlayerMarked);
     }

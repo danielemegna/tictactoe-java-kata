@@ -18,14 +18,12 @@ public class CellTest {
     @Test
     public void aNewCellIsEmpty() {
         assertEquals(CellState.Empty, cell.getState());
-        assertTrue(cell.isEmpty());
     }
 
     @Test
     public void playerCanMarkAnEmptyCell() {
         cell.playerMark();
         assertEquals(CellState.PlayerMarked, cell.getState());
-        assertFalse(cell.isEmpty());
     }
 
     @Test
