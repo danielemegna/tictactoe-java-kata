@@ -17,31 +17,34 @@ public class GameTest {
     }
 
     @Test
-    public void someAssertsOnNewGame() {
+    public void gameProvidesPlayerName() {
         assertEquals("Player name", game.getPlayerName());
+    }
+
+    @Test
+    public void newGameHasNoWinner() {
         assertFalse(game.computerWon());
         assertFalse(game.playerWon());
+    }
+
+    @Test
+    public void inANewGameBoardIsNotFull() {
         assertFalse(game.isBoardFull());
     }
 
-    @Test
-    public void markWithWrongCoordinates_throwsACoordinateOutOfBoundsException()
-    {
-        String failMessage = "Expected CoordinateOutOfBoundsException not catched";
-
-        try { game.playerMark(0, 3); fail(failMessage); }
-        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
-        game.playerMark(0, 0);
-
-        try { game.computerMark(5, 1); fail(failMessage); }
-        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
-        game.computerMark(0, 1);
-
-        try { game.playerMark(42, 13); fail(failMessage); }
-        catch(TicTacToe.Coordinates.CoordinateOutOfBoundsException ex) {}
+    @Test(expected = TicTacToe.Coordinates.CoordinateOutOfBoundsException.class)
+    public void markWithWrongCoordinates_throwsAnException() {
+        game.playerMark(0, 3);
     }
 
-    @Test
+    @Test(expected = GameTurnException.class)
+    public void playersCannotMarkTwice_itsOtherPlayerTurn() {
+        game.playerMark(0, 0);
+        game.playerMark(0, 1);
+    }
+
+    // TO BE REPLACED BY TESTS ON GAME - BOARD MESSAGES EXCHANGE
+    /*@Test
     public void markingARow_CausesAWinner() {
           game.playerMark(0, 0);
         game.computerMark(0, 1);
@@ -122,39 +125,5 @@ public class GameTest {
         assertFalse("Fail asserting playerWon", game.computerWon());
         assertFalse("Fail asserting playerWon", game.playerWon());
         assertTrue("Fail asserting game is finished", game.isBoardFull());
-    }
-
-    @Test
-    public void playersCannotMarkTwice_itsOtherPlayerTurn() {
-        String failMessage = "Expected GameTurnException not catched";
-
-        game.playerMark(0, 0);
-        try { game.playerMark(0, 1); fail(failMessage); }
-        catch(GameTurnException ex) {}
-
-        game.computerMark(0, 1);
-        try { game.computerMark(0, 1); fail(failMessage); }
-        catch(GameTurnException ex) {}
-    }
-
-    @Test
-    public void playerStartsFirstTestCase() {
-        try { game.computerMark(0, 0); fail("Expected GameTurnException not catched"); }
-        catch(GameTurnException ex) {}
-
-        game.playerMark(0, 1);
-        game.computerMark(0, 0);
-    }
-
-    @Test
-    public void alsoComputerCanStartsFirst() {
-        game = new Game("Player", false, null, null);
-
-        try { game.playerMark(0, 0); fail("Expected GameTurnException not catched"); }
-        catch(GameTurnException ex) {}
-
-        game.computerMark(0, 1);
-        game.playerMark(0, 0);
-    }
-
+    }*/
 }
