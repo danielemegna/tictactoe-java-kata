@@ -3,20 +3,19 @@ package component;
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.BoardFormatter;
-import TicTacToe.Display.PlainTextBoardFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PlainTextBoardFormatterTest {
+public class BoardFormatterTest {
 
     private BoardFormatter formatter;
     private Board board;
 
     @Before
     public void setup() {
-        formatter = new PlainTextBoardFormatter();
+        formatter = new BoardFormatter();
         board = new Board();
     }
 
