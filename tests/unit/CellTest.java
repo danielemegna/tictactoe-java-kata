@@ -21,33 +21,14 @@ public class CellTest {
     }
 
     @Test
-    public void playerCanMarkAnEmptyCell() {
+    public void playerMarksAnEmptyCell() {
         cell.playerMark();
         assertEquals(CellState.PlayerMarked, cell.getState());
     }
 
-    @Test
-    public void playerMarkTwiceSameCell_throwsAnAlreadyMarkedCellAttemptException() {
+    @Test(expected = AlreadyMarkedCellAttemptException.class)
+    public void playerMarksAnAlreadyMarkedCell_throwsAnException() {
         cell.playerMark();
-        try {
-            cell.playerMark();
-            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
-        } catch (AlreadyMarkedCellAttemptException ex) { }
+        cell.playerMark();
     }
-
-    @Test
-    public void computerCanMarkAnEmptyCell() {
-        cell.computerMark();
-        assertEquals(CellState.ComputerMarked, cell.getState());
-    }
-
-    @Test
-    public void computerMarkTwiceSameCell_throwsAnAlreadyMarkedCellAttemptException() {
-        cell.computerMark();
-        try {
-            cell.computerMark();
-            fail("Expected AlreadyMarkedCellAttemptException has not been thrown!");
-        } catch (AlreadyMarkedCellAttemptException ex) { }
-    }
-
 }
