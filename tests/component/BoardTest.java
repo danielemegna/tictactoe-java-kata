@@ -2,7 +2,7 @@ package component;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
-import TicTacToe.Cell.CellState;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 import helpers.BoardTestHelper;
 import org.junit.Before;
@@ -25,8 +25,8 @@ public class BoardTest {
 
     @Test
     public void inANewBoard_CellsAreEmpty() {
-        helper.assertCellState(0, 0, CellState.Empty);
-        helper.assertCellState(1, 2, CellState.Empty);
+        helper.assertCellState(0, 0, CellMarkSign.Empty);
+        helper.assertCellState(1, 2, CellMarkSign.Empty);
     }
 
     @Test
@@ -37,13 +37,13 @@ public class BoardTest {
     @Test
     public void playerCanMarkEmptyCells() {
         helper.playerMark(0, 1);
-        helper.assertCellState(0, 1, CellState.PlayerMarked);
+        helper.assertCellState(0, 1, CellMarkSign.CrossMarked);
     }
 
     @Test
     public void computerCanMarkEmptyCells() {
         helper.computerMark(0, 1);
-        helper.assertCellState(0, 1, CellState.ComputerMarked);
+        helper.assertCellState(0, 1, CellMarkSign.CircleMarked);
     }
 
     @Test
@@ -51,8 +51,8 @@ public class BoardTest {
         helper.playerMark(0, 1);
         helper.computerMark(2, 2);
 
-        helper.assertCellState(0, 0, CellState.Empty);
-        helper.assertCellState(1, 2, CellState.Empty);
+        helper.assertCellState(0, 0, CellMarkSign.Empty);
+        helper.assertCellState(1, 2, CellMarkSign.Empty);
     }
 
     @Test(expected = AlreadyMarkedCellAttemptException.class)
@@ -148,8 +148,8 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.assertCellState(0, 0, CellState.PlayerMarked);
-        cloneHelper.assertCellState(1, 2, CellState.ComputerMarked);
+        cloneHelper.assertCellState(0, 0, CellMarkSign.CrossMarked);
+        cloneHelper.assertCellState(1, 2, CellMarkSign.CircleMarked);
     }
 
     @Test
@@ -163,8 +163,8 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.assertCellState(0, 1, CellState.Empty);
-        cloneHelper.assertCellState(2, 2, CellState.Empty);
+        cloneHelper.assertCellState(0, 1, CellMarkSign.Empty);
+        cloneHelper.assertCellState(2, 2, CellMarkSign.Empty);
     }
 
     @Test
@@ -179,6 +179,6 @@ public class BoardTest {
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
         cloneHelper.playerMark(1, 1);
-        helper.assertCellState(1, 1, CellState.Empty);
+        helper.assertCellState(1, 1, CellMarkSign.Empty);
     }
 }

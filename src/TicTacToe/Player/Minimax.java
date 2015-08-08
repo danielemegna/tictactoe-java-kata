@@ -1,30 +1,35 @@
-package TicTacToe.ComputerPlayer;
+package TicTacToe.Player;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 
 public class Minimax {
 
-    static final int COMPUTER_ONEMOVEWIN_VALUE = 2;
-    static final int COMPUTER_WIN_VALUE = 1;
+    static final int MY_ONEMOVEWIN_VALUE = 2;
+    static final int MY_WIN_VALUE = 1;
     static final int TIE_VALUE = 0;
-    static final int PLAYER_WIN_VALUE = -1;
+    static final int ADVERSARY_WIN_VALUE = -1;
 
     private final Referee referee;
+    private final CellMarkSign myCellSign;
+    private final CellMarkSign adversaryCellSign;
 
-    public Minimax() {
+    public Minimax(CellMarkSign myCellSign) {
         this.referee = new Referee();
+        this.myCellSign = myCellSign;
+        this.adversaryCellSign = CellMarkSign.values()[(myCellSign.ordinal()+1)%2];
     }
 
-    public int calcolateComputerMoveValue(Coordinates move, Board board) {
+    public int calcolateMoveValue(Coordinates move, Board board) {
         Board clone = board.clone();
-        clone.computerMark(move);
+        clone.mark(move, myCellSign);
 
-        Verdict v = referee.generateRefereeVerdict(clone);
-        if(v == Verdict.computerIsTheWinner)
-            return COMPUTER_ONEMOVEWIN_VALUE;
+        Verdict v = referee.generateVedict(clone);
+        if(v.getWinnerSign() == myCellSign)
+            return MY_ONEMOVEWIN_VALUE;
         if(clone.isFull())
             return TIE_VALUE;
 
@@ -32,15 +37,15 @@ public class Minimax {
     }
 
     private int minPlayerMoveValueChoosable(Board board) {
-        int minPlayerMoveValue = COMPUTER_WIN_VALUE;
+        int minPlayerMoveValue = MY_WIN_VALUE;
 
         for(Coordinates c : board.getEmptyCoordinates()) {
             Board clone = board.clone();
-            clone.playerMark(c);
+            clone.mark(c, adversaryCellSign);
 
-            Verdict v = referee.generateRefereeVerdict(clone);
-            if(v == Verdict.playerIsTheWinner)
-                return PLAYER_WIN_VALUE;
+            Verdict v = referee.generateVedict(clone);
+            if(v.getWinnerSign() == adversaryCellSign)
+                return ADVERSARY_WIN_VALUE;
 
             if(clone.isFull()) {
                 minPlayerMoveValue = Math.min(TIE_VALUE, minPlayerMoveValue);
@@ -55,12 +60,12 @@ public class Minimax {
     }
 
     private int maxComputerMoveValueChoosable(Board clone) {
-        int maxMoveValue = PLAYER_WIN_VALUE;
+        int maxMoveValue = ADVERSARY_WIN_VALUE;
 
         for(Coordinates c : clone.getEmptyCoordinates()) {
-            int currentMoveValue = calcolateComputerMoveValue(c, clone);
-            if(currentMoveValue == COMPUTER_ONEMOVEWIN_VALUE)
-                return COMPUTER_WIN_VALUE;
+            int currentMoveValue = calcolateMoveValue(c, clone);
+            if(currentMoveValue == MY_ONEMOVEWIN_VALUE)
+                return MY_WIN_VALUE;
 
             maxMoveValue = Math.max(maxMoveValue, currentMoveValue);
         }

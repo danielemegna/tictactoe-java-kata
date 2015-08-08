@@ -1,7 +1,19 @@
 package TicTacToe.Referee;
 
-public enum Verdict {
-    thereIsNoWinner,
-    playerIsTheWinner,
-    computerIsTheWinner
+import TicTacToe.Cell.CellMarkSign;
+
+public class Verdict {
+    private final CellMarkSign signWinner;
+
+    public Verdict(CellMarkSign signWinner) {
+        this.signWinner = signWinner;
+    }
+
+    public CellMarkSign getWinnerSign() {
+        return signWinner;
+    }
+
+    public boolean thereIsAWinner() {
+        return signWinner != null;
+    }
 }

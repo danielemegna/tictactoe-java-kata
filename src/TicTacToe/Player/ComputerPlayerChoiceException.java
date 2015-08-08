@@ -1,6 +1,5 @@
-package TicTacToe.ComputerPlayer;
+package TicTacToe.Player;
 
 public class ComputerPlayerChoiceException extends RuntimeException {
-    public ComputerPlayerChoiceException() { }
     public ComputerPlayerChoiceException(String message) { super(message); }
 }

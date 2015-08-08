@@ -1,7 +1,7 @@
 package component;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.ComputerPlayer.Minimax;
+import TicTacToe.Player.Minimax;
 import TicTacToe.Coordinates.Coordinates;
 
 import helpers.BoardTestHelper;
@@ -143,7 +143,7 @@ public class MinimaxTest {
     }
 
     private int evaluateMove(int x, int y) {
-        return minimax.calcolateComputerMoveValue(new Coordinates(x, y), board);
+        return minimax.calcolateMoveValue(new Coordinates(x, y), board);
     }
 
 

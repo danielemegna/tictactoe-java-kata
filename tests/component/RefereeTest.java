@@ -52,7 +52,7 @@ public class RefereeTest {
             "   "
         );
 
-        assertRefereeVerdict(Verdict.playerIsTheWinner);
+        assertRefereeVerdict(Verdict.crossIsTheWinner);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class RefereeTest {
             " OX" +
             " O "
         );
-        assertRefereeVerdict(Verdict.computerIsTheWinner);
+        assertRefereeVerdict(Verdict.circleIsTheWinner);
     }
 
     @Test
@@ -72,11 +72,11 @@ public class RefereeTest {
             " XO" +
             "  X"
         );
-        assertRefereeVerdict(Verdict.playerIsTheWinner);
+        assertRefereeVerdict(Verdict.crossIsTheWinner);
     }
 
     private void assertRefereeVerdict(Verdict expected) {
-        Verdict v = referee.generateRefereeVerdict(board);
+        Verdict v = referee.generateVedict(board);
         assertEquals(expected, v);
     }
 }

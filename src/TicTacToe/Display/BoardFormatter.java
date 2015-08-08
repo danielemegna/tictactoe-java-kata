@@ -1,6 +1,6 @@
 package TicTacToe.Display;
 
-import TicTacToe.Cell.CellState;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
@@ -27,15 +27,18 @@ public class BoardFormatter {
     }
 
     private char cellToChar(int x, int y, Board board) {
-        CellState state = board.getCellState(new Coordinates(x, y));
-        return cellStateToChar(state);
+        CellMarkSign sign = board.getCellSign(new Coordinates(x, y));
+        return cellSignToChar(sign);
     }
 
-    private char cellStateToChar(CellState cellState) {
-        switch(cellState) {
-            case PlayerMarked:
+    private char cellSignToChar(CellMarkSign cellSign) {
+        if(cellSign == null)
+            return '-';
+
+        switch(cellSign) {
+            case Cross:
                 return 'X';
-            case ComputerMarked:
+            case Circle:
                 return 'O';
             default:
                 return '-';

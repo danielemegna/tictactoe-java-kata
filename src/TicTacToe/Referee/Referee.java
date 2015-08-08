@@ -2,7 +2,7 @@ package TicTacToe.Referee;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Cell.CellState;
+import TicTacToe.Cell.CellMarkSign;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,24 +17,24 @@ public class Referee {
         initWinningCombinations();
     }
 
-    public Verdict generateRefereeVerdict(Board board) {
+    public Verdict generateVedict(Board board) {
         for(Set<Coordinates> wc : winningCombinations) {
-            boolean playerIsTheWinner, computerIsTheWinner;
-            playerIsTheWinner = computerIsTheWinner = true;
+            boolean crossIsTheWinner, circleIsTheWinner;
+            crossIsTheWinner = circleIsTheWinner = true;
 
             for (Coordinates c : wc) {
-                CellState cellState = board.getCellState(c);
-                playerIsTheWinner &= (cellState == CellState.PlayerMarked);
-                computerIsTheWinner &= (cellState == CellState.ComputerMarked);
+                CellMarkSign cellSign = board.getCellSign(c);
+                crossIsTheWinner &= (cellSign == CellMarkSign.Cross);
+                circleIsTheWinner &= (cellSign == CellMarkSign.Circle);
             }
 
-            if(playerIsTheWinner)
-                return Verdict.playerIsTheWinner;
-            if(computerIsTheWinner)
-                return Verdict.computerIsTheWinner;
+            if(crossIsTheWinner)
+                return new Verdict(CellMarkSign.Cross);
+            if(circleIsTheWinner)
+                return new Verdict(CellMarkSign.Circle);
         }
 
-        return Verdict.thereIsNoWinner;
+        return new Verdict(null);
     }
 
     private void initWinningCombinations() {

@@ -1,28 +1,24 @@
 package TicTacToe.Cell;
 
 public class Cell {
-    private CellState state;
+    private CellMarkSign sign;
 
     public Cell() {
-        state = CellState.Empty;
+        sign = null;
     }
 
-    public CellState getState() {
-        return state;
+    public CellMarkSign getCurrentSign() {
+        return sign;
     }
 
-    public void playerMark() {
-        markWithState(CellState.PlayerMarked);
+    public boolean isEmpty() {
+        return getCurrentSign() == null;
     }
 
-    public void computerMark() {
-        markWithState(CellState.ComputerMarked);
-    }
-
-    private void markWithState(CellState newState) {
-        if(this.state != CellState.Empty)
+    public void mark(CellMarkSign sign) {
+        if(this.sign != null)
             throw new AlreadyMarkedCellAttemptException();
 
-        state = newState;
+        this.sign = sign;
     }
 }

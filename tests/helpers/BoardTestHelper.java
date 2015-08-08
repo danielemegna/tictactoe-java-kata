@@ -1,7 +1,7 @@
 package helpers;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.Cell.CellState;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 
 import static org.junit.Assert.assertEquals;
@@ -22,9 +22,9 @@ public class BoardTestHelper {
         board.computerMark(new Coordinates(x, y));
     }
 
-    public void assertCellState(int x, int y, CellState expected) {
+    public void assertCellState(int x, int y, CellMarkSign expected) {
         Coordinates c = new Coordinates(x, y);
-        CellState actual = board.getCellState(c);
+        CellMarkSign actual = board.getCellState(c);
         assertEquals(
             "Fail asserting cell state at coordinates [" + c + "] ." +
             "Actual [" + actual + "], expected [" + expected + "]",

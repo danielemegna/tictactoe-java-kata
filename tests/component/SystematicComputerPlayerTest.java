@@ -1,8 +1,8 @@
 package component;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.ComputerPlayer.ComputerPlayerChoiceException;
-import TicTacToe.ComputerPlayer.SystematicComputerPlayer;
+import TicTacToe.Player.ComputerPlayerChoiceException;
+import TicTacToe.Player.SystematicComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
 import helpers.BoardTestHelper;
 import org.junit.Before;

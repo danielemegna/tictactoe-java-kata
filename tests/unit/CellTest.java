@@ -17,18 +17,18 @@ public class CellTest {
 
     @Test
     public void aNewCellIsEmpty() {
-        assertEquals(CellState.Empty, cell.getState());
+        assertEquals(CellMarkSign.Empty, cell.getState());
     }
 
     @Test
-    public void playerMarksAnEmptyCell() {
-        cell.playerMark();
-        assertEquals(CellState.PlayerMarked, cell.getState());
+    public void markAnEmptyCellWithNewState() {
+        cell.markWithState(CellMarkSign.CrossMarked);
+        assertEquals(CellMarkSign.CrossMarked, cell.getState());
     }
 
     @Test(expected = AlreadyMarkedCellAttemptException.class)
     public void playerMarksAnAlreadyMarkedCell_throwsAnException() {
-        cell.playerMark();
-        cell.playerMark();
+        cell.markWithState(CellMarkSign.CircleMarked);
+        cell.markWithState(CellMarkSign.CrossMarked);
     }
 }

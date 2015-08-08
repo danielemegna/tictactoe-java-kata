@@ -12,13 +12,16 @@ public class IOBridge {
         this.out = out;
     }
 
-    public String readLine(String message) throws IOException {
+    public String readLine(String message) {
         while(true) {
-            print(message + " ");
-            String input = readLine();
+            try {
+                print(message + " ");
+                String input = readLine();
 
-            if(!input.isEmpty())
-                return input;
+                if (!input.isEmpty())
+                    return input;
+
+            } catch(Exception ex) {}
 
             println("Invalid input, retry.");
         }
