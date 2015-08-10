@@ -1,7 +1,9 @@
 package component;
 
-import TicTacToe.Game;
-import TicTacToe.GameTurnException;
+import TicTacToe.Game.Game;
+import TicTacToe.Game.GameFactory;
+import TicTacToe.Player.GameMode;
+import helpers.SpyDisplay;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,37 +12,13 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     private Game game;
+    private SpyDisplay spyDisplay;
 
     @Before
     public void setup() {
-        this.game = new Game("Player name", true, null, null);
-    }
-
-    @Test
-    public void gameProvidesPlayerName() {
-        assertEquals("Player name", game.getPlayerName());
-    }
-
-    @Test
-    public void newGameHasNoWinner() {
-        assertFalse(game.computerWon());
-        assertFalse(game.playerWon());
-    }
-
-    @Test
-    public void inANewGameBoardIsNotFull() {
-        assertFalse(game.isBoardFull());
-    }
-
-    @Test(expected = TicTacToe.Coordinates.CoordinateOutOfBoundsException.class)
-    public void markWithWrongCoordinates_throwsAnException() {
-        game.playerMark(0, 3);
-    }
-
-    @Test(expected = GameTurnException.class)
-    public void playersCannotMarkTwice_itsOtherPlayerTurn() {
-        game.playerMark(0, 0);
-        game.playerMark(0, 1);
+        spyDisplay = new SpyDisplay();
+        spyDisplay.setNextGameMode(GameMode.HumanVsComputer);
+        game = GameFactory.build(spyDisplay);
     }
 
     // TO BE REPLACED BY TESTS ON GAME - BOARD MESSAGES EXCHANGE

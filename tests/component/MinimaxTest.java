@@ -1,9 +1,9 @@
 package component;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.Minimax;
 import TicTacToe.Coordinates.Coordinates;
-
 import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class MinimaxTest {
 
     @Before
     public void setup() {
-        minimax = new Minimax();
+        minimax = new Minimax(CellMarkSign.Circle);
         board = new Board();
         helper = new BoardTestHelper(board);
     }
@@ -61,9 +61,6 @@ public class MinimaxTest {
         int playerCanStillWin = evaluateMove(0, 1);
         assertEquals(-1, playerCanStillWin);
 
-        playerCanStillWin = evaluateMove(0, 2);
-        assertEquals(-1, playerCanStillWin);
-
         int thisMoveBlocksPlayerWin = evaluateMove(1, 2);
         assertEquals(0, thisMoveBlocksPlayerWin);
     }
@@ -77,9 +74,6 @@ public class MinimaxTest {
         );
 
         int playerCanWinWithTheNextMove = evaluateMove(1, 0);
-        assertEquals(-1, playerCanWinWithTheNextMove);
-
-        playerCanWinWithTheNextMove = evaluateMove(2, 1);
         assertEquals(-1, playerCanWinWithTheNextMove);
 
         int computerWinMove = evaluateMove(1, 1);
@@ -108,15 +102,9 @@ public class MinimaxTest {
             "   "
         );
 
-        int centerCellMove = evaluateMove(1, 1);
-        assertEquals(0, centerCellMove);
-
+        assertEquals(0, evaluateMove(1, 1));
         assertEquals(-1, evaluateMove(0, 1));
-        assertEquals(-1, evaluateMove(0, 2));
-        assertEquals(-1, evaluateMove(1, 0));
-        assertEquals(-1, evaluateMove(1, 2));
         assertEquals(-1, evaluateMove(2, 0));
-        assertEquals(-1, evaluateMove(2, 1));
         assertEquals(-1, evaluateMove(2, 2));
     }
 

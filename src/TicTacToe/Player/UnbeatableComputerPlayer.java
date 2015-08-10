@@ -13,17 +13,19 @@ public class UnbeatableComputerPlayer extends Player {
         this.minimax = new Minimax(cellPlayerSign);
     }
 
-
     public void doNextMove(Board board) {
+        Coordinates maxValueCoordinates = estabilishNextMove(board);
+        markBoard(maxValueCoordinates, board);
+    }
+
+    private Coordinates estabilishNextMove(Board board) {
         int maxMoveValue = Minimax.ADVERSARY_WIN_VALUE;
         Coordinates maxValueCoordinates = null;
 
         for(Coordinates move : board.getEmptyCoordinates()) {
             int currentMoveValue = minimax.calcolateMoveValue(move, board);
-            if(currentMoveValue == Minimax.MY_ONEMOVEWIN_VALUE) {
-                markBoard(move, board);
-                return;
-            }
+            if(currentMoveValue == Minimax.MY_ONEMOVEWIN_VALUE)
+                return move;
 
             if(currentMoveValue > maxMoveValue) {
                 maxMoveValue = currentMoveValue;
@@ -32,10 +34,9 @@ public class UnbeatableComputerPlayer extends Player {
         }
 
         if(maxValueCoordinates == null)
-            throw new ComputerPlayerChoiceException("UnbeatableComputerPlayer cannot establish the next move! :o");
+            throw new ComputerPlayerChoiceException("UnbeatableComputerPlayer cannot establish the next move!");
 
-        markBoard(maxValueCoordinates, board);
-        return;
+        return maxValueCoordinates;
     }
 
     @Override

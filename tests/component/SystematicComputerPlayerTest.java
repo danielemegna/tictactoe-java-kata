@@ -1,26 +1,26 @@
 package component;
 
-import TicTacToe.Cell.Board;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.ComputerPlayerChoiceException;
 import TicTacToe.Player.SystematicComputerPlayer;
 import TicTacToe.Coordinates.Coordinates;
 import helpers.BoardTestHelper;
+import helpers.SpyBoard;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class SystematicComputerPlayerTest {
 
-    private Board board;
+    private SpyBoard board;
     private SystematicComputerPlayer computerPlayer;
     private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        board = new Board();
-        computerPlayer = new SystematicComputerPlayer();
+        board = new SpyBoard();
+        computerPlayer = new SystematicComputerPlayer(CellMarkSign.Cross);
         helper = new BoardTestHelper(board);
     }
 
@@ -48,13 +48,14 @@ public class SystematicComputerPlayerTest {
             "OXO"
         );
 
-        computerPlayer.establishTheNextMove(board);
+        computerPlayer.doNextMove(board);
     }
 
     private void assertNextMove(int x, int y) {
+        computerPlayer.doNextMove(board);
         assertEquals(
             new Coordinates(x, y),
-            computerPlayer.establishTheNextMove(board)
+            board.getLastMarkCoordinates()
         );
     }
 }

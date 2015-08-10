@@ -1,14 +1,16 @@
 package TicTacToe.Game;
 
+import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.HumanPlayer;
 import TicTacToe.Player.UnbeatableComputerPlayer;
+import TicTacToe.Referee.Referee;
 
 public class GameFactory {
 
     public static Game build(ConsoleDisplay display) {
-        Game game = new Game(display);
+        Game game = new Game(display, new Board(), new Referee());
         initWithMode(display, game);
         return game;
     }

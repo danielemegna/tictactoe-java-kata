@@ -1,6 +1,7 @@
 package component;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 import helpers.BoardTestHelper;
@@ -23,14 +24,14 @@ public class RefereeTest {
     }
 
     @Test
-    public void givenAnEmptyBoard_refereeSeeNoWinner() {
-        assertRefereeVerdict(Verdict.thereIsNoWinner);
+    public void emptyBoard_hasNoWinner() {
+        assertVerdictNoWinner();
     }
 
     @Test
     public void markingACell_hasNoWinner() {
-        helper.playerMark(0, 0);
-        assertRefereeVerdict(Verdict.thereIsNoWinner);
+        helper.mark(0, 0, CellMarkSign.Cross);
+        assertVerdictNoWinner();
     }
 
     @Test
@@ -41,7 +42,7 @@ public class RefereeTest {
             "XOX"
         );
 
-        assertRefereeVerdict(Verdict.thereIsNoWinner);
+        assertVerdictNoWinner();
     }
 
     @Test
@@ -52,7 +53,7 @@ public class RefereeTest {
             "   "
         );
 
-        assertRefereeVerdict(Verdict.crossIsTheWinner);
+        assertWinnerMarkSign(CellMarkSign.Cross);
     }
 
     @Test
@@ -62,21 +63,27 @@ public class RefereeTest {
             " OX" +
             " O "
         );
-        assertRefereeVerdict(Verdict.circleIsTheWinner);
+        assertWinnerMarkSign(CellMarkSign.Circle);
     }
 
     @Test
-    public void markingACross_CausesAWinner() {
+    public void markingADiagonal_CausesAWinner() {
         helper.markBoardFromString(
             "XOO" +
             " XO" +
             "  X"
         );
-        assertRefereeVerdict(Verdict.crossIsTheWinner);
+        assertWinnerMarkSign(CellMarkSign.Cross);
     }
 
-    private void assertRefereeVerdict(Verdict expected) {
+    private void assertVerdictNoWinner() {
         Verdict v = referee.generateVedict(board);
-        assertEquals(expected, v);
+        assertFalse(v.thereIsAWinner());
     }
+
+    private void assertWinnerMarkSign(CellMarkSign sign) {
+        Verdict v = referee.generateVedict(board);
+        assertEquals(sign, v.getWinnerSign());
+    }
+
 }

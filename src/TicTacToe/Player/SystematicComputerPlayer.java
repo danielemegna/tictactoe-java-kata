@@ -6,8 +6,8 @@ import TicTacToe.Coordinates.Coordinates;
 
 public class SystematicComputerPlayer extends Player {
 
-    public SystematicComputerPlayer(CellMarkSign cellStateAfterMark) {
-        super(cellStateAfterMark);
+    public SystematicComputerPlayer(CellMarkSign cellPlayerSign) {
+        super(cellPlayerSign);
     }
 
     public void doNextMove(Board board) {

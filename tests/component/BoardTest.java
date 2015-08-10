@@ -7,7 +7,6 @@ import TicTacToe.Coordinates.Coordinates;
 import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -25,8 +24,8 @@ public class BoardTest {
 
     @Test
     public void inANewBoard_CellsAreEmpty() {
-        helper.assertCellState(0, 0, CellMarkSign.Empty);
-        helper.assertCellState(1, 2, CellMarkSign.Empty);
+        helper.assertCellIsEmpty(0, 0);
+        helper.assertCellIsEmpty(1, 2);
     }
 
     @Test
@@ -35,53 +34,41 @@ public class BoardTest {
     }
 
     @Test
-    public void playerCanMarkEmptyCells() {
-        helper.playerMark(0, 1);
-        helper.assertCellState(0, 1, CellMarkSign.CrossMarked);
-    }
+    public void markEmptyCells() {
+        helper.mark(0, 1, CellMarkSign.Cross);
+        helper.mark(1, 2, CellMarkSign.Circle);
 
-    @Test
-    public void computerCanMarkEmptyCells() {
-        helper.computerMark(0, 1);
-        helper.assertCellState(0, 1, CellMarkSign.CircleMarked);
+        helper.assertCellSign(0, 1, CellMarkSign.Cross);
+        helper.assertCellSign(1, 2, CellMarkSign.Circle);
     }
 
     @Test
     public void marksDoNotAffectOtherCells() {
-        helper.playerMark(0, 1);
-        helper.computerMark(2, 2);
+        helper.mark(1, 0, CellMarkSign.Cross);
+        helper.mark(2, 2, CellMarkSign.Circle);
 
-        helper.assertCellState(0, 0, CellMarkSign.Empty);
-        helper.assertCellState(1, 2, CellMarkSign.Empty);
+        helper.assertCellIsEmpty(0, 1);
+        helper.assertCellIsEmpty(1, 2);
     }
 
     @Test(expected = AlreadyMarkedCellAttemptException.class)
-    public void playerCannotMarkCellTwice() {
+    public void markACellTwice() {
         helper.markBoardFromString(
             "X  " +
             " O " +
             "   "
         );
 
-        helper.playerMark(0, 0);
-    }
-
-    @Test(expected = AlreadyMarkedCellAttemptException.class)
-    public void playerCannotMarkCellsAlreadyMarkedByComputer() {
-        helper.markBoardFromString(
-            "X  " +
-            " O " +
-            "   "
-        );
-
-        helper.playerMark(1, 1);
+        helper.mark(0, 0);
     }
 
     @Test
     public void markingEveryCell_boardIsFull() {
-        for(int x = 0; x < 3; x++)
-            for(int y = 0; y < 3; y++)
-                helper.playerMark(x, y);
+        helper.markBoardFromString(
+            "XOX" +
+            "XOX" +
+            "OXO"
+        );
 
         assertTrue(board.isFull());
     }
@@ -99,7 +86,7 @@ public class BoardTest {
 
     @Test
     public void boardDoesntReturnsMarkedCellAsEmptyCoordinates() {
-        helper.playerMark(1, 1);
+        helper.mark(1, 1, CellMarkSign.Cross);
         Set<Coordinates> emptyCoordinates = board.getEmptyCoordinates();
 
         assertEquals(8, emptyCoordinates.size());
@@ -148,8 +135,8 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.assertCellState(0, 0, CellMarkSign.CrossMarked);
-        cloneHelper.assertCellState(1, 2, CellMarkSign.CircleMarked);
+        cloneHelper.assertCellSign(0, 0, CellMarkSign.Cross);
+        cloneHelper.assertCellSign(1, 2, CellMarkSign.Circle);
     }
 
     @Test
@@ -163,8 +150,8 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.assertCellState(0, 1, CellMarkSign.Empty);
-        cloneHelper.assertCellState(2, 2, CellMarkSign.Empty);
+        cloneHelper.assertCellIsEmpty(0, 1);
+        cloneHelper.assertCellIsEmpty(2, 2);
     }
 
     @Test
@@ -178,7 +165,7 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.playerMark(1, 1);
-        helper.assertCellState(1, 1, CellMarkSign.Empty);
+        cloneHelper.mark(1, 1);
+        helper.assertCellIsEmpty(1, 1);
     }
 }

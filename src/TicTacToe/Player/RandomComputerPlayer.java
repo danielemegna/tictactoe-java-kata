@@ -10,8 +10,8 @@ public class RandomComputerPlayer extends Player {
 
     private final Random random;
 
-    public RandomComputerPlayer(CellMarkSign cellStateAfterMark) {
-        super(cellStateAfterMark);
+    public RandomComputerPlayer(CellMarkSign cellPlayerSign) {
+        super(cellPlayerSign);
         random = new Random();
     }
 

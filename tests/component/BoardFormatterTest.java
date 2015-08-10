@@ -3,7 +3,6 @@ package component;
 import TicTacToe.Cell.Board;
 import TicTacToe.Display.BoardFormatter;
 import helpers.BoardTestHelper;
-
 import org.junit.Before;
 import org.junit.Test;
 

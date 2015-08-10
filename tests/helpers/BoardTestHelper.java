@@ -5,6 +5,7 @@ import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BoardTestHelper {
 
@@ -14,19 +15,23 @@ public class BoardTestHelper {
         this.board = b;
     }
 
-    public void playerMark(int x, int y) {
-        board.playerMark(new Coordinates(x, y));
+    public void mark(int x, int y) {
+        this.mark(x, y, CellMarkSign.Cross);
     }
 
-    public void computerMark(int x, int y) {
-        board.computerMark(new Coordinates(x, y));
+    public void mark(int x, int y, CellMarkSign sign) {
+        board.mark(new Coordinates(x, y), sign);
     }
 
-    public void assertCellState(int x, int y, CellMarkSign expected) {
+    public void assertCellIsEmpty(int x, int y) {
+        assertTrue(board.isCellEmpty(new Coordinates(x, y)));
+    }
+
+    public void assertCellSign(int x, int y, CellMarkSign expected) {
         Coordinates c = new Coordinates(x, y);
-        CellMarkSign actual = board.getCellState(c);
+        CellMarkSign actual = board.getCellSign(c);
         assertEquals(
-            "Fail asserting cell state at coordinates [" + c + "] ." +
+            "Fail asserting cell sign at coordinates [" + c + "] ." +
             "Actual [" + actual + "], expected [" + expected + "]",
             expected, actual
         );
@@ -38,10 +43,10 @@ public class BoardTestHelper {
             for (int x = 0; x < 3; x++) {
                 switch(s.charAt(index++)) {
                     case 'X':
-                        playerMark(x, y);
+                        mark(x, y, CellMarkSign.Cross);
                         break;
                     case 'O':
-                        computerMark(x, y);
+                        mark(x, y, CellMarkSign.Circle);
                         break;
                     case ' ':
                         break;

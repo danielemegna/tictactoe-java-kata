@@ -1,7 +1,6 @@
 package TicTacToe.Game;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Player.Player;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Referee.Referee;
@@ -15,18 +14,18 @@ public class Game {
     private List<Player> players;
     private final ConsoleDisplay display;
 
-    private int turnBit;
+    private int playerTurnBit;
     private final Board board;
     private final Referee referee;
 
-    Game(ConsoleDisplay display) {
+    Game(ConsoleDisplay display, Board board, Referee referee) {
         this.display = display;
 
-        this.board = new Board();
-        this.referee = new Referee();
+        this.board = board;
+        this.referee = referee;
 
         this.players = new ArrayList<>();
-        this.turnBit = 0;
+        this.playerTurnBit = 0;
     }
 
     public void play() {
@@ -42,13 +41,13 @@ public class Game {
         } while(!isGameOver());
     }
 
-    public void showUpdatedBoard() {
+    private void showUpdatedBoard() {
         display.printBoard(board);
     }
 
     private void processNextTurn() {
         players
-            .get(turnBit)
+            .get(playerTurnBit)
             .doNextMove(board);
 
         increaseTurnBit();
@@ -60,19 +59,16 @@ public class Game {
         if(!board.isFull() && !verdict.thereIsAWinner())
             return false;
 
-        if(verdict.thereIsAWinner()) {
+        if(verdict.thereIsAWinner())
             display.announceWinner(getWinnerPlayerFromVerdict(verdict));
-            return true;
-        }
+        else
+            display.announceTie();
 
-        display.announceTie();
         return true;
     }
 
-
-
     private void increaseTurnBit() {
-        turnBit = ((turnBit + 1) % 2);
+        playerTurnBit = ((playerTurnBit + 1) % 2);
     }
 
     private Player getWinnerPlayerFromVerdict(Verdict v) {
@@ -81,10 +77,8 @@ public class Game {
                 return p;
         }
 
-        throw new RuntimeException("Cannot find winner player from verdict [" + v+ "]");
+        throw new RuntimeException("Cannot find winner player from verdict [" + v + "]");
     }
-
-
 
     void addPlayer(Player player) {
         players.add(player);
