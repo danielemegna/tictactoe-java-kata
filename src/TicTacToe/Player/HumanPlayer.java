@@ -12,7 +12,7 @@ public class HumanPlayer extends Player {
     private final String name;
     private final ConsoleDisplay display;
 
-    private HumanPlayer(CellMarkSign playerCellSign, ConsoleDisplay display) {
+    public HumanPlayer(CellMarkSign playerCellSign, ConsoleDisplay display) {
         super(playerCellSign);
         this.display = display;
         this.name = display.askForHumanPlayerName();
@@ -41,9 +41,5 @@ public class HumanPlayer extends Player {
     @Override
     public String getName() {
         return name;
-    }
-
-    public static Player build(ConsoleDisplay display, CellMarkSign playerCellSign) {
-        return new HumanPlayer(playerCellSign, display);
     }
 }

@@ -4,36 +4,41 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.HumanPlayer;
+import TicTacToe.Player.Player;
 import TicTacToe.Player.UnbeatableComputerPlayer;
 import TicTacToe.Referee.Referee;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameFactory {
 
     public static Game build(ConsoleDisplay display) {
-        Game game = new Game(display, new Board(), new Referee());
-        initWithMode(display, game);
-        return game;
+        List<Player> players = buildPlayers(display);
+        return new Game(players, display, new Board(), new Referee());
     }
 
-    private static void initWithMode(ConsoleDisplay display, Game game) {
-        switch (display.askForGameMode()){
+    private static List<Player> buildPlayers(ConsoleDisplay display) {
+        List<Player> players = new ArrayList<>();
+        switch (display.askForGameMode()) {
             case HumanVsHuman:
-                game.addPlayer(HumanPlayer.build(display, CellMarkSign.Cross));
-                game.addPlayer(HumanPlayer.build(display, CellMarkSign.Circle));
+                players.add(new HumanPlayer(CellMarkSign.Cross, display));
+                players.add(new HumanPlayer(CellMarkSign.Circle, display));
                 break;
             case HumanVsComputer:
-                game.addPlayer(HumanPlayer.build(display, CellMarkSign.Cross));
-                game.addPlayer(new UnbeatableComputerPlayer(CellMarkSign.Circle));
+                players.add(new HumanPlayer(CellMarkSign.Cross, display));
+                players.add(new UnbeatableComputerPlayer(CellMarkSign.Circle));
                 break;
             case ComputerVsHuman:
-                game.addPlayer(new UnbeatableComputerPlayer(CellMarkSign.Cross));
-                game.addPlayer(HumanPlayer.build(display, CellMarkSign.Circle));
+                players.add(new UnbeatableComputerPlayer(CellMarkSign.Cross));
+                players.add(new HumanPlayer(CellMarkSign.Circle, display));
                 break;
             case ComputerVsComputer:
-                game.addPlayer(new UnbeatableComputerPlayer(CellMarkSign.Cross));
-                game.addPlayer(new UnbeatableComputerPlayer(CellMarkSign.Circle));
+                players.add(new UnbeatableComputerPlayer(CellMarkSign.Cross));
+                players.add(new UnbeatableComputerPlayer(CellMarkSign.Circle));
                 break;
         }
+        return players;
     }
 
 }

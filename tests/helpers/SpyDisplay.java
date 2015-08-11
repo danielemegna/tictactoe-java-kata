@@ -8,8 +8,9 @@ import TicTacToe.Player.Player;
 
 public class SpyDisplay extends ConsoleDisplay {
 
+    public static final int BOARD_DIMENSION = 3;
     private String lastCalledMethod;
-    private Coordinates nextMove;
+    private Coordinates nextHumanMove;
     private GameMode gameMode;
 
 
@@ -24,7 +25,12 @@ public class SpyDisplay extends ConsoleDisplay {
 
     @Override
     public void printBoard(Board board) {
-        lastCalledMethod = "printBoard(board)";
+        lastCalledMethod = "printBoard(";
+        for(int y = 0; y < BOARD_DIMENSION; y++)
+            for(int x = 0; x < BOARD_DIMENSION; x++)
+                lastCalledMethod += board.getCellSign(new Coordinates(x, y));
+
+        lastCalledMethod += ")";
     }
 
     @Override
@@ -72,15 +78,15 @@ public class SpyDisplay extends ConsoleDisplay {
     @Override
     public Coordinates askForNextMove(String playerName) {
         lastCalledMethod = "askForNextMove name " + playerName;
-        return nextMove;
+        return nextHumanMove;
     }
 
     public String getLastCalledMethod() {
         return lastCalledMethod;
     }
 
-    public void setNextMove(Coordinates nextMoveWhenAsked) {
-        this.nextMove = nextMoveWhenAsked;
+    public void setNextHumanMove(Coordinates nextHumanMove) {
+        this.nextHumanMove = nextHumanMove;
     }
 
     public void setNextGameMode(GameMode gameMode) {
