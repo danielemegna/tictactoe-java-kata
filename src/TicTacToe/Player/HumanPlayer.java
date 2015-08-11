@@ -22,7 +22,9 @@ public class HumanPlayer extends Player {
     public void doNextMove(Board board) {
         while(true){
             try {
-                markBoard(display.askForNextMove(name), board);
+                Coordinates move = display.askForNextMove(name);
+                markBoard(move, board);
+                display.cellMarkedMessage(move);
             } catch (CoordinateOutOfBoundsException ex) {
                 display.invalidCoordinatesMessage();
                 continue;

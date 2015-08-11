@@ -22,6 +22,12 @@ public class CoordinatesTest {
     }
 
     @Test
+    public void coordinatesToString() {
+        Coordinates c = new Coordinates(2, 1);
+        assertEquals("[2, 1]", c.toString());
+    }
+
+    @Test
     public void coordinatesEquality() {
         Coordinates zeroZero                = new Coordinates(0, 0);
         Coordinates anotherZeroZero         = new Coordinates(0, 0);

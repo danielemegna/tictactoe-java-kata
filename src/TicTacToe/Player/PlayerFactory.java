@@ -1,26 +1,22 @@
-package TicTacToe.Game;
+package TicTacToe.Player;
 
-import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
-import TicTacToe.Player.HumanPlayer;
-import TicTacToe.Player.Player;
-import TicTacToe.Player.UnbeatableComputerPlayer;
-import TicTacToe.Referee.Referee;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFactory {
+public class PlayerFactory {
 
-    public static Game build(ConsoleDisplay display) {
-        List<Player> players = buildPlayers(display);
-        return new Game(players, display, new Board(), new Referee());
+    private final ConsoleDisplay display;
+
+    public PlayerFactory(ConsoleDisplay display) {
+        this.display  = display;
     }
 
-    private static List<Player> buildPlayers(ConsoleDisplay display) {
+    public List<Player> listFromGameMode(GameMode mode) {
         List<Player> players = new ArrayList<>();
-        switch (display.askForGameMode()) {
+        switch (mode) {
             case HumanVsHuman:
                 players.add(new HumanPlayer(CellMarkSign.Cross, display));
                 players.add(new HumanPlayer(CellMarkSign.Circle, display));
@@ -40,5 +36,4 @@ public class GameFactory {
         }
         return players;
     }
-
 }

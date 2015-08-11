@@ -74,4 +74,8 @@ public class ConsoleDisplay {
     public void invalidCoordinatesMessage() {
         io.println("Invalid coordinates.. retry");
     }
+
+    public void cellMarkedMessage(Coordinates move) {
+        io.println("Coordinates " + move.toString() + " marked.");
+    }
 }

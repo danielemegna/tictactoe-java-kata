@@ -1,47 +1,63 @@
 package TicTacToe.Game;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.Cell.CellMarkSign;
+import TicTacToe.Player.GameMode;
 import TicTacToe.Player.Player;
 import TicTacToe.Display.ConsoleDisplay;
+import TicTacToe.Player.PlayerFactory;
 import TicTacToe.Referee.Referee;
 import TicTacToe.Referee.Verdict;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Game {
 
-    public static final int NUMBER_OF_PLAYERS = 2;
-    private List<Player> players;
     private final ConsoleDisplay display;
-
-    private int playerTurnIndex;
-    private final Board board;
+    private final PlayerFactory playerFactory;
     private final Referee referee;
 
-    public Game(List<Player> players, ConsoleDisplay display, Board board, Referee referee) {
+    private Board board;
+    private List<Player> players;
+    private int playerTurnIndex;
+
+    public Game(ConsoleDisplay display, PlayerFactory playerFactory) {
+        this(display, playerFactory, new Referee(), new Board());
+    }
+
+    public Game(ConsoleDisplay display, PlayerFactory playerFactory, Referee refree, Board board) {
         this.display = display;
-
+        this.playerFactory = playerFactory;
+        this.referee = refree;
         this.board = board;
-        this.referee = referee;
 
-        checkPlayers(players);
-        this.players = players;
-        this.playerTurnIndex = 0;
+        display.welcomeMessage();
+        initPlayers();
     }
 
-    private void checkPlayers(List<Player> players) {
-        if(players.size() < NUMBER_OF_PLAYERS)
-            throw new PlayersCountException("Few players passed to Game");
-        if(players.size() > NUMBER_OF_PLAYERS)
-            throw new PlayersCountException("Too many players passed to Game");
-
+    public void initPlayers() {
+        GameMode mode = display.askForGameMode();
+        players = playerFactory.listFromGameMode(mode);
+        playerTurnIndex = 0;
     }
 
-    public void processNextTurn() {
+    public void play() {
+        showUpdatedBoard();
+        gameLoop();
+        display.shutDownMessage();
+    }
+
+    private void showUpdatedBoard() {
+        display.printBoard(board);
+    }
+
+    private void gameLoop() {
+        do {
+            triggerNextPlayer();
+            showUpdatedBoard();
+        } while(!isGameOver());
+    }
+
+    private void triggerNextPlayer() {
         players
             .get(playerTurnIndex)
             .doNextMove(board);
@@ -49,7 +65,11 @@ public class Game {
         increasePlayerTurnIndex();
     }
 
-    public boolean isGameOver() {
+    private void increasePlayerTurnIndex() {
+        playerTurnIndex = ((playerTurnIndex + 1) % players.size());
+    }
+
+    private boolean isGameOver() {
         Verdict verdict = referee.generateVedict(board);
 
         if(!board.isFull() && !verdict.thereIsAWinner())
@@ -63,13 +83,6 @@ public class Game {
         return true;
     }
 
-    public void showUpdatedBoard() {
-        display.printBoard(board);
-    }
-
-    private void increasePlayerTurnIndex() {
-        playerTurnIndex = ((playerTurnIndex + 1) % NUMBER_OF_PLAYERS);
-    }
 
     private Player getWinnerPlayerFromVerdict(Verdict v) {
         for (Player p : players) {
