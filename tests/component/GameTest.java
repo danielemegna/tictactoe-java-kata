@@ -1,23 +1,66 @@
 package component;
 
 import TicTacToe.Game.Game;
+import helpers.SpyBoard;
 import helpers.SpyDisplay;
+import helpers.SpyPlayerFactory;
+import helpers.SpyReferee;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
-    private Game game;
     private SpyDisplay spyDisplay;
+    private SpyPlayerFactory spyPlayerFactory;
+    private SpyReferee spyReferee;
+    private SpyBoard spyBoard;
+    private Game game;
 
     @Before
     public void setup() {
         spyDisplay = new SpyDisplay();
-        //game = new Game(spyDisplay, new SpyPlayerFactory());
+        spyPlayerFactory = new SpyPlayerFactory();
+        spyReferee = new SpyReferee();
+        spyBoard = new SpyBoard();
+
+        game = instantiateWithSpies();
     }
+
+    @Test
+    public void callsAfterInit() {
+        assertEquals(Arrays.asList(
+            "welcomeMessage()",
+            "askForGameMode()"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "listFromGameMode(HumanVsComputer)"
+        ), spyPlayerFactory.calls());
+    }
+
+    @Test
+    public void callsOnPlay() {
+        /*game.play();
+
+        assertEquals(Arrays.asList(
+            "welcomeMessage()",
+            "askForGameMode()"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "listFromGameMode(HumanVsComputer)"
+        ), spyPlayerFactory.calls());*/
+    }
+
+    private Game instantiateWithSpies() {
+        return new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
+    }
+
 
     // TO BE REPLACED BY TESTS ON GAME - BOARD MESSAGES EXCHANGE
     /*@Test

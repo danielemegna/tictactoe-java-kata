@@ -1,5 +1,6 @@
 package component;
 
+import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.ComputerPlayerChoiceException;
 import TicTacToe.Player.SystematicComputerPlayer;
@@ -10,16 +11,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SystematicComputerPlayerTest {
 
-    private SpyBoard board;
+    private Board board;
     private SystematicComputerPlayer computerPlayer;
     private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        board = new SpyBoard();
+        board = new Board();
         computerPlayer = new SystematicComputerPlayer(CellMarkSign.Cross);
         helper = new BoardTestHelper(board);
     }
@@ -52,10 +54,8 @@ public class SystematicComputerPlayerTest {
     }
 
     private void assertNextMove(int x, int y) {
+        helper.assertCellIsEmpty(x, y);
         computerPlayer.doNextMove(board);
-        assertEquals(
-            new Coordinates(x, y),
-            board.getLastMarkCoordinates()
-        );
+        helper.assertCellSign(x, y, CellMarkSign.Cross);
     }
 }

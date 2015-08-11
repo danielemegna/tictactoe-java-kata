@@ -5,9 +5,11 @@ import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SpyPlayer extends Player {
-    private Coordinates nextMove = null;
-    private String lastCalledMethod = null;
+    private List<String> calls = new ArrayList<>();
 
     public SpyPlayer(CellMarkSign sign) {
         super(sign);
@@ -15,19 +17,11 @@ public class SpyPlayer extends Player {
 
     @Override
     public void doNextMove(Board board) {
-        lastCalledMethod = "doNextMove()";
+        // TODO
     }
 
     @Override
     public String getName() {
         return "SpyPlayer";
-    }
-
-    public void setNextMove(Coordinates nextMove) {
-        this.nextMove = nextMove;
-    }
-
-    public String getLastCalledMethod() {
-        return lastCalledMethod;
     }
 }

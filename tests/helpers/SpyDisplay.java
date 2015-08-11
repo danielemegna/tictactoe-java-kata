@@ -6,13 +6,12 @@ import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.GameMode;
 import TicTacToe.Player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SpyDisplay extends ConsoleDisplay {
 
-    public static final int BOARD_DIMENSION = 3;
-    private String lastCalledMethod;
-    private Coordinates nextHumanMove;
-    private GameMode gameMode;
-
+    private List<String> calls = new ArrayList<>();
 
     public SpyDisplay() {
         super(null);
@@ -20,76 +19,67 @@ public class SpyDisplay extends ConsoleDisplay {
 
     @Override
     public void welcomeMessage() {
-        lastCalledMethod = "welcomeMessage()";
+        registerNewCall("welcomeMessage()");
     }
 
     @Override
     public void printBoard(Board board) {
-        lastCalledMethod = "printBoard(";
-        for(int y = 0; y < BOARD_DIMENSION; y++)
-            for(int x = 0; x < BOARD_DIMENSION; x++)
-                lastCalledMethod += board.getCellSign(new Coordinates(x, y));
-
-        lastCalledMethod += ")";
+        registerNewCall("printBoard(" + board.getClass() + ")");
     }
 
     @Override
     public void shutDownMessage() {
-        lastCalledMethod = "shutDownMessage()";
+        registerNewCall("shutDownMessage()");
     }
 
     @Override
     public void announceWinner(Player winner) {
-        lastCalledMethod = "announceWinner name " + winner.getName();
+        registerNewCall("announceWinner name " + winner.getName());
     }
 
     @Override
     public void announceTie() {
-        lastCalledMethod = "announceTie()";
+        registerNewCall("announceTie()");
     }
 
     @Override
     public void invalidInputMessage() {
-        lastCalledMethod = "invalidInputMessage()";
+        registerNewCall("invalidInputMessage()");
     }
 
     @Override
     public void alreadyMarkedCellMessage() {
-        lastCalledMethod = "alreadyMarkedCellMessage()";
+        registerNewCall("alreadyMarkedCellMessage()");
     }
 
     @Override
     public void invalidCoordinatesMessage() {
-        lastCalledMethod = "invalidCoordinatesMessage()";
+        registerNewCall("invalidCoordinatesMessage()");
     }
 
     @Override
     public GameMode askForGameMode() {
-        lastCalledMethod = "askForGameMode()";
-        return gameMode;
+        registerNewCall("askForGameMode()");
+        return GameMode.HumanVsComputer;
     }
 
     @Override
     public String askForHumanPlayerName() {
-        lastCalledMethod = "askForHumanPlayerName()";
+        registerNewCall("askForHumanPlayerName()");
         return "Test Human Player";
     }
 
     @Override
     public Coordinates askForNextMove(String playerName) {
-        lastCalledMethod = "askForNextMove name " + playerName;
-        return nextHumanMove;
+        registerNewCall("askForNextMove name " + playerName);
+        return new Coordinates(0, 1);
     }
 
-    public String getLastCalledMethod() {
-        return lastCalledMethod;
+    public List<String> calls() {
+        return calls;
     }
 
-    public void setNextHumanMove(Coordinates nextHumanMove) {
-        this.nextHumanMove = nextHumanMove;
-    }
-
-    public void setNextGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
+    private void registerNewCall(String method) {
+        calls.add(method);
     }
 }
