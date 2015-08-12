@@ -12,7 +12,8 @@ import java.util.List;
 public class SpyDisplay extends ConsoleDisplay {
 
     private List<String> calls = new ArrayList<>();
-    private boolean registrationEnabled = false;
+    private boolean activatedSpy = false;
+    private Coordinates nextMove = null;
 
     public SpyDisplay() {
         super(null);
@@ -73,15 +74,20 @@ public class SpyDisplay extends ConsoleDisplay {
     @Override
     public Coordinates askForNextMove(String playerName) {
         registerNewCall("askForNextMove name " + playerName);
-        return new Coordinates(0, 1);
+        return nextMove;
     }
 
-    public void startRegistration() {
-        registrationEnabled = true;
+    @Override
+    public void cellMarkedMessage(Coordinates move) {
+        registerNewCall("cellMarkedMessage(" + move + ")");
     }
 
-    public void stopRegistration() {
-        registrationEnabled = false;
+    public void activateSpy() {
+        activatedSpy = true;
+    }
+
+    public void deactivateSpy() {
+        activatedSpy = false;
     }
 
     public List<String> calls() {
@@ -89,7 +95,11 @@ public class SpyDisplay extends ConsoleDisplay {
     }
 
     private void registerNewCall(String method) {
-        if(registrationEnabled)
+        if(activatedSpy)
             calls.add(method);
+    }
+
+    public void setNextMove(Coordinates nextMove) {
+        this.nextMove = nextMove;
     }
 }

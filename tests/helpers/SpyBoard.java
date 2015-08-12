@@ -11,7 +11,7 @@ import java.util.Set;
 public class SpyBoard extends Board {
 
     private List<String> calls = new ArrayList<>();
-    private boolean registrationEnabled = false;
+    private boolean activatedSpy = false;
     private int fullAfter = -1;
 
     @Override
@@ -46,12 +46,12 @@ public class SpyBoard extends Board {
         return this;
     }
 
-    public void startRegistration() {
-        registrationEnabled = true;
+    public void activateSpy() {
+        activatedSpy = true;
     }
 
-    public void stopRegistration() {
-        registrationEnabled = false;
+    public void deactivateSpy() {
+        activatedSpy = false;
     }
 
     public List<String> calls() {
@@ -59,7 +59,7 @@ public class SpyBoard extends Board {
     }
 
     private void registerNewCall(String method) {
-        if(registrationEnabled)
+        if(activatedSpy)
             calls.add(method);
     }
 
