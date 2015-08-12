@@ -1,6 +1,7 @@
 package TicTacToe.Player;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.Cell;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
@@ -27,8 +28,8 @@ public class Minimax {
         Board clone = board.clone();
         clone.mark(move, myCellSign);
 
-        Verdict v = referee.generateVedict(clone);
-        if(v.getWinnerSign() == myCellSign)
+        CellMarkSign winnerCellMark = referee.getWinnerCellMark(clone);
+        if(winnerCellMark == myCellSign)
             return MY_ONEMOVEWIN_VALUE;
         if(clone.isFull())
             return TIE_VALUE;
@@ -43,8 +44,8 @@ public class Minimax {
             Board clone = board.clone();
             clone.mark(c, adversaryCellSign);
 
-            Verdict v = referee.generateVedict(clone);
-            if(v.getWinnerSign() == adversaryCellSign)
+            CellMarkSign winnerCellMark = referee.getWinnerCellMark(clone);
+            if(winnerCellMark == adversaryCellSign)
                 return ADVERSARY_WIN_VALUE;
 
             if(clone.isFull()) {

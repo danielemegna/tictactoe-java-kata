@@ -3,7 +3,6 @@ package component;
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Referee.Referee;
-import TicTacToe.Referee.Verdict;
 import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,13 +76,13 @@ public class RefereeTest {
     }
 
     private void assertVerdictNoWinner() {
-        Verdict v = referee.generateVedict(board);
-        assertFalse(v.thereIsAWinner());
+        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
+        assertNull(winnerCellMark);
     }
 
     private void assertWinnerMarkSign(CellMarkSign sign) {
-        Verdict v = referee.generateVedict(board);
-        assertEquals(sign, v.getWinnerSign());
+        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
+        assertEquals(sign, winnerCellMark);
     }
 
 }

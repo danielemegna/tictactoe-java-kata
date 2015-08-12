@@ -1,12 +1,12 @@
 package TicTacToe.Game;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.GameMode;
 import TicTacToe.Player.Player;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.PlayerFactory;
 import TicTacToe.Referee.Referee;
-import TicTacToe.Referee.Verdict;
 
 import java.util.List;
 
@@ -70,13 +70,13 @@ public class Game {
     }
 
     private boolean isGameOver() {
-        Verdict verdict = referee.generateVedict(board);
+        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
 
-        if(!board.isFull() && !verdict.thereIsAWinner())
+        if(!board.isFull() && winnerCellMark == null)
             return false;
 
-        if(verdict.thereIsAWinner())
-            display.announceWinner(getWinnerPlayerFromVerdict(verdict));
+        if(winnerCellMark != null)
+            display.announceWinner(getPlayerFromCellMark(winnerCellMark));
         else
             display.announceTie();
 
@@ -84,12 +84,12 @@ public class Game {
     }
 
 
-    private Player getWinnerPlayerFromVerdict(Verdict v) {
+    private Player getPlayerFromCellMark(CellMarkSign sign) {
         for (Player p : players) {
-            if (p.getPlayerCellSign() == v.getWinnerSign())
+            if (p.getPlayerCellSign() == sign)
                 return p;
         }
 
-        throw new RuntimeException("Cannot find winner player from verdict [" + v + "]");
+        throw new RuntimeException("Cannot find player for sign [" + sign+ "]");
     }
 }

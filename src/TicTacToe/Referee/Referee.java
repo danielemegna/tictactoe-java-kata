@@ -1,6 +1,7 @@
 package TicTacToe.Referee;
 
 import TicTacToe.Cell.Board;
+import TicTacToe.Cell.Cell;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Cell.CellMarkSign;
 
@@ -17,7 +18,7 @@ public class Referee {
         initWinningCombinations();
     }
 
-    public Verdict generateVedict(Board board) {
+    public CellMarkSign getWinnerCellMark(Board board) {
         for(Set<Coordinates> wc : winningCombinations) {
             boolean crossIsTheWinner, circleIsTheWinner;
             crossIsTheWinner = circleIsTheWinner = true;
@@ -29,12 +30,12 @@ public class Referee {
             }
 
             if(crossIsTheWinner)
-                return new Verdict(CellMarkSign.Cross);
+                return CellMarkSign.Cross;
             if(circleIsTheWinner)
-                return new Verdict(CellMarkSign.Circle);
+                return CellMarkSign.Circle;
         }
 
-        return new Verdict(null);
+        return null;
     }
 
     private void initWinningCombinations() {

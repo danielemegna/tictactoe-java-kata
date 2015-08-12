@@ -11,6 +11,7 @@ import java.util.Set;
 public class SpyBoard extends Board {
 
     private List<String> calls = new ArrayList<>();
+    private boolean registrationEnabled = false;
 
     @Override
     public CellMarkSign getCellSign(Coordinates c) {
@@ -41,15 +42,20 @@ public class SpyBoard extends Board {
         return this;
     }
 
+    public void startRegistration() {
+        registrationEnabled = true;
+    }
+
+    public void stopRegistration() {
+        registrationEnabled = false;
+    }
+
     public List<String> calls() {
         return calls;
     }
 
     private void registerNewCall(String method) {
-        calls.add(method);
-    }
-
-    public String getLastCall() {
-        return calls.get(calls.size()-1);
+        if(registrationEnabled)
+            calls.add(method);
     }
 }

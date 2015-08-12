@@ -12,6 +12,7 @@ import java.util.List;
 public class SpyDisplay extends ConsoleDisplay {
 
     private List<String> calls = new ArrayList<>();
+    private boolean registrationEnabled = false;
 
     public SpyDisplay() {
         super(null);
@@ -75,11 +76,20 @@ public class SpyDisplay extends ConsoleDisplay {
         return new Coordinates(0, 1);
     }
 
+    public void startRegistration() {
+        registrationEnabled = true;
+    }
+
+    public void stopRegistration() {
+        registrationEnabled = false;
+    }
+
     public List<String> calls() {
         return calls;
     }
 
     private void registerNewCall(String method) {
-        calls.add(method);
+        if(registrationEnabled)
+            calls.add(method);
     }
 }
