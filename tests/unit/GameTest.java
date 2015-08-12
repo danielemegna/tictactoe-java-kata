@@ -4,7 +4,6 @@ import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Game.Game;
 import helpers.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -35,7 +34,6 @@ public class GameTest {
     @Test
     public void callsAfterInit() {
         activateAllSpies();
-
         instantiateGame();
 
         assertEquals(Arrays.asList(
@@ -49,22 +47,23 @@ public class GameTest {
     }
 
     @Test
-    public void callsOnPlay_tieInOneMove() {
+    public void tieInOneMove() {
         instantiateGame();
         activateAllSpies();
         spyBoard.setFullAfter(1);
         game.play();
 
         assertEquals(Arrays.asList(
-                "printBoard(class helpers.SpyBoard)",
-                "printBoard(class helpers.SpyBoard)",
-                "announceTie()",
-                "shutDownMessage()"
+            "printBoard(class helpers.SpyBoard)",
+            "printBoard(class helpers.SpyBoard)",
+            "announceTie()",
+            "shutDownMessage()"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
-                "doNextMove(class helpers.SpyBoard)"
+            "doNextMove(class helpers.SpyBoard)"
         ), firstSpyPlayer.calls());
+        assertEquals(0, secondSpyPlayer.calls().size());
 
         assertEquals(Arrays.asList(
             "isFull()"
@@ -76,7 +75,7 @@ public class GameTest {
     }
 
     @Test
-    public void callsOnPlay_winnerInOneMove() {
+    public void winnerInOneMove() {
         instantiateGame();
         activateAllSpies();
         spyReferee.setWinner(CellMarkSign.Cross);
@@ -85,7 +84,7 @@ public class GameTest {
         game.play();
 
         assertTrue(spyDisplay.calls().contains(
-                "announceWinner name firstSpyPlayer"
+            "announceWinner name firstSpyPlayer"
         ));
 
         assertEquals(Arrays.asList(
@@ -99,7 +98,7 @@ public class GameTest {
     }
 
     @Test
-    public void callsOnPlay_winnerAfterSomeMoves() {
+    public void winnerAfterSomeMoves() {
         instantiateGame();
         activateAllSpies();
         spyReferee.setWinner(CellMarkSign.Circle);
