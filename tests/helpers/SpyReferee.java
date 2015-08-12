@@ -12,11 +12,15 @@ public class SpyReferee extends Referee {
     private List<String> calls = new ArrayList<>();
     private boolean registrationEnabled = false;
     private CellMarkSign winner = null;
+    private int winnerAfter = -1;
 
     @Override
     public CellMarkSign getWinnerCellMark(Board board) {
         registerNewCall("getWinnerCellMark(" + board.getClass() + ")");
-        return winner;
+        if(--winnerAfter == 0)
+            return winner;
+
+        return null;
     }
 
     public void startRegistration() {
@@ -38,5 +42,9 @@ public class SpyReferee extends Referee {
 
     public void setWinner(CellMarkSign markSign) {
         winner = markSign;
+    }
+
+    public void setWinnerAfter(int winnerAfter) {
+        this.winnerAfter = winnerAfter;
     }
 }

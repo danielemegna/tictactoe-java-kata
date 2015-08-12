@@ -4,11 +4,13 @@ import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Game.Game;
 import helpers.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -32,7 +34,7 @@ public class GameTest {
 
     @Test
     public void callsAfterInit() {
-        startSpiesCallsRegistrations();
+        activateAllSpies();
 
         instantiateGame();
 
@@ -49,19 +51,19 @@ public class GameTest {
     @Test
     public void callsOnPlay_tieInOneMove() {
         instantiateGame();
-        startSpiesCallsRegistrations();
-
+        activateAllSpies();
+        spyBoard.setFullAfter(1);
         game.play();
 
         assertEquals(Arrays.asList(
-            "printBoard(class helpers.SpyBoard)",
-            "printBoard(class helpers.SpyBoard)",
-            "announceTie()",
-            "shutDownMessage()"
+                "printBoard(class helpers.SpyBoard)",
+                "printBoard(class helpers.SpyBoard)",
+                "announceTie()",
+                "shutDownMessage()"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
-            "doNextMove(class helpers.SpyBoard)"
+                "doNextMove(class helpers.SpyBoard)"
         ), firstSpyPlayer.calls());
 
         assertEquals(Arrays.asList(
@@ -76,17 +78,15 @@ public class GameTest {
     @Test
     public void callsOnPlay_winnerInOneMove() {
         instantiateGame();
-        startSpiesCallsRegistrations();
+        activateAllSpies();
         spyReferee.setWinner(CellMarkSign.Cross);
+        spyReferee.setWinnerAfter(1);
 
         game.play();
 
-        assertEquals(Arrays.asList(
-            "printBoard(class helpers.SpyBoard)",
-            "printBoard(class helpers.SpyBoard)",
-            "announceWinner name firstSpyPlayer",
-            "shutDownMessage()"
-        ), spyDisplay.calls());
+        assertTrue(spyDisplay.calls().contains(
+                "announceWinner name firstSpyPlayer"
+        ));
 
         assertEquals(Arrays.asList(
             "doNextMove(class helpers.SpyBoard)",
@@ -98,11 +98,36 @@ public class GameTest {
         ), spyReferee.calls());
     }
 
+    @Test
+    public void callsOnPlay_winnerAfterSomeMoves() {
+        instantiateGame();
+        activateAllSpies();
+        spyReferee.setWinner(CellMarkSign.Circle);
+        spyReferee.setWinnerAfter(4);
+
+        game.play();
+
+        assertTrue(spyDisplay.calls().contains(
+            "announceWinner name secondSpyPlayer"
+        ));
+
+        assertEquals(Arrays.asList(
+            "doNextMove(class helpers.SpyBoard)",
+            "doNextMove(class helpers.SpyBoard)"
+        ), firstSpyPlayer.calls());
+
+        assertEquals(Arrays.asList(
+            "doNextMove(class helpers.SpyBoard)",
+            "doNextMove(class helpers.SpyBoard)",
+            "getName()"
+        ), secondSpyPlayer.calls());
+    }
+
     private void instantiateGame() {
         game = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
     }
 
-    private void startSpiesCallsRegistrations() {
+    private void activateAllSpies() {
         spyDisplay.startRegistration();
         spyReferee.startRegistration();
         spyBoard.startRegistration();

@@ -12,6 +12,7 @@ public class SpyBoard extends Board {
 
     private List<String> calls = new ArrayList<>();
     private boolean registrationEnabled = false;
+    private int fullAfter = -1;
 
     @Override
     public CellMarkSign getCellSign(Coordinates c) {
@@ -27,7 +28,10 @@ public class SpyBoard extends Board {
     @Override
     public boolean isFull() {
         registerNewCall("isFull()");
-        return true;
+        if(--fullAfter == 0)
+            return true;
+
+        return false;
     }
 
     @Override
@@ -57,5 +61,9 @@ public class SpyBoard extends Board {
     private void registerNewCall(String method) {
         if(registrationEnabled)
             calls.add(method);
+    }
+
+    public void setFullAfter(int fullAfter) {
+        this.fullAfter = fullAfter;
     }
 }
