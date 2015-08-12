@@ -3,6 +3,8 @@ package unit;
 import TicTacToe.Coordinates.*;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.*;
 
 public class CoordinatesTest {
@@ -47,4 +49,12 @@ public class CoordinatesTest {
         assertNotEquals(zeroZero.hashCode(), differentCoordinates.hashCode());
     }
 
+    @Test
+    public void coordinatesInequalityWithDifferentClasses() {
+        Coordinates coordinates = new Coordinates(0, 0);
+        BigDecimal bigDecimal = BigDecimal.TEN;
+
+        assertNotEquals(coordinates, bigDecimal);
+        assertNotEquals(coordinates.hashCode(), bigDecimal.hashCode());
+    }
 }
