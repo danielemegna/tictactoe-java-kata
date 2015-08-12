@@ -20,10 +20,6 @@ public class Game {
     private List<Player> players;
     private int playerTurnIndex;
 
-    public Game(ConsoleDisplay display, PlayerFactory playerFactory) {
-        this(display, playerFactory, new Referee(), new Board());
-    }
-
     public Game(ConsoleDisplay display, PlayerFactory playerFactory, Referee refree, Board board) {
         this.display = display;
         this.playerFactory = playerFactory;
