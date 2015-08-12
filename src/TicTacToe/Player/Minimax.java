@@ -1,11 +1,9 @@
 package TicTacToe.Player;
 
 import TicTacToe.Cell.Board;
-import TicTacToe.Cell.Cell;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Referee.Referee;
-import TicTacToe.Referee.Verdict;
 
 public class Minimax {
 

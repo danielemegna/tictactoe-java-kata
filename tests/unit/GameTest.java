@@ -25,8 +25,8 @@ public class GameTest {
         spyDisplay = new SpyDisplay();
         spyReferee = new SpyReferee();
         spyBoard = new SpyBoard();
-        firstSpyPlayer = new SpyPlayer(CellMarkSign.Cross);
-        secondSpyPlayer = new SpyPlayer(CellMarkSign.Circle);
+        firstSpyPlayer = new SpyPlayer(CellMarkSign.Cross, "firstSpyPlayer");
+        secondSpyPlayer = new SpyPlayer(CellMarkSign.Circle, "secondSpyPlayer");
         spyPlayerFactory = new SpyPlayerFactory(firstSpyPlayer, secondSpyPlayer);
     }
 
@@ -47,7 +47,7 @@ public class GameTest {
     }
 
     @Test
-    public void callsOnPlay() {
+    public void callsOnPlay_tieInOneMove() {
         instantiateGame();
         startSpiesCallsRegistrations();
 
@@ -67,6 +67,31 @@ public class GameTest {
         assertEquals(Arrays.asList(
             "isFull()"
         ), spyBoard.calls());
+
+        assertEquals(Arrays.asList(
+            "getWinnerCellMark(class helpers.SpyBoard)"
+        ), spyReferee.calls());
+    }
+
+    @Test
+    public void callsOnPlay_winnerInOneMove() {
+        instantiateGame();
+        startSpiesCallsRegistrations();
+        spyReferee.setWinner(CellMarkSign.Cross);
+
+        game.play();
+
+        assertEquals(Arrays.asList(
+            "printBoard(class helpers.SpyBoard)",
+            "printBoard(class helpers.SpyBoard)",
+            "announceWinner name firstSpyPlayer",
+            "shutDownMessage()"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "doNextMove(class helpers.SpyBoard)",
+            "getName()"
+        ), firstSpyPlayer.calls());
 
         assertEquals(Arrays.asList(
             "getWinnerCellMark(class helpers.SpyBoard)"

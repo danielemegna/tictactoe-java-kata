@@ -11,9 +11,11 @@ import java.util.List;
 public class SpyPlayer extends Player {
     private List<String> calls = new ArrayList<>();
     private boolean registrationEnabled = false;
+    private final String name;
 
-    public SpyPlayer(CellMarkSign sign) {
+    public SpyPlayer(CellMarkSign sign, String name) {
         super(sign);
+        this.name = name;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class SpyPlayer extends Player {
     @Override
     public String getName() {
         registerNewCall("getName()");
-        return "SpyPlayer";
+        return name;
     }
 
     public void startRegistration() {
