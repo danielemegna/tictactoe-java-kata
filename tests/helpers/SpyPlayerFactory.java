@@ -1,6 +1,5 @@
 package helpers;
 
-import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.GameMode;
 import TicTacToe.Player.Player;
 import TicTacToe.Player.PlayerFactory;
@@ -14,7 +13,7 @@ public class SpyPlayerFactory extends PlayerFactory {
     private final Player secondPlayer;
 
     private List<String> calls = new ArrayList<>();
-    private boolean registrationEnabled = false;
+    private boolean activatedSpy = false;
 
     public SpyPlayerFactory(Player firstPlayer, Player secondPlayer) {
         super(null);
@@ -31,12 +30,12 @@ public class SpyPlayerFactory extends PlayerFactory {
         );
     }
 
-    public void startRegistration() {
-        registrationEnabled = true;
+    public void activateSpy() {
+        activatedSpy = true;
     }
 
-    public void stopRegistration() {
-        registrationEnabled = false;
+    public void deactivateSpy() {
+        activatedSpy = false;
     }
 
     public List<String> calls() {
@@ -44,7 +43,7 @@ public class SpyPlayerFactory extends PlayerFactory {
     }
 
     private void registerNewCall(String method) {
-        if(registrationEnabled)
+        if(activatedSpy)
             calls.add(method);
     }
 }

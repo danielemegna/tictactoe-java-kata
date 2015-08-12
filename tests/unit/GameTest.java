@@ -127,11 +127,11 @@ public class GameTest {
     }
 
     private void activateAllSpies() {
-        spyDisplay.startRegistration();
-        spyReferee.startRegistration();
-        spyBoard.startRegistration();
-        firstSpyPlayer.startRegistration();
-        secondSpyPlayer.startRegistration();
-        spyPlayerFactory.startRegistration();
+        spyDisplay.activateSpy();
+        spyReferee.activateSpy();
+        spyBoard.activateSpy();
+        firstSpyPlayer.activateSpy();
+        secondSpyPlayer.activateSpy();
+        spyPlayerFactory.activateSpy();
     }
 }

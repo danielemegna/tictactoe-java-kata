@@ -10,7 +10,7 @@ import java.util.List;
 public class SpyReferee extends Referee {
 
     private List<String> calls = new ArrayList<>();
-    private boolean registrationEnabled = false;
+    private boolean activatedSpy = false;
     private CellMarkSign winner = null;
     private int winnerAfter = -1;
 
@@ -23,12 +23,12 @@ public class SpyReferee extends Referee {
         return null;
     }
 
-    public void startRegistration() {
-        registrationEnabled = true;
+    public void activateSpy() {
+        activatedSpy = true;
     }
 
-    public void stopRegistration() {
-        registrationEnabled = false;
+    public void deactivateSpy() {
+        activatedSpy = false;
     }
 
     public List<String> calls() {
@@ -36,7 +36,7 @@ public class SpyReferee extends Referee {
     }
 
     private void registerNewCall(String method) {
-        if(registrationEnabled)
+        if(activatedSpy)
             calls.add(method);
     }
 

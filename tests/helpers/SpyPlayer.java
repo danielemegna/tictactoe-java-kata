@@ -2,7 +2,6 @@ package helpers;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
-import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Player.Player;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class SpyPlayer extends Player {
     private List<String> calls = new ArrayList<>();
-    private boolean registrationEnabled = false;
+    private boolean activatedSpy = false;
     private final String name;
 
     public SpyPlayer(CellMarkSign sign, String name) {
@@ -29,12 +28,12 @@ public class SpyPlayer extends Player {
         return name;
     }
 
-    public void startRegistration() {
-        registrationEnabled = true;
+    public void activateSpy() {
+        activatedSpy = true;
     }
 
-    public void stopRegistration() {
-        registrationEnabled = false;
+    public void deactivateSpy() {
+        activatedSpy = false;
     }
 
     public List<String> calls() {
@@ -42,7 +41,7 @@ public class SpyPlayer extends Player {
     }
 
     private void registerNewCall(String method) {
-        if(registrationEnabled)
+        if(activatedSpy)
             calls.add(method);
     }
 }
