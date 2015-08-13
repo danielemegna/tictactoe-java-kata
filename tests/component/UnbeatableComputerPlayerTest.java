@@ -30,6 +30,36 @@ public class UnbeatableComputerPlayerTest {
         assertNextMove(1, 1);
     }
 
+    @Test
+    public void winnerInAMove() {
+        helper.markBoardFromString(
+            "XOX" +
+            "XOX" +
+            "O  "
+        );
+        assertNextMove(1, 2);
+    }
+
+    @Test
+    public void blockAdversaryWin() {
+        helper.markBoardFromString(
+            "OXO" +
+            " XO" +
+            "  X"
+        );
+        assertNextMove(1, 2);
+    }
+
+    @Test
+    public void centerCellIsTheBestSecondMove() {
+        helper.markBoardFromString(
+            "X  " +
+            "   " +
+            "   "
+        );
+        assertNextMove(1, 1);
+    }
+
     private void assertNextMove(int x, int y) {
         helper.assertCellIsEmpty(x, y);
         player.doNextMove(board);
