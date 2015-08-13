@@ -2,6 +2,7 @@ package component;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
+import TicTacToe.Player.ComputerPlayerChoiceException;
 import TicTacToe.Player.UnbeatableComputerPlayer;
 import helpers.BoardTestHelper;
 import org.junit.Before;
@@ -58,6 +59,16 @@ public class UnbeatableComputerPlayerTest {
             "   "
         );
         assertNextMove(1, 1);
+    }
+
+    @Test(expected = ComputerPlayerChoiceException.class)
+    public void fullBoard() {
+        helper.markBoardFromString(
+            "XOO" +
+            "OOX" +
+            "XXO"
+        );
+        player.doNextMove(board);
     }
 
     private void assertNextMove(int x, int y) {
