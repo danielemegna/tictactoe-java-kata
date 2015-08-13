@@ -41,4 +41,30 @@ public class PlayerFactoryTest {
             new UnbeatableComputerPlayer(CellMarkSign.Circle)
         ), players);
     }
+
+    @Test
+    public void humanVsHuman() {
+        SpyDisplay spyDisplay = new SpyDisplay();
+        PlayerFactory playerFactory = new PlayerFactory(spyDisplay);
+
+        List<Player> players = playerFactory.listFromGameMode(GameMode.HumanVsHuman);
+
+        assertEquals(Arrays.asList(
+            new HumanPlayer(CellMarkSign.Cross, spyDisplay),
+            new HumanPlayer(CellMarkSign.Circle, spyDisplay)
+        ), players);
+    }
+
+    @Test
+    public void computerVsHuman() {
+        SpyDisplay spyDisplay = new SpyDisplay();
+        PlayerFactory playerFactory = new PlayerFactory(spyDisplay);
+
+        List<Player> players = playerFactory.listFromGameMode(GameMode.ComputerVsHuman);
+
+        assertEquals(Arrays.asList(
+            new UnbeatableComputerPlayer(CellMarkSign.Cross),
+            new HumanPlayer(CellMarkSign.Circle, spyDisplay)
+        ), players);
+    }
 }
