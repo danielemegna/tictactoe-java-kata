@@ -11,6 +11,7 @@ import helpers.SpyDisplay;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -134,11 +135,13 @@ public class HumanPlayerTest {
     @Test
     public void playersEquality() {
         instantiatePlayer();
-        Player samePlayer = new HumanPlayer(CellMarkSign.Cross, spyDisplay);
-        Player differentPlayer = new HumanPlayer(CellMarkSign.Circle, spyDisplay);
+        Player samePlayer           = new HumanPlayer(CellMarkSign.Cross, spyDisplay);
+        Player differentPlayer      = new HumanPlayer(CellMarkSign.Circle, spyDisplay);
+        BigDecimal differentClass   = BigDecimal.ONE;
 
         assertEquals(player, samePlayer);
         assertNotEquals(player, differentPlayer);
+        assertNotEquals(player, differentClass);
     }
 
     private void instantiatePlayer() {
