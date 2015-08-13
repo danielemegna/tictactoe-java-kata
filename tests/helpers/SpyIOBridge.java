@@ -16,6 +16,11 @@ public class SpyIOBridge extends IOBridge {
     }
 
     @Override
+    public void print(String message) {
+        registerNewCall("print(" + message + ")");
+    }
+
+    @Override
     public void println(String message) {
         registerNewCall("println(" + message + ")");
     }

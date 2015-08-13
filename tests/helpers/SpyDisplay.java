@@ -17,7 +17,7 @@ public class SpyDisplay extends ConsoleDisplay {
     private RuntimeException exceptionAtNextMove;
 
     public SpyDisplay() {
-        super(null);
+        super(null, null);
     }
 
     @Override

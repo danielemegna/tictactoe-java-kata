@@ -3,6 +3,8 @@ package unit;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Game.GameMode;
+import helpers.SpyBoard;
+import helpers.SpyBoardFormatter;
 import helpers.SpyIOBridge;
 import helpers.SpyPlayer;
 import org.junit.Before;
@@ -15,12 +17,16 @@ public class ConsoleDisplayTest {
 
     private SpyIOBridge spyIOBridge;
     private ConsoleDisplay display;
+    private SpyBoardFormatter spyBoardFormatter;
 
     @Before
     public void setup() {
         spyIOBridge = new SpyIOBridge();
-        display = new ConsoleDisplay(spyIOBridge);
+        spyBoardFormatter = new SpyBoardFormatter();
+        display = new ConsoleDisplay(spyIOBridge, spyBoardFormatter);
+
         spyIOBridge.activateSpy();
+        spyBoardFormatter.activateSpy();
     }
 
     @Test
@@ -60,16 +66,26 @@ public class ConsoleDisplayTest {
 
         assertEquals(GameMode.ComputerVsHuman, mode);
         assertSpyIOBridgeCalls(
-                "println(Select the game mode:)",
-                "println(1. Human vs Human)",
-                "println(2. Human vs Computer)",
-                "println(3. Computer vs Human)",
-                "println(4. Computer vs Computer)",
-                "readLine(->)"
+            "println(Select the game mode:)",
+            "println(1. Human vs Human)",
+            "println(2. Human vs Computer)",
+            "println(3. Computer vs Human)",
+            "println(4. Computer vs Computer)",
+            "readLine(->)"
         );
     }
 
-    private void assertSpyIOBridgeCalls(String ... expected) {
-        assertEquals(Arrays.asList(expected), spyIOBridge.calls());
+    @Test
+    public void printBoard() {
+        display.printBoard(new SpyBoard());
+
+        assertSpyIOBridgeCalls("print(formatted_board)");
+        assertEquals(Arrays.asList(
+            "format(class helpers.SpyBoard)"
+        ), spyBoardFormatter.calls());
+    }
+
+    private void assertSpyIOBridgeCalls(String ... expectedCalls) {
+        assertEquals(Arrays.asList(expectedCalls), spyIOBridge.calls());
     }
 }

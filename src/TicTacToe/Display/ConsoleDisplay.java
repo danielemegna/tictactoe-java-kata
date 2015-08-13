@@ -9,25 +9,25 @@ import TicTacToe.Player.Player;
 import java.util.HashMap;
 
 public class ConsoleDisplay {
-    private final IOBridge io;
+    private final IOBridge ioBridge;
     private final BoardFormatter boardFormatter;
 
     private final HashMap<String, String> messages = new HashMap<String, String>() {{
-        put("welcome", "Welcome!");
-        put("shutdown", "Shutting down ... bye bye!");
-        put("invalid_input", "Invalid input, retry..");
-        put("ask_human_player_name", "Human player name?");
-        put("ask_next_move", "%s make your move (x y):");
-        put("cell_already_marked", "Cell already marked.. retry.");
-        put("invalid_coordinates", "Invalid coordinates.. retry");
-        put("coordinates_marked", "Coordinates %s marked.");
-        put("winner", "%s is the winner!");
-        put("tie", "Tie game, no winner.");
+        put("ask_human_player_name",    "Human player name?");
+        put("ask_next_move",            "%s make your move (x y):");
+        put("cell_already_marked",      "Cell already marked.. retry.");
+        put("coordinates_marked",       "Coordinates %s marked.");
+        put("invalid_coordinates",      "Invalid coordinates.. retry");
+        put("invalid_input",            "Invalid input, retry..");
+        put("shutdown",                 "Shutting down ... bye bye!");
+        put("tie",                      "Tie game, no winner.");
+        put("welcome",                  "Welcome!");
+        put("winner",                   "%s is the winner!");
     }};
 
-    public ConsoleDisplay(IOBridge io) {
-        this.io = io;
-        this.boardFormatter = new BoardFormatter();
+    public ConsoleDisplay(IOBridge ioBridge, BoardFormatter boardFormatter) {
+        this.ioBridge = ioBridge;
+        this.boardFormatter = boardFormatter;
     }
 
     public void welcomeMessage() {
@@ -66,7 +66,7 @@ public class ConsoleDisplay {
         while(true) {
             printGameModeMenu();
             try {
-                int mode = Integer.valueOf(io.readLine("->"));
+                int mode = Integer.valueOf(ioBridge.readLine("->"));
                 return GameMode.values()[mode-1];
             } catch (Exception e) {
                 invalidInputMessage();
@@ -76,12 +76,12 @@ public class ConsoleDisplay {
 
     public String askForHumanPlayerName() {
         String message = getMessageFromKey("ask_human_player_name");
-        return io.readLine(message);
+        return ioBridge.readLine(message);
     }
 
     public Coordinates askForNextMove(String playerName) {
         String message = getMessageFromKey("ask_next_move", playerName);
-        String input = io.readLine(message);
+        String input = ioBridge.readLine(message);
 
         int x = Integer.valueOf(String.valueOf(input.charAt(0)));
         int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
@@ -90,11 +90,11 @@ public class ConsoleDisplay {
 
     public void printBoard(Board board) {
         String formattedString = boardFormatter.format(board);
-        io.print(formattedString);
+        ioBridge.print(formattedString);
     }
 
     private void printFromMessageKey(String key, Object... args) {
-        io.println(getMessageFromKey(key, args));
+        ioBridge.println(getMessageFromKey(key, args));
     }
 
     private String getMessageFromKey(String key, Object... args) {
@@ -102,10 +102,10 @@ public class ConsoleDisplay {
     }
 
     private void printGameModeMenu() {
-        io.println("Select the game mode:");
-        io.println("1. Human vs Human");
-        io.println("2. Human vs Computer");
-        io.println("3. Computer vs Human");
-        io.println("4. Computer vs Computer");
+        ioBridge.println("Select the game mode:");
+        ioBridge.println("1. Human vs Human");
+        ioBridge.println("2. Human vs Computer");
+        ioBridge.println("3. Computer vs Human");
+        ioBridge.println("4. Computer vs Computer");
     }
 }
