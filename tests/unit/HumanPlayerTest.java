@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class HumanPlayerTest {
 
@@ -33,7 +34,7 @@ public class HumanPlayerTest {
         instantiatePlayer();
 
         assertEquals(Arrays.asList(
-            "askForHumanPlayerName()"
+                "askForHumanPlayerName()"
         ), spyDisplay.calls());
     }
 
@@ -77,10 +78,10 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-            "askForNextMove name TestHumanPlayer",
-            "invalidCoordinatesMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([1, 1])"
+                "askForNextMove name TestHumanPlayer",
+                "invalidCoordinatesMessage()",
+                "askForNextMove name TestHumanPlayer",
+                "cellMarkedMessage([1, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -98,10 +99,10 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-            "askForNextMove name TestHumanPlayer",
-            "alreadyMarkedCellMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([2, 0])"
+                "askForNextMove name TestHumanPlayer",
+                "alreadyMarkedCellMessage()",
+                "askForNextMove name TestHumanPlayer",
+                "cellMarkedMessage([2, 0])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -119,15 +120,25 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-            "askForNextMove name TestHumanPlayer",
-            "invalidInputMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([1, 2])"
+                "askForNextMove name TestHumanPlayer",
+                "invalidInputMessage()",
+                "askForNextMove name TestHumanPlayer",
+                "cellMarkedMessage([1, 2])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
             "mark([1, 2], Cross)"
         ), spyBoard.calls());
+    }
+
+    @Test
+    public void playersEquality() {
+        instantiatePlayer();
+        Player samePlayer = new HumanPlayer(CellMarkSign.Cross, spyDisplay);
+        Player differentPlayer = new HumanPlayer(CellMarkSign.Circle, spyDisplay);
+
+        assertEquals(player, samePlayer);
+        assertNotEquals(player, differentPlayer);
     }
 
     private void instantiatePlayer() {

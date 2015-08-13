@@ -19,6 +19,16 @@ public abstract class Player {
         board.mark(move, getPlayerCellSign());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o.getClass() != this.getClass())
+            return false;
+
+        Player that = (Player)o;
+        return this.getName() == that.getName() &&
+            this.getPlayerCellSign() == that.getPlayerCellSign();
+    }
+
     public abstract void doNextMove(Board board);
     public abstract String getName();
 }
