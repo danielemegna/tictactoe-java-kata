@@ -86,8 +86,8 @@ public class SpyDisplay extends ConsoleDisplay {
     }
 
     @Override
-    public void cellMarkedMessage(Coordinates move) {
-        registerNewCall("cellMarkedMessage(" + move + ")");
+    public void coordinatesMarkedMessage(Coordinates move) {
+        registerNewCall("coordinatesMarkedMessage(" + move + ")");
     }
 
     public void activateSpy() {

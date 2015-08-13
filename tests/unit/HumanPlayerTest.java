@@ -61,7 +61,7 @@ public class HumanPlayerTest {
 
         assertEquals(Arrays.asList(
             "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([0, 1])"
+            "coordinatesMarkedMessage([0, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -82,7 +82,7 @@ public class HumanPlayerTest {
             "askForNextMove name TestHumanPlayer",
             "invalidCoordinatesMessage()",
             "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([1, 1])"
+            "coordinatesMarkedMessage([1, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -103,7 +103,7 @@ public class HumanPlayerTest {
             "askForNextMove name TestHumanPlayer",
             "alreadyMarkedCellMessage()",
             "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([2, 0])"
+            "coordinatesMarkedMessage([2, 0])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -124,7 +124,7 @@ public class HumanPlayerTest {
             "askForNextMove name TestHumanPlayer",
             "invalidInputMessage()",
             "askForNextMove name TestHumanPlayer",
-            "cellMarkedMessage([1, 2])"
+            "coordinatesMarkedMessage([1, 2])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(

@@ -24,7 +24,7 @@ public class HumanPlayer extends Player {
             try {
                 Coordinates move = display.askForNextMove(name);
                 markBoard(move, board);
-                display.cellMarkedMessage(move);
+                display.coordinatesMarkedMessage(move);
             } catch (CoordinateOutOfBoundsException ex) {
                 display.invalidCoordinatesMessage();
                 continue;
