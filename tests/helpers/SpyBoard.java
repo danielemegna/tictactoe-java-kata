@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class SpyBoard extends Board {
+public class SpyBoard extends Board implements Spy {
 
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;
@@ -46,6 +46,10 @@ public class SpyBoard extends Board {
         return this;
     }
 
+    public void setFullAfter(int fullAfter) {
+        this.fullAfter = fullAfter;
+    }
+
     public void activateSpy() {
         activatedSpy = true;
     }
@@ -61,9 +65,5 @@ public class SpyBoard extends Board {
     private void registerNewCall(String method) {
         if(activatedSpy)
             calls.add(method);
-    }
-
-    public void setFullAfter(int fullAfter) {
-        this.fullAfter = fullAfter;
     }
 }

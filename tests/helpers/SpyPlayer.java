@@ -7,7 +7,7 @@ import TicTacToe.Player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpyPlayer extends Player {
+public class SpyPlayer extends Player implements Spy {
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;
     private final String name;

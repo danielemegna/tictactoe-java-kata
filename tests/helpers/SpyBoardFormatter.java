@@ -6,7 +6,7 @@ import TicTacToe.Display.BoardFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpyBoardFormatter extends BoardFormatter {
+public class SpyBoardFormatter extends BoardFormatter implements Spy {
 
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;

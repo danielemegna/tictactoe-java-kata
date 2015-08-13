@@ -9,7 +9,7 @@ import TicTacToe.Player.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpyDisplay extends ConsoleDisplay {
+public class SpyDisplay extends ConsoleDisplay implements Spy {
 
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;

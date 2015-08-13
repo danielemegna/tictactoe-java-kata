@@ -3,13 +3,9 @@ package unit;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Game.GameMode;
-import helpers.SpyBoard;
-import helpers.SpyBoardFormatter;
-import helpers.SpyIOBridge;
-import helpers.SpyPlayer;
+import helpers.*;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,38 +21,37 @@ public class ConsoleDisplayTest {
         spyBoardFormatter = new SpyBoardFormatter();
         display = new ConsoleDisplay(spyIOBridge, spyBoardFormatter);
 
-        spyIOBridge.activateSpy();
-        spyBoardFormatter.activateSpy();
+        SpyHelper.activate(spyIOBridge, spyBoardFormatter);
     }
 
     @Test
     public void welcomeMessage() {
         display.welcomeMessage();
-        assertSpyIOBridgeCalls("println(Welcome!)");
+        SpyHelper.assertCalls(spyIOBridge, "println(Welcome!)");
     }
 
     @Test
     public void shutDownMessage() {
         display.shutDownMessage();
-        assertSpyIOBridgeCalls("println(Shutting down ... bye bye!)");
+        SpyHelper.assertCalls(spyIOBridge, "println(Shutting down ... bye bye!)");
     }
 
     @Test
     public void announcingWinner() {
         display.announceWinner(new SpyPlayer(CellMarkSign.Cross, "BobTheSpy"));
-        assertSpyIOBridgeCalls("println(BobTheSpy is the winner!)");
+        SpyHelper.assertCalls(spyIOBridge, "println(BobTheSpy is the winner!)");
     }
 
     @Test
     public void announcingTie() {
         display.announceTie();
-        assertSpyIOBridgeCalls("println(Tie game, no winner.)");
+        SpyHelper.assertCalls(spyIOBridge, "println(Tie game, no winner.)");
     }
 
     @Test
     public void askForHumanPlayerName() {
         display.askForHumanPlayerName();
-        assertSpyIOBridgeCalls("readLine(Human player name?)");
+        SpyHelper.assertCalls(spyIOBridge, "readLine(Human player name?)");
     }
 
     @Test
@@ -65,7 +60,7 @@ public class ConsoleDisplayTest {
         GameMode mode = display.askForGameMode();
 
         assertEquals(GameMode.ComputerVsHuman, mode);
-        assertSpyIOBridgeCalls(
+        SpyHelper.assertCalls(spyIOBridge,
             "println(Select the game mode:)",
             "println(1. Human vs Human)",
             "println(2. Human vs Computer)",
@@ -79,13 +74,8 @@ public class ConsoleDisplayTest {
     public void printBoard() {
         display.printBoard(new SpyBoard());
 
-        assertSpyIOBridgeCalls("print(formatted_board)");
-        assertEquals(Arrays.asList(
-            "format(class helpers.SpyBoard)"
-        ), spyBoardFormatter.calls());
+        SpyHelper.assertCalls(spyIOBridge, "print(formatted_board)");
+        SpyHelper.assertCalls(spyBoardFormatter, "format(class helpers.SpyBoard)");
     }
 
-    private void assertSpyIOBridgeCalls(String ... expectedCalls) {
-        assertEquals(Arrays.asList(expectedCalls), spyIOBridge.calls());
-    }
 }

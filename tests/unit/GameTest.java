@@ -23,115 +23,87 @@ public class GameTest {
 
     @Before
     public void setup() {
-        spyDisplay = new SpyDisplay();
-        spyReferee = new SpyReferee();
-        spyBoard = new SpyBoard();
-        firstSpyPlayer = new SpyPlayer(CellMarkSign.Cross, "firstSpyPlayer");
-        secondSpyPlayer = new SpyPlayer(CellMarkSign.Circle, "secondSpyPlayer");
-        spyPlayerFactory = new SpyPlayerFactory(firstSpyPlayer, secondSpyPlayer);
+        spyDisplay          = new SpyDisplay();
+        spyReferee          = new SpyReferee();
+        spyBoard            = new SpyBoard();
+        firstSpyPlayer      = new SpyPlayer(CellMarkSign.Cross, "firstSpyPlayer");
+        secondSpyPlayer     = new SpyPlayer(CellMarkSign.Circle, "secondSpyPlayer");
+        spyPlayerFactory    = new SpyPlayerFactory(firstSpyPlayer, secondSpyPlayer);
+        game                = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
+
+        activateAllSpies();
     }
 
     @Test
-    public void callsAfterInit() {
-        activateAllSpies();
-        instantiateGame();
+    public void welcomeAndGameModeOnInit() {
+        game = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
 
-        assertEquals(Arrays.asList(
+        SpyHelper.assertCalls(spyDisplay,
             "welcomeMessage()",
             "askForGameMode()"
-        ), spyDisplay.calls());
+        );
 
-        assertEquals(Arrays.asList(
-            "listFromGameMode(HumanVsComputer)"
-        ), spyPlayerFactory.calls());
+        SpyHelper.assertCalls(spyPlayerFactory, "listFromGameMode(HumanVsComputer)");
     }
 
     @Test
     public void tieInOneMove() {
-        instantiateGame();
-        activateAllSpies();
         spyBoard.setFullAfter(1);
         game.play();
 
-        assertEquals(Arrays.asList(
+        SpyHelper.assertCalls(spyDisplay,
             "printBoard(class helpers.SpyBoard)",
             "printBoard(class helpers.SpyBoard)",
             "announceTie()",
             "shutDownMessage()"
-        ), spyDisplay.calls());
+        );
 
-        assertEquals(Arrays.asList(
-            "doNextMove(class helpers.SpyBoard)"
-        ), firstSpyPlayer.calls());
+        SpyHelper.assertCalls(firstSpyPlayer,   "doNextMove(class helpers.SpyBoard)");
+        SpyHelper.assertCalls(spyBoard,         "isFull()");
+        SpyHelper.assertCalls(spyReferee,       "getWinnerCellMark(class helpers.SpyBoard)");
+
         assertEquals(0, secondSpyPlayer.calls().size());
-
-        assertEquals(Arrays.asList(
-            "isFull()"
-        ), spyBoard.calls());
-
-        assertEquals(Arrays.asList(
-            "getWinnerCellMark(class helpers.SpyBoard)"
-        ), spyReferee.calls());
     }
 
     @Test
     public void winnerInOneMove() {
-        instantiateGame();
-        activateAllSpies();
         spyReferee.setWinner(CellMarkSign.Cross);
         spyReferee.setWinnerAfter(1);
 
         game.play();
 
-        assertTrue(spyDisplay.calls().contains(
-            "announceWinner name firstSpyPlayer"
-        ));
 
-        assertEquals(Arrays.asList(
+        SpyHelper.assertCalls(firstSpyPlayer,
             "doNextMove(class helpers.SpyBoard)",
             "getName()"
-        ), firstSpyPlayer.calls());
-
-        assertEquals(Arrays.asList(
-            "getWinnerCellMark(class helpers.SpyBoard)"
-        ), spyReferee.calls());
+        );
+        SpyHelper.assertCalls(spyReferee,           "getWinnerCellMark(class helpers.SpyBoard)");
+        SpyHelper.assertCallsContains(spyDisplay,   "announceWinner name firstSpyPlayer");
     }
 
     @Test
     public void winnerAfterSomeMoves() {
-        instantiateGame();
-        activateAllSpies();
         spyReferee.setWinner(CellMarkSign.Circle);
         spyReferee.setWinnerAfter(4);
 
         game.play();
 
-        assertTrue(spyDisplay.calls().contains(
-            "announceWinner name secondSpyPlayer"
-        ));
-
-        assertEquals(Arrays.asList(
+        SpyHelper.assertCallsContains(spyDisplay, "announceWinner name secondSpyPlayer");
+        SpyHelper.assertCalls(firstSpyPlayer,
             "doNextMove(class helpers.SpyBoard)",
             "doNextMove(class helpers.SpyBoard)"
-        ), firstSpyPlayer.calls());
-
-        assertEquals(Arrays.asList(
+        );
+        SpyHelper.assertCalls(secondSpyPlayer,
             "doNextMove(class helpers.SpyBoard)",
             "doNextMove(class helpers.SpyBoard)",
             "getName()"
-        ), secondSpyPlayer.calls());
-    }
-
-    private void instantiateGame() {
-        game = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
+        );
     }
 
     private void activateAllSpies() {
-        spyDisplay.activateSpy();
-        spyReferee.activateSpy();
-        spyBoard.activateSpy();
-        firstSpyPlayer.activateSpy();
-        secondSpyPlayer.activateSpy();
-        spyPlayerFactory.activateSpy();
+        SpyHelper.activate(
+            spyDisplay, spyReferee, spyBoard,
+            firstSpyPlayer, secondSpyPlayer, spyPlayerFactory
+        );
     }
 }

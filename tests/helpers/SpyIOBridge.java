@@ -5,7 +5,7 @@ import TicTacToe.IOBridge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpyIOBridge extends IOBridge {
+public class SpyIOBridge extends IOBridge implements Spy {
 
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;

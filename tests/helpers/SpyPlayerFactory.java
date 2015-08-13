@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpyPlayerFactory extends PlayerFactory {
+public class SpyPlayerFactory extends PlayerFactory implements Spy {
     private final Player firstPlayer;
     private final Player secondPlayer;
 
