@@ -2,7 +2,7 @@ package helpers;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
-import TicTacToe.Referee.Referee;
+import TicTacToe.Game.Referee;
 
 import java.util.ArrayList;
 import java.util.List;

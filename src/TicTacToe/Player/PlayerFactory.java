@@ -2,6 +2,7 @@ package TicTacToe.Player;
 
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Display.ConsoleDisplay;
+import TicTacToe.Game.GameMode;
 
 import java.util.ArrayList;
 import java.util.List;

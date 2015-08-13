@@ -3,7 +3,7 @@ package helpers;
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.ConsoleDisplay;
-import TicTacToe.Player.GameMode;
+import TicTacToe.Game.GameMode;
 import TicTacToe.Player.Player;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ public class SpyDisplay extends ConsoleDisplay {
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;
     private Coordinates nextMove = null;
+    private RuntimeException exceptionAtNextMove;
 
     public SpyDisplay() {
         super(null);
@@ -68,12 +69,19 @@ public class SpyDisplay extends ConsoleDisplay {
     @Override
     public String askForHumanPlayerName() {
         registerNewCall("askForHumanPlayerName()");
-        return "Test Human Player";
+        return "TestHumanPlayer";
     }
 
     @Override
     public Coordinates askForNextMove(String playerName) {
         registerNewCall("askForNextMove name " + playerName);
+
+        if(exceptionAtNextMove != null) {
+            RuntimeException ex = exceptionAtNextMove;
+            exceptionAtNextMove = null;
+            throw ex;
+        }
+
         return nextMove;
     }
 
@@ -101,5 +109,10 @@ public class SpyDisplay extends ConsoleDisplay {
 
     public void setNextMove(Coordinates nextMove) {
         this.nextMove = nextMove;
+    }
+
+
+    public void setExceptionAtNextMove(RuntimeException exceptionAtNextMove) {
+        this.exceptionAtNextMove = exceptionAtNextMove;
     }
 }

@@ -3,7 +3,7 @@ package TicTacToe.Display;
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.IOBridge;
-import TicTacToe.Player.GameMode;
+import TicTacToe.Game.GameMode;
 import TicTacToe.Player.Player;
 
 public class ConsoleDisplay {

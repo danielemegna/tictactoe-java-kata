@@ -1,4 +1,4 @@
-package TicTacToe.Referee;
+package TicTacToe.Game;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.Cell;

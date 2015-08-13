@@ -3,7 +3,7 @@ package TicTacToe.Player;
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
-import TicTacToe.Referee.Referee;
+import TicTacToe.Game.Referee;
 
 public class Minimax {
 

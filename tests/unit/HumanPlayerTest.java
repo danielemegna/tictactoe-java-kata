@@ -1,6 +1,8 @@
 package unit;
 
+import TicTacToe.Cell.AlreadyMarkedCellAttemptException;
 import TicTacToe.Cell.CellMarkSign;
+import TicTacToe.Coordinates.CoordinateOutOfBoundsException;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Player.HumanPlayer;
 import TicTacToe.Player.Player;
@@ -44,7 +46,7 @@ public class HumanPlayerTest {
     @Test
     public void retrievePlayerName() {
         instantiatePlayer();
-        assertEquals("Test Human Player", player.getName());
+        assertEquals("TestHumanPlayer", player.getName());
     }
 
     @Test
@@ -56,8 +58,8 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-            "askForNextMove name Test Human Player",
-            "cellMarkedMessage([0, 1])"
+                "askForNextMove name TestHumanPlayer",
+                "cellMarkedMessage([0, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -65,12 +67,75 @@ public class HumanPlayerTest {
         ), spyBoard.calls());
     }
 
-    private void activateAllSpies() {
-        spyDisplay.activateSpy();
-        spyBoard.activateSpy();
+    @Test
+    public void handleCoordinatesOutOfBoundException() {
+        instantiatePlayer();
+        activateAllSpies();
+        spyDisplay.setNextMove(new Coordinates(1, 1));
+        spyDisplay.setExceptionAtNextMove(new CoordinateOutOfBoundsException());
+
+        player.doNextMove(spyBoard);
+
+        assertEquals(Arrays.asList(
+            "askForNextMove name TestHumanPlayer",
+            "invalidCoordinatesMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([1, 1])"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "mark([1, 1], Cross)"
+        ), spyBoard.calls());
+    }
+
+    @Test
+    public void handleAlreadyMarkedCellException() {
+        instantiatePlayer();
+        activateAllSpies();
+        spyDisplay.setNextMove(new Coordinates(2, 0));
+        spyDisplay.setExceptionAtNextMove(new AlreadyMarkedCellAttemptException());
+
+        player.doNextMove(spyBoard);
+
+        assertEquals(Arrays.asList(
+            "askForNextMove name TestHumanPlayer",
+            "alreadyMarkedCellMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([2, 0])"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "mark([2, 0], Cross)"
+        ), spyBoard.calls());
+    }
+
+    @Test
+    public void handleOtherRuntimeExceptions() {
+        instantiatePlayer();
+        activateAllSpies();
+        spyDisplay.setNextMove(new Coordinates(1, 2));
+        spyDisplay.setExceptionAtNextMove(new RuntimeException());
+
+        player.doNextMove(spyBoard);
+
+        assertEquals(Arrays.asList(
+            "askForNextMove name TestHumanPlayer",
+            "invalidInputMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([1, 2])"
+        ), spyDisplay.calls());
+
+        assertEquals(Arrays.asList(
+            "mark([1, 2], Cross)"
+        ), spyBoard.calls());
     }
 
     private void instantiatePlayer() {
         player = new HumanPlayer(CellMarkSign.Cross, spyDisplay);
+    }
+
+    private void activateAllSpies() {
+        spyDisplay.activateSpy();
+        spyBoard.activateSpy();
     }
 }

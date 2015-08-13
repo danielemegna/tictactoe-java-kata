@@ -2,11 +2,9 @@ package TicTacToe.Game;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
-import TicTacToe.Player.GameMode;
 import TicTacToe.Player.Player;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.PlayerFactory;
-import TicTacToe.Referee.Referee;
 
 import java.util.List;
 

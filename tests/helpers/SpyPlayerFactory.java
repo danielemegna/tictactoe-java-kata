@@ -1,6 +1,6 @@
 package helpers;
 
-import TicTacToe.Player.GameMode;
+import TicTacToe.Game.GameMode;
 import TicTacToe.Player.Player;
 import TicTacToe.Player.PlayerFactory;
 

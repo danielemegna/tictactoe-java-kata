@@ -1,4 +1,4 @@
-package TicTacToe.Player;
+package TicTacToe.Game;
 
 public enum GameMode {
     HumanVsHuman,

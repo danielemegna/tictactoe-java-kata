@@ -4,7 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Game.Game;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Player.PlayerFactory;
-import TicTacToe.Referee.Referee;
+import TicTacToe.Game.Referee;
 
 import java.io.IOException;
 

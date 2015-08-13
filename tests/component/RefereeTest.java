@@ -2,7 +2,7 @@ package component;
 
 import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
-import TicTacToe.Referee.Referee;
+import TicTacToe.Game.Referee;
 import helpers.BoardTestHelper;
 import org.junit.Before;
 import org.junit.Test;
