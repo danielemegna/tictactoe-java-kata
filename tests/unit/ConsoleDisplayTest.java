@@ -1,6 +1,7 @@
 package unit;
 
 import TicTacToe.Cell.CellMarkSign;
+import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Game.GameMode;
 import helpers.*;
@@ -56,7 +57,7 @@ public class ConsoleDisplayTest {
 
     @Test
     public void askForGameMode_HumanVsHuman() {
-        spyIOBridge.setReadLineOutput("3");
+        spyIOBridge.setNextReadLineOutput("3");
         GameMode mode = display.askForGameMode();
 
         assertEquals(GameMode.ComputerVsHuman, mode);
@@ -68,6 +69,16 @@ public class ConsoleDisplayTest {
             "println(4. Computer vs Computer)",
             "readLine(->)"
         );
+    }
+
+    @Test
+    public void askForNextMove() {
+        spyIOBridge.setNextReadLineOutput("2, 0");
+
+        Coordinates move = display.askForNextMove("TestPlayerName");
+
+        SpyHelper.assertCalls(spyIOBridge, "readLine(TestPlayerName make your move (x y):)");
+        assertEquals(new Coordinates(2, 0), move);
     }
 
     @Test

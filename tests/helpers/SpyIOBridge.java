@@ -9,7 +9,7 @@ public class SpyIOBridge extends IOBridge implements Spy {
 
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;
-    private String readLineOutput = "";
+    private String nextReadLineOutput = "";
 
     public SpyIOBridge() {
         super(System.in, System.out);
@@ -28,7 +28,7 @@ public class SpyIOBridge extends IOBridge implements Spy {
     @Override
     public String readLine(String message) {
         registerNewCall("readLine(" + message + ")");
-        return readLineOutput;
+        return nextReadLineOutput;
     }
 
     public void activateSpy() {
@@ -48,7 +48,7 @@ public class SpyIOBridge extends IOBridge implements Spy {
             calls.add(method);
     }
 
-    public void setReadLineOutput(String readLineOutput) {
-        this.readLineOutput = readLineOutput;
+    public void setNextReadLineOutput(String readLineOutput) {
+        this.nextReadLineOutput = readLineOutput;
     }
 }
