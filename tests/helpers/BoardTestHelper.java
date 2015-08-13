@@ -24,14 +24,15 @@ public class BoardTestHelper {
     }
 
     public void assertCellIsEmpty(int x, int y) {
-        assertTrue(board.isCellEmpty(new Coordinates(x, y)));
+        Coordinates c = new Coordinates(x, y);
+        assertTrue("Cell " + c + " is not empty like expected", board.isCellEmpty(c));
     }
 
     public void assertCellSign(int x, int y, CellMarkSign expected) {
         Coordinates c = new Coordinates(x, y);
         CellMarkSign actual = board.getCellSign(c);
         assertEquals(
-            "Fail asserting cell sign at coordinates [" + c + "] ." +
+            "Fail asserting cell sign at coordinates " + c + ". " +
             "Actual [" + actual + "], expected [" + expected + "]",
             expected, actual
         );
