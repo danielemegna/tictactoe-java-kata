@@ -19,11 +19,6 @@ public class ConsoleDisplay {
         io.println("Welcome!");
     }
 
-    public void printBoard(Board board) {
-        String formattedString = boardFormatter.format(board);
-        io.print(formattedString);
-    }
-
     public void shutDownMessage() {
         io.println("Shutting down ... bye bye!");
     }
@@ -46,6 +41,11 @@ public class ConsoleDisplay {
 
     public String askForHumanPlayerName() {
         return io.readLine("Human player name?");
+    }
+
+    public void printBoard(Board board) {
+        String formattedString = boardFormatter.format(board);
+        io.print(formattedString);
     }
 
     public void announceWinner(Player winner) {
