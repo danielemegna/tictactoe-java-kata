@@ -34,7 +34,7 @@ public class HumanPlayerTest {
         instantiatePlayer();
 
         assertEquals(Arrays.asList(
-                "askForHumanPlayerName()"
+            "askForHumanPlayerName()"
         ), spyDisplay.calls());
     }
 
@@ -59,8 +59,8 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-                "askForNextMove name TestHumanPlayer",
-                "cellMarkedMessage([0, 1])"
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([0, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -78,10 +78,10 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-                "askForNextMove name TestHumanPlayer",
-                "invalidCoordinatesMessage()",
-                "askForNextMove name TestHumanPlayer",
-                "cellMarkedMessage([1, 1])"
+            "askForNextMove name TestHumanPlayer",
+            "invalidCoordinatesMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([1, 1])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -99,10 +99,10 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-                "askForNextMove name TestHumanPlayer",
-                "alreadyMarkedCellMessage()",
-                "askForNextMove name TestHumanPlayer",
-                "cellMarkedMessage([2, 0])"
+            "askForNextMove name TestHumanPlayer",
+            "alreadyMarkedCellMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([2, 0])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
@@ -120,10 +120,10 @@ public class HumanPlayerTest {
         player.doNextMove(spyBoard);
 
         assertEquals(Arrays.asList(
-                "askForNextMove name TestHumanPlayer",
-                "invalidInputMessage()",
-                "askForNextMove name TestHumanPlayer",
-                "cellMarkedMessage([1, 2])"
+            "askForNextMove name TestHumanPlayer",
+            "invalidInputMessage()",
+            "askForNextMove name TestHumanPlayer",
+            "cellMarkedMessage([1, 2])"
         ), spyDisplay.calls());
 
         assertEquals(Arrays.asList(
