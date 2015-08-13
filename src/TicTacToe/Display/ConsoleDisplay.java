@@ -6,9 +6,24 @@ import TicTacToe.IOBridge;
 import TicTacToe.Game.GameMode;
 import TicTacToe.Player.Player;
 
+import java.util.HashMap;
+
 public class ConsoleDisplay {
     private final IOBridge io;
     private final BoardFormatter boardFormatter;
+
+    private final HashMap<String, String> messages = new HashMap<String, String>() {{
+        put("welcome", "Welcome!");
+        put("shutdown", "Shutting down ... bye bye!");
+        put("invalid_input", "Invalid input, retry..");
+        put("ask_human_player_name", "Human player name?");
+        put("ask_next_move", "%s make your move (x y):");
+        put("cell_already_marked", "Cell already marked.. retry.");
+        put("invalid_coordinates", "Invalid coordinates.. retry");
+        put("coordinates_marked", "Coordinates %s marked.");
+        put("winner", "%s is the winner!");
+        put("tie", "Tie game, no winner.");
+    }};
 
     public ConsoleDisplay(IOBridge io) {
         this.io = io;
@@ -16,11 +31,35 @@ public class ConsoleDisplay {
     }
 
     public void welcomeMessage() {
-        io.println("Welcome!");
+        printFromMessageKey("welcome");
     }
 
     public void shutDownMessage() {
-        io.println("Shutting down ... bye bye!");
+        printFromMessageKey("shutdown");
+    }
+
+    public void announceWinner(Player winner) {
+        printFromMessageKey("winner", winner.getName());
+    }
+
+    public void announceTie() {
+        printFromMessageKey("tie");
+    }
+
+    public void invalidInputMessage() {
+        printFromMessageKey("invalid_input");
+    }
+
+    public void alreadyMarkedCellMessage() {
+        printFromMessageKey("already_marked");
+    }
+
+    public void invalidCoordinatesMessage() {
+        printFromMessageKey("invalid_coordinates");
+    }
+
+    public void coordinatesMarkedMessage(Coordinates move) {
+        printFromMessageKey("coordinates_marked", move);
     }
 
     public GameMode askForGameMode() {
@@ -30,9 +69,36 @@ public class ConsoleDisplay {
                 int mode = Integer.valueOf(io.readLine("->"));
                 return GameMode.values()[mode-1];
             } catch (Exception e) {
-                io.println("Invalid input, retry..");
+                invalidInputMessage();
             }
         }
+    }
+
+    public String askForHumanPlayerName() {
+        String message = getMessageFromKey("ask_human_player_name");
+        return io.readLine(message);
+    }
+
+    public Coordinates askForNextMove(String playerName) {
+        String message = getMessageFromKey("ask_next_move", playerName);
+        String input = io.readLine(message);
+
+        int x = Integer.valueOf(String.valueOf(input.charAt(0)));
+        int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
+        return new Coordinates(x, y);
+    }
+
+    public void printBoard(Board board) {
+        String formattedString = boardFormatter.format(board);
+        io.print(formattedString);
+    }
+
+    private void printFromMessageKey(String key, Object... args) {
+        io.println(getMessageFromKey(key, args));
+    }
+
+    private String getMessageFromKey(String key, Object... args) {
+        return String.format(messages.get(key), args);
     }
 
     private void printGameModeMenu() {
@@ -41,45 +107,5 @@ public class ConsoleDisplay {
         io.println("2. Human vs Computer");
         io.println("3. Computer vs Human");
         io.println("4. Computer vs Computer");
-    }
-
-    public String askForHumanPlayerName() {
-        return io.readLine("Human player name?");
-    }
-
-    public void printBoard(Board board) {
-        String formattedString = boardFormatter.format(board);
-        io.print(formattedString);
-    }
-
-    public void announceWinner(Player winner) {
-        io.println(winner.getName() + " is the winner!");
-    }
-
-    public void announceTie() {
-        io.println("Tie game, no winner.");
-    }
-
-    public Coordinates askForNextMove(String playerName) {
-        String input = io.readLine(playerName + " make your move (x y):");
-        int x = Integer.valueOf(String.valueOf(input.charAt(0)));
-        int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));
-        return new Coordinates(x, y);
-    }
-
-    public void invalidInputMessage() {
-        io.println("Invalid input.. retry");
-    }
-
-    public void alreadyMarkedCellMessage() {
-        io.println("Cell already marked.. retry.");
-    }
-
-    public void invalidCoordinatesMessage() {
-        io.println("Invalid coordinates.. retry");
-    }
-
-    public void cellMarkedMessage(Coordinates move) {
-        io.println("Coordinates " + move.toString() + " marked.");
     }
 }
