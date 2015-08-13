@@ -25,11 +25,7 @@ public class ConsoleDisplay {
 
     public GameMode askForGameMode() {
         while(true) {
-            io.println("Select the game mode:");
-            io.println("1. Human vs Human");
-            io.println("2. Human vs Computer");
-            io.println("3. Computer vs Human");
-            io.println("4. Computer vs Computer");
+            printGameModeMenu();
             try {
                 int mode = Integer.valueOf(io.readLine("->"));
                 return GameMode.values()[mode-1];
@@ -37,6 +33,14 @@ public class ConsoleDisplay {
                 io.println("Invalid input, retry..");
             }
         }
+    }
+
+    private void printGameModeMenu() {
+        io.println("Select the game mode:");
+        io.println("1. Human vs Human");
+        io.println("2. Human vs Computer");
+        io.println("3. Computer vs Human");
+        io.println("4. Computer vs Computer");
     }
 
     public String askForHumanPlayerName() {
