@@ -7,7 +7,6 @@ import helpers.SpyIOBridge;
 import helpers.SpyPlayer;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
@@ -27,19 +26,31 @@ public class ConsoleDisplayTest {
     @Test
     public void welcomeMessage() {
         display.welcomeMessage();
-
-        assertEquals(Arrays.asList(
-            "println(Welcome!)"
-        ), spyIOBridge.calls());
+        assertSpyIOBridgeCalls("println(Welcome!)");
     }
 
     @Test
     public void shutDownMessage() {
         display.shutDownMessage();
+        assertSpyIOBridgeCalls("println(Shutting down ... bye bye!)");
+    }
 
-        assertEquals(Arrays.asList(
-            "println(Shutting down ... bye bye!)"
-        ), spyIOBridge.calls());
+    @Test
+    public void announcingWinner() {
+        display.announceWinner(new SpyPlayer(CellMarkSign.Cross, "BobTheSpy"));
+        assertSpyIOBridgeCalls("println(BobTheSpy is the winner!)");
+    }
+
+    @Test
+    public void announcingTie() {
+        display.announceTie();
+        assertSpyIOBridgeCalls("println(Tie game, no winner.)");
+    }
+
+    @Test
+    public void askForHumanPlayerName() {
+        display.askForHumanPlayerName();
+        assertSpyIOBridgeCalls("readLine(Human player name?)");
     }
 
     @Test
@@ -48,38 +59,17 @@ public class ConsoleDisplayTest {
         GameMode mode = display.askForGameMode();
 
         assertEquals(GameMode.ComputerVsHuman, mode);
-        assertEquals(Arrays.asList(
-            "println(Select the game mode:)",
-            "println(1. Human vs Human)",
-            "println(2. Human vs Computer)",
-            "println(3. Computer vs Human)",
-            "println(4. Computer vs Computer)",
-            "readLine(->)"
-        ), spyIOBridge.calls());
+        assertSpyIOBridgeCalls(
+                "println(Select the game mode:)",
+                "println(1. Human vs Human)",
+                "println(2. Human vs Computer)",
+                "println(3. Computer vs Human)",
+                "println(4. Computer vs Computer)",
+                "readLine(->)"
+        );
     }
 
-    @Test
-    public void askForHumanPlayerName() {
-        display.askForHumanPlayerName();
-
-        assertEquals(Arrays.asList(
-            "readLine(Human player name?)"
-        ), spyIOBridge.calls());
-    }
-
-    @Test
-    public void announcingWinner() {
-        display.announceWinner(new SpyPlayer(CellMarkSign.Cross, "BobTheSpy"));
-        assertEquals(Arrays.asList(
-            "println(BobTheSpy is the winner!)"
-        ), spyIOBridge.calls());
-    }
-
-    @Test
-    public void announcingTie() {
-        display.announceTie();
-        assertEquals(Arrays.asList(
-            "println(Tie game, no winner.)"
-        ), spyIOBridge.calls());
+    private void assertSpyIOBridgeCalls(String ... expected) {
+        assertEquals(Arrays.asList(expected), spyIOBridge.calls());
     }
 }
