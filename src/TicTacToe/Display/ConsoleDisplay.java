@@ -13,9 +13,9 @@ public class ConsoleDisplay {
     private final BoardFormatter boardFormatter;
 
     private final HashMap<String, String> messages = new HashMap<String, String>() {{
+        put("already_marked_cell",      "Cell already marked.. retry.");
         put("ask_human_player_name",    "Human player name?");
         put("ask_next_move",            "%s make your move (x y):");
-        put("cell_already_marked",      "Cell already marked.. retry.");
         put("coordinates_marked",       "Coordinates %s marked.");
         put("invalid_coordinates",      "Invalid coordinates.. retry");
         put("invalid_input",            "Invalid input, retry..");
@@ -51,7 +51,7 @@ public class ConsoleDisplay {
     }
 
     public void alreadyMarkedCellMessage() {
-        printFromMessageKey("already_marked");
+        printFromMessageKey("already_marked_cell");
     }
 
     public void invalidCoordinatesMessage() {
