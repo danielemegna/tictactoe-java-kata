@@ -10,31 +10,47 @@ import java.util.List;
 public class PlayerFactory {
 
     private final ConsoleDisplay display;
+    private List<Player> players;
 
     public PlayerFactory(ConsoleDisplay display) {
         this.display  = display;
     }
 
     public List<Player> listFromGameMode(GameMode mode) {
-        List<Player> players = new ArrayList<>();
+        players = new ArrayList<>();
         switch (mode) {
             case HumanVsHuman:
-                players.add(new HumanPlayer(CellMarkSign.Cross, display));
-                players.add(new HumanPlayer(CellMarkSign.Circle, display));
+                addHumanPlayer();
+                addHumanPlayer();
                 break;
             case HumanVsComputer:
-                players.add(new HumanPlayer(CellMarkSign.Cross, display));
-                players.add(new UnbeatableComputerPlayer(CellMarkSign.Circle));
+                addHumanPlayer();
+                addComputerPlayer();
                 break;
             case ComputerVsHuman:
-                players.add(new UnbeatableComputerPlayer(CellMarkSign.Cross));
-                players.add(new HumanPlayer(CellMarkSign.Circle, display));
+                addComputerPlayer();
+                addHumanPlayer();
                 break;
             case ComputerVsComputer:
-                players.add(new UnbeatableComputerPlayer(CellMarkSign.Cross));
-                players.add(new UnbeatableComputerPlayer(CellMarkSign.Circle));
+                addComputerPlayer();
+                addComputerPlayer();
                 break;
         }
         return players;
+    }
+
+    private void addHumanPlayer() {
+        Player humanPlayer = new HumanPlayer(getNextPlayerSign(), display);
+        players.add(humanPlayer);
+    }
+
+    private void addComputerPlayer() {
+        Player computerPlayer = new UnbeatableComputerPlayer(getNextPlayerSign());
+        players.add(computerPlayer);
+    }
+
+    private CellMarkSign getNextPlayerSign() {
+        int nextPlayerSignsIndex = players.size();
+        return CellMarkSign.values()[nextPlayerSignsIndex];
     }
 }
