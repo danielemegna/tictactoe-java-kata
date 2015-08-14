@@ -7,10 +7,7 @@ import helpers.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class GameTest {
 
@@ -45,7 +42,7 @@ public class GameTest {
 
     @Test
     public void tieInOneMove() {
-        spyBoard.setFullAfter(1);
+        spyBoard.setFullAfter(0);
         spyBoard.setLastMarkedCoordinates(new Coordinates(0, 1));
         game.play();
 
@@ -59,7 +56,7 @@ public class GameTest {
 
         SpyHelper.assertCalls(firstSpyPlayer,   "doNextMove(class helpers.SpyBoard)");
         SpyHelper.assertCalls(spyBoard,         "getLastMarkedCoordinates()", "isFull()");
-        SpyHelper.assertCalls(spyReferee,       "getWinnerCellMark(class helpers.SpyBoard)");
+        SpyHelper.assertCallTimes(spyReferee,   "getWinnerCellMark(class helpers.SpyBoard)", 2);
 
         assertEquals(0, secondSpyPlayer.calls().size());
     }
@@ -67,19 +64,19 @@ public class GameTest {
     @Test
     public void winnerInOneMove() {
         spyReferee.setWinner(CellMarkSign.Cross);
-        spyReferee.setWinnerAfter(1);
+        spyReferee.setWinnerAfter(0);
 
         game.play();
 
         SpyHelper.assertCalls(firstSpyPlayer,       "doNextMove(class helpers.SpyBoard)", "getName()");
-        SpyHelper.assertCalls(spyReferee,           "getWinnerCellMark(class helpers.SpyBoard)");
+        SpyHelper.assertCallTimes(spyReferee,       "getWinnerCellMark(class helpers.SpyBoard)", 3);
         SpyHelper.assertCallsContains(spyDisplay,   "announceWinner name firstSpyPlayer");
     }
 
     @Test
     public void winnerAfterSomeMoves() {
         spyReferee.setWinner(CellMarkSign.Circle);
-        spyReferee.setWinnerAfter(4);
+        spyReferee.setWinnerAfter(3);
 
         game.play();
 

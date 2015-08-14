@@ -17,9 +17,10 @@ public class SpyReferee extends Referee implements Spy {
     @Override
     public CellMarkSign getWinnerCellMark(Board board) {
         registerNewCall("getWinnerCellMark(" + board.getClass() + ")");
-        if(--winnerAfter == 0)
+        if(winnerAfter == 0)
             return winner;
 
+        winnerAfter--;
         return null;
     }
 

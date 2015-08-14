@@ -22,4 +22,15 @@ public class SpyHelper {
             assertTrue(failMessage, spy.calls().contains(expectedCall));
         }
     }
+
+    public static void assertCallTimes(Spy spy, String call, int expectedCount) {
+        long actualCount = spy.calls().stream()
+            .filter(c -> c.equals(call))
+            .count();
+
+        assertEquals(
+            String.format("Call [%s] called %d times instead of expected %d", call, actualCount, expectedCount),
+            expectedCount, actualCount
+        );
+    }
 }

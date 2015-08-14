@@ -37,6 +37,7 @@ public class Game {
     public void play() {
         showUpdatedBoard();
         gameLoop();
+        showGameOutcome();
         display.shutDownMessage();
     }
 
@@ -65,26 +66,42 @@ public class Game {
     }
 
     private boolean isGameOver() {
-        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
-
-        if(!board.isFull() && winnerCellMark == null)
-            return false;
-
-        if(winnerCellMark != null)
-            display.announceWinner(getPlayerFromCellMark(winnerCellMark));
-        else
-            display.announceTie();
-
-        return true;
+        return thereIsAWinner() || isTheBoardFull();
     }
 
-
-    private Player getPlayerFromCellMark(CellMarkSign sign) {
-        for (Player p : players) {
-            if (p.getPlayerCellSign() == sign)
-                return p;
+    private void showGameOutcome() {
+        if(thereIsAWinner()) {
+            display.announceWinner(getWinnerPlayer());
+            return;
         }
 
-        throw new RuntimeException("Cannot find player for sign [" + sign+ "]");
+        display.announceTie();
+    }
+
+    private boolean thereIsAWinner() {
+        return getWinnerPlayer() != null;
+    }
+
+    private boolean isTheBoardFull() {
+        return board.isFull();
+    }
+
+    private Player getWinnerPlayer() {
+        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
+        if(winnerCellMark == null)
+            return null;
+
+        return getPlayerFromCellMark(winnerCellMark);
+    }
+
+    private Player getPlayerFromCellMark(CellMarkSign sign) {
+        Player[] found = players.stream()
+            .filter(p -> p.getPlayerCellSign() == sign)
+            .toArray(Player[]::new);
+
+        if(found.length == 0)
+            throw new RuntimeException("Cannot find player for sign [" + sign+ "]");
+
+        return found[0];
     }
 }

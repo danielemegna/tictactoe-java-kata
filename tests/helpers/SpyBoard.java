@@ -41,7 +41,11 @@ public class SpyBoard extends Board implements Spy {
     @Override
     public boolean isFull() {
         registerNewCall("isFull()");
-        return (--fullAfter == 0);
+        if(fullAfter == 0)
+            return true;
+
+        fullAfter--;
+        return false;
     }
 
     @Override
