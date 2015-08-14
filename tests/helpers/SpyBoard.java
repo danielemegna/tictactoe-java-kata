@@ -21,6 +21,12 @@ public class SpyBoard extends Board implements Spy {
     }
 
     @Override
+    public boolean isCellEmpty(Coordinates c) {
+        registerNewCall("isCellEmpty(" + c + ")");
+        return super.isCellEmpty(c);
+    }
+
+    @Override
     public void mark(Coordinates c, CellMarkSign sign) {
         registerNewCall("mark(" + c + ", " + sign + ")");
         lastMarkedCoordinates = c;
@@ -35,10 +41,7 @@ public class SpyBoard extends Board implements Spy {
     @Override
     public boolean isFull() {
         registerNewCall("isFull()");
-        if(--fullAfter == 0)
-            return true;
-
-        return false;
+        return (--fullAfter == 0);
     }
 
     @Override
