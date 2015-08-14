@@ -23,6 +23,13 @@ public class SpyBoard extends Board implements Spy {
     @Override
     public void mark(Coordinates c, CellMarkSign sign) {
         registerNewCall("mark(" + c + ", " + sign + ")");
+        lastMarkedCoordinates = c;
+    }
+
+    @Override
+    public Coordinates getLastMarkedCoordinates() {
+        registerNewCall("getLastMarkedCoordinates()");
+        return super.getLastMarkedCoordinates();
     }
 
     @Override
@@ -48,6 +55,10 @@ public class SpyBoard extends Board implements Spy {
 
     public void setFullAfter(int fullAfter) {
         this.fullAfter = fullAfter;
+    }
+
+    public void setLastMarkedCoordinates(Coordinates coordinates) {
+        lastMarkedCoordinates = coordinates;
     }
 
     public void activateSpy() {

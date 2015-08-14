@@ -1,6 +1,7 @@
 package unit;
 
 import TicTacToe.Cell.CellMarkSign;
+import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Game.Game;
 import helpers.*;
 import org.junit.Before;
@@ -38,28 +39,26 @@ public class GameTest {
     public void welcomeAndGameModeOnInit() {
         game = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
 
-        SpyHelper.assertCalls(spyDisplay,
-            "welcomeMessage()",
-            "askForGameMode()"
-        );
-
+        SpyHelper.assertCalls(spyDisplay,       "welcomeMessage()", "askForGameMode()");
         SpyHelper.assertCalls(spyPlayerFactory, "listFromGameMode(HumanVsComputer)");
     }
 
     @Test
     public void tieInOneMove() {
         spyBoard.setFullAfter(1);
+        spyBoard.setLastMarkedCoordinates(new Coordinates(0, 1));
         game.play();
 
         SpyHelper.assertCalls(spyDisplay,
             "printBoard(class helpers.SpyBoard)",
+            "coordinatesMarkedMessage([0, 1])",
             "printBoard(class helpers.SpyBoard)",
             "announceTie()",
             "shutDownMessage()"
         );
 
         SpyHelper.assertCalls(firstSpyPlayer,   "doNextMove(class helpers.SpyBoard)");
-        SpyHelper.assertCalls(spyBoard,         "isFull()");
+        SpyHelper.assertCalls(spyBoard,         "getLastMarkedCoordinates()", "isFull()");
         SpyHelper.assertCalls(spyReferee,       "getWinnerCellMark(class helpers.SpyBoard)");
 
         assertEquals(0, secondSpyPlayer.calls().size());
@@ -72,11 +71,7 @@ public class GameTest {
 
         game.play();
 
-
-        SpyHelper.assertCalls(firstSpyPlayer,
-            "doNextMove(class helpers.SpyBoard)",
-            "getName()"
-        );
+        SpyHelper.assertCalls(firstSpyPlayer,       "doNextMove(class helpers.SpyBoard)", "getName()");
         SpyHelper.assertCalls(spyReferee,           "getWinnerCellMark(class helpers.SpyBoard)");
         SpyHelper.assertCallsContains(spyDisplay,   "announceWinner name firstSpyPlayer");
     }

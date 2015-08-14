@@ -56,6 +56,7 @@ public class Game {
             .get(playerTurnIndex)
             .doNextMove(board);
 
+        display.coordinatesMarkedMessage(board.getLastMarkedCoordinates());
         increasePlayerTurnIndex();
     }
 

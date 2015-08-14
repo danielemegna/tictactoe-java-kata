@@ -11,7 +11,7 @@ public class Board {
 
     private Cell[][] cells;
     private int markedCells;
-    private Coordinates lastMarkedCoordinates;
+    protected Coordinates lastMarkedCoordinates;
 
     public Board() {
         cells = new Cell[BOARD_DIMENSION][BOARD_DIMENSION];
