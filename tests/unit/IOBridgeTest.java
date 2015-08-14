@@ -16,36 +16,32 @@ public class IOBridgeTest {
 
     @Test
     public void readALine() {
-        String inputData = "The user message.";
+        initWithInputData("Daniele.");
 
-        inputStream = new ByteArrayInputStream(inputData.getBytes());
-        outputStream = new ByteArrayOutputStream();
-        ioBridge = new IOBridge(inputStream, new PrintStream(outputStream));
+        String readedLine = ioBridge.readNotEmptyLine("What's your name?");
 
-        String line = ioBridge.readNotEmptyLine("Insert your message:");
-
-        assertEquals("Insert your message: ", outputStream.toString());
-        assertEquals("The user message.", line);
+        assertEquals("What's your name? ", outputStream.toString());
+        assertEquals("Daniele.", readedLine);
     }
 
     @Test
     public void emptyLineIsAnInvalidInput() {
-        String inputData = "\n"
-            + "This is the good input.\n";
+        String inputData = "\n" + "This is a valid message.\n";
+        initWithInputData(inputData);
 
-        String expectedLine = "This is the good input.";
-        String expectedOutput = "Write down: " +
+        String readedLine = ioBridge.readNotEmptyLine("Insert your message:");
+
+        String expectedOutput = "Insert your message: " +
             "Invalid input, retry.\n" +
-            "Write down: ";
+            "Insert your message: ";
+        assertEquals(expectedOutput, outputStream.toString());
+        assertEquals("This is a valid message.", readedLine);
+    }
 
+    private void initWithInputData(String inputData) {
         inputStream = new ByteArrayInputStream(inputData.getBytes());
         outputStream = new ByteArrayOutputStream();
         ioBridge = new IOBridge(inputStream, new PrintStream(outputStream));
-
-        String line = ioBridge.readNotEmptyLine("Write down:");
-
-        assertEquals(expectedOutput, outputStream.toString());
-        assertEquals(expectedLine, line);
     }
 
 }
