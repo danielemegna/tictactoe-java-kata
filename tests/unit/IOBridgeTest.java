@@ -38,7 +38,7 @@ public class IOBridgeTest {
     public void readALine() {
         initIOBridgeWithInputString("Daniele.");
 
-        String readedLine = ioBridge.readNotEmptyLine("What's your name?");
+        String readedLine = ioBridge.readNotEmptyLineWithMessage("What's your name?");
 
         assertOutputStream("What's your name? ");
         assertEquals("Daniele.", readedLine);
@@ -49,7 +49,7 @@ public class IOBridgeTest {
         String inputData = "\n" + "This is a valid message.\n";
         initIOBridgeWithInputString(inputData);
 
-        String readedLine = ioBridge.readNotEmptyLine("Insert your message:");
+        String readedLine = ioBridge.readNotEmptyLineWithMessage("Insert your message:");
 
         String expectedOutput = "Insert your message: " +
             "Invalid input, retry.\n" +

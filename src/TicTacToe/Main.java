@@ -12,8 +12,8 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String args[]) throws IOException, InterruptedException {
-        IOBridge io                 = new IOBridge(System.in, System.out);
-        ConsoleDisplay display      = new ConsoleDisplay(io, new BoardFormatter());
+        IOBridge ioBridge           = new IOBridge(System.in, System.out);
+        ConsoleDisplay display      = new ConsoleDisplay(ioBridge, new BoardFormatter());
         PlayerFactory playerFactory = new PlayerFactory(display);
         Game game                   = new Game(display, playerFactory, new Referee(), new Board());
 

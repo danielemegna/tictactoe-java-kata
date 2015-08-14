@@ -14,8 +14,8 @@ public class UnbeatableComputerPlayer extends Player {
     }
 
     public void doNextMove(Board board) {
-        Coordinates maxValueCoordinates = estabilishNextMove(board);
-        markBoard(maxValueCoordinates, board);
+        Coordinates move = estabilishNextMove(board);
+        markBoard(move, board);
     }
 
     private Coordinates estabilishNextMove(Board board) {

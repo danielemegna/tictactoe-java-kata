@@ -12,7 +12,7 @@ public class IOBridge {
         this.out = out;
     }
 
-    public String readNotEmptyLine(String message) {
+    public String readNotEmptyLineWithMessage(String message) {
         while(true) {
             try {
                 print(message + " ");
