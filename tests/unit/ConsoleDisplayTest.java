@@ -52,7 +52,7 @@ public class ConsoleDisplayTest {
     @Test
     public void askForHumanPlayerName() {
         display.askForHumanPlayerName();
-        SpyHelper.assertCalls(spyIOBridge, "readLine(Human player name?)");
+        SpyHelper.assertCalls(spyIOBridge, "readNotEmptyLine(Human player name?)");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ConsoleDisplayTest {
             "println(2. Human vs Computer)",
             "println(3. Computer vs Human)",
             "println(4. Computer vs Computer)",
-            "readLine(->)"
+            "readNotEmptyLine(->)"
         );
     }
 
@@ -77,7 +77,7 @@ public class ConsoleDisplayTest {
 
         Coordinates move = display.askForNextMove("TestPlayerName");
 
-        SpyHelper.assertCalls(spyIOBridge, "readLine(TestPlayerName make your move (x y):)");
+        SpyHelper.assertCalls(spyIOBridge, "readNotEmptyLine(TestPlayerName make your move (x y):)");
         assertEquals(new Coordinates(2, 0), move);
     }
 

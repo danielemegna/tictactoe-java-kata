@@ -66,7 +66,7 @@ public class ConsoleDisplay {
         while(true) {
             printGameModeMenu();
             try {
-                int mode = Integer.valueOf(ioBridge.readLine("->"));
+                int mode = Integer.valueOf(ioBridge.readNotEmptyLine("->"));
                 return GameMode.values()[mode-1];
             } catch (Exception e) {
                 invalidInputMessage();
@@ -76,12 +76,12 @@ public class ConsoleDisplay {
 
     public String askForHumanPlayerName() {
         String message = getMessageFromKey("ask_human_player_name");
-        return ioBridge.readLine(message);
+        return ioBridge.readNotEmptyLine(message);
     }
 
     public Coordinates askForNextMove(String playerName) {
         String message = getMessageFromKey("ask_next_move", playerName);
-        String input = ioBridge.readLine(message);
+        String input = ioBridge.readNotEmptyLine(message);
 
         int x = Integer.valueOf(String.valueOf(input.charAt(0)));
         int y = Integer.valueOf(String.valueOf(input.charAt(input.length() - 1)));

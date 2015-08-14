@@ -26,8 +26,8 @@ public class SpyIOBridge extends IOBridge implements Spy {
     }
 
     @Override
-    public String readLine(String message) {
-        registerNewCall("readLine(" + message + ")");
+    public String readNotEmptyLine(String message) {
+        registerNewCall("readNotEmptyLine(" + message + ")");
         return nextReadLineOutput;
     }
 

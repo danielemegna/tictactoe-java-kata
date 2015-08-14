@@ -12,7 +12,7 @@ public class IOBridge {
         this.out = out;
     }
 
-    public String readLine(String message) {
+    public String readNotEmptyLine(String message) {
         while(true) {
             try {
                 print(message + " ");
@@ -22,19 +22,6 @@ public class IOBridge {
                     return input;
 
             } catch(Exception ex) {}
-
-            println("Invalid input, retry.");
-        }
-    }
-
-    public boolean readYN(String message) throws IOException {
-        while(true) {
-            String input = readLine(message + " (y/n)");
-
-            if(input.startsWith("y"))
-                return true;
-            if(input.startsWith("n"))
-                return false;
 
             println("Invalid input, retry.");
         }
