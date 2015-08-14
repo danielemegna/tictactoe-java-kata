@@ -59,7 +59,7 @@ public class BoardTest {
             "   "
         );
 
-        helper.mark(0, 0);
+        helper.mark(0, 0, CellMarkSign.Cross);
     }
 
     @Test
@@ -165,7 +165,15 @@ public class BoardTest {
         Board clone = board.clone();
         BoardTestHelper cloneHelper = new BoardTestHelper(clone);
 
-        cloneHelper.mark(1, 1);
+        cloneHelper.mark(1, 1, CellMarkSign.Cross);
         helper.assertCellIsEmpty(1, 1);
+    }
+
+    @Test
+    public void retrieveLastMarkedCoordinates() {
+        helper.mark(1, 0, CellMarkSign.Cross);
+        helper.mark(2, 0, CellMarkSign.Circle);
+
+        assertEquals(new Coordinates(2, 0), board.getLastMarkedCoordinates());
     }
 }

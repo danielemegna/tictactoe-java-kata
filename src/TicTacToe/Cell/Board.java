@@ -11,28 +11,39 @@ public class Board {
 
     private Cell[][] cells;
     private int markedCells;
+    private Coordinates lastMarkedCoordinates;
 
     public Board() {
-        this.cells = new Cell[BOARD_DIMENSION][BOARD_DIMENSION];
+        cells = new Cell[BOARD_DIMENSION][BOARD_DIMENSION];
 
         for(int x = 0; x < BOARD_DIMENSION; x++)
             for(int y = 0; y < BOARD_DIMENSION; y++)
-                this.cells[x][y] = new Cell();
+                cells[x][y] = new Cell();
 
-        this.markedCells = 0;
+        markedCells = 0;
+        lastMarkedCoordinates = null;
     }
 
     public CellMarkSign getCellSign(Coordinates c) {
         return getCell(c).getCurrentSign();
     }
 
+    public boolean isCellEmpty(Coordinates c) {
+        return getCellSign(c) == null;
+    }
+
     public void mark(Coordinates c, CellMarkSign sign) {
         getCell(c).mark(sign);
-        this.markedCells++;
+        lastMarkedCoordinates = c;
+        markedCells++;
+    }
+
+    public Coordinates getLastMarkedCoordinates() {
+        return lastMarkedCoordinates;
     }
 
     public boolean isFull() {
-        return (this.markedCells == BOARD_DIMENSION * BOARD_DIMENSION);
+        return (markedCells == BOARD_DIMENSION * BOARD_DIMENSION);
     }
 
     public Set<Coordinates> getEmptyCoordinates() {
@@ -63,9 +74,5 @@ public class Board {
 
     private Cell getCell(Coordinates c) {
         return cells[c.getX()][c.getY()];
-    }
-
-    public boolean isCellEmpty(Coordinates c) {
-        return getCellSign(c) == null;
     }
 }

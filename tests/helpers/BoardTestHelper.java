@@ -15,10 +15,6 @@ public class BoardTestHelper {
         this.board = b;
     }
 
-    public void mark(int x, int y) {
-        this.mark(x, y, CellMarkSign.Cross);
-    }
-
     public void mark(int x, int y, CellMarkSign sign) {
         board.mark(new Coordinates(x, y), sign);
     }
