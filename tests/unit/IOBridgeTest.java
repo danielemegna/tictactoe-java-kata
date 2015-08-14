@@ -15,33 +15,64 @@ public class IOBridgeTest {
     private IOBridge ioBridge;
 
     @Test
+    public void printAMessage() {
+        initIOBridge();
+
+        String message = "This is the message.";
+        ioBridge.print(message);
+
+        assertOutputStream(message);
+    }
+
+    @Test
+    public void printAMessageWithNewLine() {
+        initIOBridge();
+
+        String message = "This is the message.";
+        ioBridge.println(message);
+
+        assertOutputStream(message + "\n");
+    }
+
+    @Test
     public void readALine() {
-        initWithInputData("Daniele.");
+        initIOBridgeWithInputString("Daniele.");
 
         String readedLine = ioBridge.readNotEmptyLine("What's your name?");
 
-        assertEquals("What's your name? ", outputStream.toString());
+        assertOutputStream("What's your name? ");
         assertEquals("Daniele.", readedLine);
     }
 
     @Test
     public void emptyLineIsAnInvalidInput() {
         String inputData = "\n" + "This is a valid message.\n";
-        initWithInputData(inputData);
+        initIOBridgeWithInputString(inputData);
 
         String readedLine = ioBridge.readNotEmptyLine("Insert your message:");
 
         String expectedOutput = "Insert your message: " +
             "Invalid input, retry.\n" +
             "Insert your message: ";
-        assertEquals(expectedOutput, outputStream.toString());
+        assertOutputStream(expectedOutput);
         assertEquals("This is a valid message.", readedLine);
     }
 
-    private void initWithInputData(String inputData) {
-        inputStream = new ByteArrayInputStream(inputData.getBytes());
+    private void initIOBridge() {
+        initIOBridgeWithInputBytes(new byte[0]);
+    }
+
+    private void initIOBridgeWithInputString(String inputString) {
+        initIOBridgeWithInputBytes(inputString.getBytes());
+    }
+
+    private void initIOBridgeWithInputBytes(byte[] inputBytes) {
+        inputStream = new ByteArrayInputStream(inputBytes);
         outputStream = new ByteArrayOutputStream();
         ioBridge = new IOBridge(inputStream, new PrintStream(outputStream));
     }
 
+    private void assertOutputStream(String message) {
+        assertEquals(message, outputStream.toString());
+    }
 }
