@@ -55,10 +55,7 @@ public class HumanPlayerTest {
 
         player.doNextMove(spyBoard);
 
-        SpyHelper.assertCalls(spyDisplay,
-            "askForNextMove name TestHumanPlayer",
-            "coordinatesMarkedMessage([0, 1])"
-        );
+        SpyHelper.assertCalls(spyDisplay, "askForNextMove name TestHumanPlayer");
         SpyHelper.assertCalls(spyBoard, "mark([0, 1], Cross)");
     }
 
@@ -72,8 +69,7 @@ public class HumanPlayerTest {
         SpyHelper.assertCalls(spyDisplay,
             "askForNextMove name TestHumanPlayer",
             "invalidCoordinatesMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "coordinatesMarkedMessage([1, 1])"
+            "askForNextMove name TestHumanPlayer"
         );
 
         SpyHelper.assertCalls(spyBoard, "mark([1, 1], Cross)");
@@ -89,8 +85,7 @@ public class HumanPlayerTest {
         SpyHelper.assertCalls(spyDisplay,
             "askForNextMove name TestHumanPlayer",
             "alreadyMarkedCellMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "coordinatesMarkedMessage([2, 0])"
+            "askForNextMove name TestHumanPlayer"
         );
 
         SpyHelper.assertCalls(spyBoard, "mark([2, 0], Cross)");
@@ -106,8 +101,7 @@ public class HumanPlayerTest {
         SpyHelper.assertCalls(spyDisplay,
             "askForNextMove name TestHumanPlayer",
             "invalidInputMessage()",
-            "askForNextMove name TestHumanPlayer",
-            "coordinatesMarkedMessage([1, 2])"
+            "askForNextMove name TestHumanPlayer"
         );
 
         SpyHelper.assertCalls(spyBoard,
