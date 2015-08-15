@@ -78,15 +78,6 @@ public class Game {
         return thereIsAWinner() || isTheBoardFull();
     }
 
-    private void showGameOutcome() {
-        if(thereIsAWinner()) {
-            display.announceWinner(getWinnerPlayer());
-            return;
-        }
-
-        display.announceTie();
-    }
-
     private boolean thereIsAWinner() {
         return getWinnerPlayer() != null;
     }
@@ -112,5 +103,14 @@ public class Game {
             throw new Error("Cannot find player for sign [" + sign+ "]");
 
         return found[0];
+    }
+
+    private void showGameOutcome() {
+        if (thereIsAWinner()) {
+            display.announceWinner(getWinnerPlayer());
+            return;
+        }
+
+        display.announceTie();
     }
 }
