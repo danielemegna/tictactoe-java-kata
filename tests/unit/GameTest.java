@@ -27,14 +27,14 @@ public class GameTest {
         firstSpyPlayer      = new SpyPlayer(CellMarkSign.Cross, "firstSpyPlayer");
         secondSpyPlayer     = new SpyPlayer(CellMarkSign.Circle, "secondSpyPlayer");
         spyPlayerFactory    = new SpyPlayerFactory(firstSpyPlayer, secondSpyPlayer);
-        game                = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
+        game                = new Game(spyBoard, spyPlayerFactory, spyDisplay, spyReferee);
 
         activateAllSpies();
     }
 
     @Test
     public void welcomeAndGameModeOnInit() {
-        game = new Game(spyDisplay, spyPlayerFactory, spyReferee, spyBoard);
+        game = new Game(spyBoard, spyPlayerFactory, spyDisplay, spyReferee);
 
         SpyHelper.assertCalls(spyDisplay,       "welcomeMessage()", "askForGameMode()");
         SpyHelper.assertCalls(spyPlayerFactory, "listFromGameMode(HumanVsComputer)");

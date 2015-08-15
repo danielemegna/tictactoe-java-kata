@@ -10,28 +10,31 @@ import java.util.List;
 
 public class Game {
 
-    private final ConsoleDisplay display;
-    private final PlayerFactory playerFactory;
-    private final Referee referee;
-
     private Board board;
     private List<Player> players;
     private int playerTurnIndex;
 
-    public Game(ConsoleDisplay display, PlayerFactory playerFactory, Referee refree, Board board) {
-        this.display = display;
-        this.playerFactory = playerFactory;
-        this.referee = refree;
+    private final PlayerFactory playerFactory;
+    private final ConsoleDisplay display;
+    private final Referee referee;
+
+    public Game(ConsoleDisplay display) {
+        this(
+            new Board(),
+            new PlayerFactory(display),
+            display,
+            new Referee()
+        );
+    }
+
+    public Game(Board board, PlayerFactory playerFactory, ConsoleDisplay display, Referee refree) {
         this.board = board;
+        this.playerFactory = playerFactory;
+        this.display = display;
+        this.referee = refree;
 
         display.welcomeMessage();
         initPlayers();
-    }
-
-    public void initPlayers() {
-        GameMode mode = display.askForGameMode();
-        players = playerFactory.listFromGameMode(mode);
-        playerTurnIndex = 0;
     }
 
     public void play() {
@@ -39,6 +42,12 @@ public class Game {
         gameLoop();
         showGameOutcome();
         display.shutDownMessage();
+    }
+
+    private void initPlayers() {
+        GameMode mode = display.askForGameMode();
+        players = playerFactory.listFromGameMode(mode);
+        playerTurnIndex = 0;
     }
 
     private void showUpdatedBoard() {

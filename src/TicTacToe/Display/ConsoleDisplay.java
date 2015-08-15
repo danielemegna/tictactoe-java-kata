@@ -25,6 +25,10 @@ public class ConsoleDisplay {
         put("winner",                   "%s is the winner!");
     }};
 
+    public ConsoleDisplay(IOBridge ioBridge) {
+        this(ioBridge, new BoardFormatter());
+    }
+
     public ConsoleDisplay(IOBridge ioBridge, BoardFormatter boardFormatter) {
         this.ioBridge = ioBridge;
         this.boardFormatter = boardFormatter;
