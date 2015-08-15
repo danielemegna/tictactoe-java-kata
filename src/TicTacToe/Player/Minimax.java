@@ -12,14 +12,14 @@ public class Minimax {
     static final int TIE_VALUE = 0;
     static final int ADVERSARY_WIN_VALUE = -1;
 
-    private final Referee referee;
     private final CellMarkSign myCellSign;
     private final CellMarkSign adversaryCellSign;
+    private final Referee referee;
 
     public Minimax(CellMarkSign myCellSign) {
-        this.referee = new Referee();
         this.myCellSign = myCellSign;
-        this.adversaryCellSign = CellMarkSign.values()[(myCellSign.ordinal()+1)%2];
+        this.adversaryCellSign = calcolateAdversaryCellSign();
+        this.referee = new Referee();
     }
 
     public int calcolateMoveValue(Coordinates move, Board board) {
@@ -72,4 +72,10 @@ public class Minimax {
         return maxMoveValue;
     }
 
+    private CellMarkSign calcolateAdversaryCellSign() {
+        int numberOfSigns = CellMarkSign.values().length;
+        int myCellSignIndex = myCellSign.ordinal();
+        int nextCellSignIndex = (myCellSignIndex + 1) % numberOfSigns;
+        return CellMarkSign.values()[nextCellSignIndex];
+    }
 }
