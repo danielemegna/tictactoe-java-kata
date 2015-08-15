@@ -1,7 +1,5 @@
 package TicTacToe.Cell;
 
 public class AlreadyMarkedCellAttemptException extends RuntimeException {
-    public AlreadyMarkedCellAttemptException() {
-        super();
-    }
+    public AlreadyMarkedCellAttemptException() { super(); }
 }
