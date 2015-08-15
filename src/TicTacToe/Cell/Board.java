@@ -24,18 +24,18 @@ public class Board {
         lastMarkedCoordinates = null;
     }
 
+    public void mark(Coordinates c, CellMarkSign sign) {
+        getCell(c).mark(sign);
+        lastMarkedCoordinates = c;
+        markedCells++;
+    }
+
     public CellMarkSign getCellSign(Coordinates c) {
         return getCell(c).getCurrentSign();
     }
 
     public boolean isCellEmpty(Coordinates c) {
         return getCellSign(c) == null;
-    }
-
-    public void mark(Coordinates c, CellMarkSign sign) {
-        getCell(c).mark(sign);
-        lastMarkedCoordinates = c;
-        markedCells++;
     }
 
     public Coordinates getLastMarkedCoordinates() {
@@ -49,26 +49,25 @@ public class Board {
     public Set<Coordinates> getEmptyCoordinates() {
         Set<Coordinates> emptyCoordinates = new HashSet<>();
 
-        for(int x = 0; x < BOARD_DIMENSION; x++) {
+        for(int x = 0; x < BOARD_DIMENSION; x++)
             for (int y = 0; y < BOARD_DIMENSION; y++) {
                 Coordinates c = new Coordinates(x, y);
                 if (getCell(c).isEmpty())
                     emptyCoordinates.add(c);
             }
-        }
 
         return emptyCoordinates;
     }
 
     public Board clone() {
         Board clone = new Board();
-        for(int x = 0; x < BOARD_DIMENSION; x++) {
+        for(int x = 0; x < BOARD_DIMENSION; x++)
             for (int y = 0; y < BOARD_DIMENSION; y++) {
                 Coordinates c = new Coordinates(x, y);
                 if(!getCell(c).isEmpty())
                     clone.mark(c, getCellSign(c));
             }
-        }
+
         return clone;
     }
 
