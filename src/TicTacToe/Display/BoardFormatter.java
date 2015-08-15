@@ -7,12 +7,13 @@ import TicTacToe.Coordinates.Coordinates;
 public class BoardFormatter {
 
     public String format(Board board) {
+        StringBuilder result = new StringBuilder();
+        result.append(firstHeaderRow());
 
-        String result = firstHeaderRow();
         for (int y = 0; y < 3; y++)
-            result += rowToString(y, board);
+            result.append(rowToString(y, board));
 
-        return result;
+        return result.toString();
     }
 
     private String firstHeaderRow() {
