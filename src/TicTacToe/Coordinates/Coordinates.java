@@ -8,7 +8,10 @@ public class Coordinates {
     private int y;
 
     public Coordinates(int x, int y) {
-        if(x < 0 || x > COORDINATE_BOUND_VALUE || y < 0 || y > COORDINATE_BOUND_VALUE)
+        if(
+            x < 0 || x > COORDINATE_BOUND_VALUE ||
+            y < 0 || y > COORDINATE_BOUND_VALUE
+        )
             throw new CoordinateOutOfBoundsException();
 
         this.x = x;
