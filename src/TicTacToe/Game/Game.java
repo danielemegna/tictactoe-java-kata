@@ -100,7 +100,7 @@ public class Game {
             .toArray(Player[]::new);
 
         if(found.length == 0)
-            throw new RuntimeException("Cannot find player for sign [" + sign+ "]");
+            throw new Error("Cannot find player for sign [" + sign+ "]");
 
         return found[0];
     }
