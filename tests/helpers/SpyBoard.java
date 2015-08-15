@@ -13,6 +13,7 @@ public class SpyBoard extends Board implements Spy {
     private List<String> calls = new ArrayList<>();
     private boolean activatedSpy = false;
     private int fullAfter = -1;
+    private Coordinates lastMarkedCoordinates = null;
 
     @Override
     public CellMarkSign getCellSign(Coordinates c) {
@@ -35,7 +36,7 @@ public class SpyBoard extends Board implements Spy {
     @Override
     public Coordinates getLastMarkedCoordinates() {
         registerNewCall("getLastMarkedCoordinates()");
-        return super.getLastMarkedCoordinates();
+        return lastMarkedCoordinates;
     }
 
     @Override
