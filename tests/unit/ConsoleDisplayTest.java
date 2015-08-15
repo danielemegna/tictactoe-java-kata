@@ -62,12 +62,12 @@ public class ConsoleDisplayTest {
 
         assertEquals(GameMode.ComputerVsHuman, mode);
         SpyHelper.assertCalls(spyIOBridge,
-            "println(Select the game mode:)",
-            "println(1. Human vs Human)",
-            "println(2. Human vs Computer)",
-            "println(3. Computer vs Human)",
-            "println(4. Computer vs Computer)",
-            "readNotEmptyLineWithMessage(->)"
+            "readNotEmptyLineWithMessage(Select the game mode:\n" +
+            "1. Human vs Human\n" +
+            "2. Human vs Computer\n" +
+            "3. Computer vs Human\n" +
+            "4. Computer vs Computer\n" +
+            "->)"
         );
     }
 

@@ -12,7 +12,7 @@ public class ConsoleDisplay {
     private final IOBridge ioBridge;
     private final BoardFormatter boardFormatter;
 
-    private final HashMap<String, String> messages = new HashMap<String, String>() {{
+    private static final HashMap<String, String> MESSAGES = new HashMap<String, String>() {{
         put("already_marked_cell",      "Cell already marked.. retry.");
         put("ask_human_player_name",    "Human player name?");
         put("ask_next_move",            "%s make your move (x y):");
@@ -23,6 +23,12 @@ public class ConsoleDisplay {
         put("tie",                      "Tie game, no winner.");
         put("welcome",                  "Welcome!");
         put("winner",                   "%s is the winner!");
+        put("game_mode_menu",           "Select the game mode:\n" +
+                                        "1. Human vs Human\n" +
+                                        "2. Human vs Computer\n" +
+                                        "3. Computer vs Human\n" +
+                                        "4. Computer vs Computer\n" +
+                                        "->");
     }};
 
     public ConsoleDisplay(IOBridge ioBridge) {
@@ -67,15 +73,10 @@ public class ConsoleDisplay {
     }
 
     public GameMode askForGameMode() {
-        while(true) {
-            printGameModeMenu();
-            try {
-                int selectedMode = Integer.valueOf(ioBridge.readNotEmptyLineWithMessage("->"));
-                return GameMode.values()[selectedMode-1];
-            } catch (Exception e) {
-                invalidInputMessage();
-            }
-        }
+        String gameModeMenu = getMessageFromKey("game_mode_menu");
+        String input = ioBridge.readNotEmptyLineWithMessage(gameModeMenu);
+        int selectedMode = Integer.valueOf(input);
+        return GameMode.values()[selectedMode-1];
     }
 
     public String askForHumanPlayerName() {
@@ -93,23 +94,17 @@ public class ConsoleDisplay {
     }
 
     public void printBoard(Board board) {
-        String formattedString = boardFormatter.format(board);
-        ioBridge.print(formattedString);
+        String formattedBoard = boardFormatter.format(board);
+        ioBridge.print(formattedBoard);
     }
 
     private void printFromMessageKey(String key, Object... args) {
-        ioBridge.println(getMessageFromKey(key, args));
+        String message = getMessageFromKey(key, args);
+        ioBridge.println(message);
     }
 
     private String getMessageFromKey(String key, Object... args) {
-        return String.format(messages.get(key), args);
-    }
-
-    private void printGameModeMenu() {
-        ioBridge.println("Select the game mode:");
-        ioBridge.println("1. Human vs Human");
-        ioBridge.println("2. Human vs Computer");
-        ioBridge.println("3. Computer vs Human");
-        ioBridge.println("4. Computer vs Computer");
+        String messageToBeFormatted = MESSAGES.get(key);
+        return String.format(messageToBeFormatted, args);
     }
 }

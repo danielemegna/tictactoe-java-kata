@@ -45,9 +45,19 @@ public class Game {
     }
 
     private void initPlayers() {
-        GameMode mode = display.askForGameMode();
+        GameMode mode = askForGameMode();
         players = playerFactory.listFromGameMode(mode);
         playerTurnIndex = 0;
+    }
+
+    private GameMode askForGameMode() {
+        while(true) {
+            try {
+                return display.askForGameMode();
+            } catch(Exception ex) {
+                display.invalidInputMessage();
+            }
+        }
     }
 
     private void showUpdatedBoard() {
