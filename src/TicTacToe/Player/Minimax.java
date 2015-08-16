@@ -32,11 +32,11 @@ public class Minimax {
         if(clone.isFull())
             return TIE_VALUE;
 
-        return minPlayerMoveValueChoosable(clone);
+        return minAdversaryChoosableMoveValue(clone);
     }
 
-    private int minPlayerMoveValueChoosable(Board board) {
-        int minPlayerMoveValue = MY_WIN_VALUE;
+    private int minAdversaryChoosableMoveValue(Board board) {
+        int minAdversaryMoveValue = MY_WIN_VALUE;
 
         for(Coordinates c : board.getEmptyCoordinates()) {
             Board clone = board.clone();
@@ -47,22 +47,22 @@ public class Minimax {
                 return ADVERSARY_WIN_VALUE;
 
             if(clone.isFull()) {
-                minPlayerMoveValue = Math.min(TIE_VALUE, minPlayerMoveValue);
+                minAdversaryMoveValue = Math.min(TIE_VALUE, minAdversaryMoveValue);
                 continue;
             }
 
-            int maxComputerMoveValue = maxComputerMoveValueChoosable(clone);
-            minPlayerMoveValue = Math.min(minPlayerMoveValue, maxComputerMoveValue);
+            int maxMyMoveValue = maxChoosableMoveValue(clone);
+            minAdversaryMoveValue = Math.min(minAdversaryMoveValue, maxMyMoveValue);
         }
 
-        return minPlayerMoveValue;
+        return minAdversaryMoveValue;
     }
 
-    private int maxComputerMoveValueChoosable(Board clone) {
+    private int maxChoosableMoveValue(Board board) {
         int maxMoveValue = ADVERSARY_WIN_VALUE;
 
-        for(Coordinates c : clone.getEmptyCoordinates()) {
-            int currentMoveValue = calcolateMoveValue(c, clone);
+        for(Coordinates c : board.getEmptyCoordinates()) {
+            int currentMoveValue = calcolateMoveValue(c, board);
             if(currentMoveValue == MY_ONEMOVEWIN_VALUE)
                 return MY_WIN_VALUE;
 
