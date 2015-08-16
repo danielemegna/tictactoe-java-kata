@@ -12,13 +12,15 @@ import static org.junit.Assert.assertEquals;
 
 public class MinimaxTest {
 
+    public static final CellMarkSign MY_CELL_SIGN = CellMarkSign.Circle;
+
     private Minimax minimax;
     private Board board;
     private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        minimax = new Minimax(CellMarkSign.Circle);
+        minimax = new Minimax(MY_CELL_SIGN);
         board = new Board();
         helper = new BoardTestHelper(board);
     }
@@ -36,52 +38,31 @@ public class MinimaxTest {
     }
 
     @Test
-    public void computerWinWithAMove_worthTwo() {
+    public void myWinnerWithAMove_worthTwo() {
         helper.markBoardFromString(
             "XOX" +
             "XOX" +
             "O  "
         );
 
-        int computerWinMoveValue = evaluateMove(1, 2);
-        assertEquals(2, computerWinMoveValue);
-
-        int tieMoveValue = evaluateMove(2, 2);
-        assertEquals(0, tieMoveValue);
+        int winMoveValue = evaluateMove(1, 2);
+        assertEquals(2, winMoveValue);
     }
 
     @Test
-    public void computerHasThreePossibilities_onlyOneBlocksPlayerWin() {
-        helper.markBoardFromString(
-            "OXO" +
-            " XO" +
-            "  X"
-        );
-
-        int playerCanStillWin = evaluateMove(0, 1);
-        assertEquals(-1, playerCanStillWin);
-
-        int thisMoveBlocksPlayerWin = evaluateMove(1, 2);
-        assertEquals(0, thisMoveBlocksPlayerWin);
-    }
-
-    @Test
-    public void ifPlayerCanWinAtTheNextMove_moveValueIsMinusOne() {
+    public void adversaryCanWinAtTheNextMove_moveValueIsMinusOne() {
         helper.markBoardFromString(
             "X O" +
             "O  " +
             "OXX"
         );
 
-        int playerCanWinWithTheNextMove = evaluateMove(1, 0);
-        assertEquals(-1, playerCanWinWithTheNextMove);
-
-        int computerWinMove = evaluateMove(1, 1);
-        assertEquals(2, computerWinMove);
+        int adversaryCanWinAtTheNextMove = evaluateMove(1, 0);
+        assertEquals(-1, adversaryCanWinAtTheNextMove);
     }
 
     @Test
-    public void computerHasFourPossibilitiesThatWorthZero() {
+    public void everyPossibilityWorthsZero() {
         helper.markBoardFromString(
             "  X" +
             "XOO" +
@@ -109,7 +90,7 @@ public class MinimaxTest {
     }
 
     @Test
-    public void someMovesLeadComputerToSureWin() {
+    public void someMovesLeadMeToSureWin() {
         helper.markBoardFromString(
             "  X" +
             "   " +
