@@ -33,7 +33,7 @@ public class BoardFormatterTest {
     }
 
     @Test
-    public void formatAPlayerMarkAsX() {
+    public void showACrossAsX() {
         helper.markBoardFromString(
             " X " +
             "   " +
@@ -50,7 +50,7 @@ public class BoardFormatterTest {
     }
 
     @Test
-    public void formatSomePlayerMarks() {
+    public void showSomeCrossMarks() {
         helper.markBoardFromString(
             " X " +
             "X  " +
@@ -67,7 +67,7 @@ public class BoardFormatterTest {
     }
 
     @Test
-    public void formatSomeComputerMarksAsO() {
+    public void showCircleMarksAsO() {
         helper.markBoardFromString(
             "  O" +
             "  O" +
@@ -84,7 +84,7 @@ public class BoardFormatterTest {
     }
 
     @Test
-    public void formatFullMixedMarkedBoard() {
+    public void formatFullBoard() {
         helper.markBoardFromString(
             "OOX" +
             "XXO" +
