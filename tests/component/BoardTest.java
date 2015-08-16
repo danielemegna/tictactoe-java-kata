@@ -63,7 +63,7 @@ public class BoardTest {
     }
 
     @Test
-    public void markingEveryCell_boardIsFull() {
+    public void fullBoard() {
         helper.markBoardFromString(
             "XOX" +
             "XOX" +
@@ -97,7 +97,7 @@ public class BoardTest {
     }
 
     @Test
-    public void boardWithOnlyOneEmptyCoordinates_returnsThatAsEmpty() {
+    public void boardWithOnlyOneEmptyCoordinates() {
         helper.markBoardFromString(
             "OXX" +
             "XXO" +
@@ -125,7 +125,7 @@ public class BoardTest {
     }
 
     @Test
-    public void cloningABoard_CellsRemainsMarkedOnTheClone() {
+    public void cloningABoard_CellsRemainsMarkedOnClone() {
         helper.markBoardFromString(
             "X  " +
             "   " +
