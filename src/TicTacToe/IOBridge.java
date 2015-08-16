@@ -16,7 +16,7 @@ public class IOBridge {
         while(true) {
             try {
                 print(message + " ");
-                String input = readLine();
+                String input = in.readLine();
 
                 if (!input.isEmpty())
                     return input;
@@ -35,7 +35,4 @@ public class IOBridge {
         out.println(message);
     }
 
-    private String readLine() throws IOException {
-        return in.readLine();
-    }
 }
