@@ -31,6 +31,10 @@ public class SpyIOBridge extends IOBridge implements Spy {
         return nextReadLineOutput;
     }
 
+    public void setNextReadLineOutput(String readLineOutput) {
+        this.nextReadLineOutput = readLineOutput;
+    }
+
     public void activateSpy() {
         activatedSpy = true;
     }
@@ -46,9 +50,5 @@ public class SpyIOBridge extends IOBridge implements Spy {
     private void registerNewCall(String method) {
         if(activatedSpy)
             calls.add(method);
-    }
-
-    public void setNextReadLineOutput(String readLineOutput) {
-        this.nextReadLineOutput = readLineOutput;
     }
 }

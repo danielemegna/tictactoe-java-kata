@@ -90,6 +90,14 @@ public class SpyDisplay extends ConsoleDisplay implements Spy {
         registerNewCall("coordinatesMarkedMessage(" + move + ")");
     }
 
+    public void setNextMove(Coordinates nextMove) {
+        this.nextMove = nextMove;
+    }
+
+    public void setExceptionAtNextMove(RuntimeException exceptionAtNextMove) {
+        this.exceptionAtNextMove = exceptionAtNextMove;
+    }
+
     public void activateSpy() {
         activatedSpy = true;
     }
@@ -105,14 +113,5 @@ public class SpyDisplay extends ConsoleDisplay implements Spy {
     private void registerNewCall(String method) {
         if(activatedSpy)
             calls.add(method);
-    }
-
-    public void setNextMove(Coordinates nextMove) {
-        this.nextMove = nextMove;
-    }
-
-
-    public void setExceptionAtNextMove(RuntimeException exceptionAtNextMove) {
-        this.exceptionAtNextMove = exceptionAtNextMove;
     }
 }

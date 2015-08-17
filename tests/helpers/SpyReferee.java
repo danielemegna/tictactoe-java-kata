@@ -24,6 +24,14 @@ public class SpyReferee extends Referee implements Spy {
         return null;
     }
 
+    public void setWinner(CellMarkSign markSign) {
+        winner = markSign;
+    }
+
+    public void setWinnerAfter(int winnerAfter) {
+        this.winnerAfter = winnerAfter;
+    }
+
     public void activateSpy() {
         activatedSpy = true;
     }
@@ -39,13 +47,5 @@ public class SpyReferee extends Referee implements Spy {
     private void registerNewCall(String method) {
         if(activatedSpy)
             calls.add(method);
-    }
-
-    public void setWinner(CellMarkSign markSign) {
-        winner = markSign;
-    }
-
-    public void setWinnerAfter(int winnerAfter) {
-        this.winnerAfter = winnerAfter;
     }
 }
