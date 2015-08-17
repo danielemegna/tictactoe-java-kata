@@ -4,9 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Player.ComputerPlayerChoiceException;
 import TicTacToe.Player.SystematicComputerPlayer;
-import TicTacToe.Coordinates.Coordinates;
 import helpers.BoardTestHelper;
-import helpers.SpyBoard;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,14 +14,19 @@ import static org.junit.Assert.assertTrue;
 public class SystematicComputerPlayerTest {
 
     private Board board;
-    private SystematicComputerPlayer computerPlayer;
+    private SystematicComputerPlayer player;
     private BoardTestHelper helper;
 
     @Before
     public void setup() {
         board = new Board();
-        computerPlayer = new SystematicComputerPlayer(CellMarkSign.Cross);
+        player = new SystematicComputerPlayer(CellMarkSign.Cross);
         helper = new BoardTestHelper(board);
+    }
+
+    @Test
+    public void getThePlayerName() {
+        assertEquals("SystematicComputerPlayer", player.getName());
     }
 
     @Test
@@ -50,12 +53,12 @@ public class SystematicComputerPlayerTest {
             "OXO"
         );
 
-        computerPlayer.doNextMove(board);
+        player.doNextMove(board);
     }
 
     private void assertNextMove(int x, int y) {
         helper.assertCellIsEmpty(x, y);
-        computerPlayer.doNextMove(board);
+        player.doNextMove(board);
         helper.assertCellSign(x, y, CellMarkSign.Cross);
     }
 }
