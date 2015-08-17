@@ -23,18 +23,18 @@ public class RefereeTest {
     }
 
     @Test
-    public void emptyBoard_hasNoWinner() {
+    public void emptyBoardHasNoWinner() {
         assertVerdictNoWinner();
     }
 
     @Test
-    public void markingACell_hasNoWinner() {
+    public void oneCellMarkedBoard() {
         helper.mark(0, 0, CellMarkSign.Cross);
         assertVerdictNoWinner();
     }
 
     @Test
-    public void markingEveryCellWithoutWinner() {
+    public void fullBoardWithoutWinner() {
         helper.markBoardFromString(
             "OXX" +
             "XOO" +
@@ -45,7 +45,7 @@ public class RefereeTest {
     }
 
     @Test
-    public void markingARow_CausesAWinner() {
+    public void fullRowWinner() {
         helper.markBoardFromString(
             "XXX" +
             " OO" +
@@ -56,7 +56,7 @@ public class RefereeTest {
     }
 
     @Test
-    public void markingAColumn_CausesAWinner() {
+    public void fullColumnWinner() {
         helper.markBoardFromString(
             "XOX" +
             " OX" +
@@ -66,7 +66,7 @@ public class RefereeTest {
     }
 
     @Test
-    public void markingADiagonal_CausesAWinner() {
+    public void fullDiagonalWinner() {
         helper.markBoardFromString(
             "XOO" +
             " XO" +
@@ -76,8 +76,7 @@ public class RefereeTest {
     }
 
     private void assertVerdictNoWinner() {
-        CellMarkSign winnerCellMark = referee.getWinnerCellMark(board);
-        assertNull(winnerCellMark);
+        assertWinnerMarkSign(null);
     }
 
     private void assertWinnerMarkSign(CellMarkSign sign) {
