@@ -21,21 +21,18 @@ public class End2EndTest {
 
     private Game game;
     private ByteArrayOutputStream outputStream;
+    private final static String[][] INPUT_AND_OUTPUT_PAIRS = new String[][] {
+        new String[] { "humanVsHuman1_input.txt",       "humanVsHuman1_expectedOutput.txt" },
+        new String[] { "computerVsComputer_input.txt",  "computerVsComputer_expectedOutput.txt" },
+    };
 
     @Test
-    public void humanVsHuman_1() {
-        assertGamePlayWithInputAndExpectedOutputFiles(
-            "humanVsHuman1_input.txt",
-            "humanVsHuman1_expectedOutput.txt"
-        );
-    }
-
-    @Test
-    public void computerVsComputer() {
-        assertGamePlayWithInputAndExpectedOutputFiles(
-            "computerVsComputer_input.txt",
-            "computerVsComputer_expectedOutput.txt"
-        );
+    public void runAllTests() {
+        for(String[] inputAndOutputPair : INPUT_AND_OUTPUT_PAIRS) {
+            String inputFilename = inputAndOutputPair[0];
+            String outputFilename = inputAndOutputPair[1];
+            assertGamePlayWithInputAndExpectedOutputFiles(inputFilename, outputFilename);
+        }
     }
 
     private void assertGamePlayWithInputAndExpectedOutputFiles(String inputFileName, String outputFileName) {
