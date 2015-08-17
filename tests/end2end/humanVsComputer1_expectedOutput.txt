@@ -1,0 +1,52 @@
+Welcome!
+Select the game mode:
+1. Human vs Human
+2. Human vs Computer
+3. Computer vs Human
+4. Computer vs Computer
+-> Human player name?   0 1 2
+0 - - -
+1 - - -
+2 - - -
+Daniele make your move (x y): Coordinates [0, 1] marked.
+  0 1 2
+0 - - -
+1 X - -
+2 - - -
+Coordinates [0, 2] marked.
+  0 1 2
+0 - - -
+1 X - -
+2 O - -
+Daniele make your move (x y): Coordinates [2, 1] marked.
+  0 1 2
+0 - - -
+1 X - X
+2 O - -
+Coordinates [1, 1] marked.
+  0 1 2
+0 - - -
+1 X O X
+2 O - -
+Daniele make your move (x y): Coordinates [2, 0] marked.
+  0 1 2
+0 - - X
+1 X O X
+2 O - -
+Coordinates [2, 2] marked.
+  0 1 2
+0 - - X
+1 X O X
+2 O - O
+Daniele make your move (x y): Coordinates [1, 2] marked.
+  0 1 2
+0 - - X
+1 X O X
+2 O X O
+Coordinates [0, 0] marked.
+  0 1 2
+0 O - X
+1 X O X
+2 O X O
+UnbeatableComputerPlayer is the winner!
+Shutting down ... bye bye!
