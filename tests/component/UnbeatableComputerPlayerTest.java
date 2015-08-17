@@ -42,13 +42,23 @@ public class UnbeatableComputerPlayerTest {
     }
 
     @Test
-    public void blockAdversaryWin() {
+    public void blockAdversaryWinning() {
         helper.markBoardFromString(
             "OXO" +
             " XO" +
             "  X"
         );
         assertNextMove(1, 2);
+    }
+
+    @Test
+    public void winningIsMostImportantThanBlockAdversary() {
+        helper.markBoardFromString(
+            "OXX" +
+            "OXO" +
+            "  O"
+        );
+        assertNextMove(0, 2);
     }
 
     @Test
