@@ -11,19 +11,19 @@ import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
-    private SpyDisplay spyDisplay;
-    private SpyPlayerFactory spyPlayerFactory;
-    private SpyReferee spyReferee;
+    private Game game;
     private SpyBoard spyBoard;
+    private SpyPlayerFactory spyPlayerFactory;
+    private SpyDisplay spyDisplay;
+    private SpyReferee spyReferee;
     private SpyPlayer firstSpyPlayer;
     private SpyPlayer secondSpyPlayer;
-    private Game game;
 
     @Before
     public void setup() {
+        spyBoard            = new SpyBoard();
         spyDisplay          = new SpyDisplay();
         spyReferee          = new SpyReferee();
-        spyBoard            = new SpyBoard();
         firstSpyPlayer      = new SpyPlayer(CellMarkSign.Cross, "firstSpyPlayer");
         secondSpyPlayer     = new SpyPlayer(CellMarkSign.Circle, "secondSpyPlayer");
         spyPlayerFactory    = new SpyPlayerFactory(firstSpyPlayer, secondSpyPlayer);
@@ -68,9 +68,9 @@ public class GameTest {
 
         game.play();
 
+        SpyHelper.assertCallsContains(spyDisplay,   "announceWinner name firstSpyPlayer");
         SpyHelper.assertCalls(firstSpyPlayer,       "doNextMove(class helpers.SpyBoard)", "getName()");
         SpyHelper.assertCallTimes(spyReferee,       "getWinnerCellMark(class helpers.SpyBoard)", 3);
-        SpyHelper.assertCallsContains(spyDisplay,   "announceWinner name firstSpyPlayer");
     }
 
     @Test

@@ -12,8 +12,8 @@ import static org.junit.Assert.assertEquals;
 
 public class ConsoleDisplayTest {
 
-    private SpyIOBridge spyIOBridge;
     private ConsoleDisplay display;
+    private SpyIOBridge spyIOBridge;
     private SpyBoardFormatter spyBoardFormatter;
 
     @Before

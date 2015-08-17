@@ -11,8 +11,8 @@ import static org.junit.Assert.*;
 
 public class RefereeTest {
 
-    private Board board;
     private Referee referee;
+    private Board board;
     private BoardTestHelper helper;
 
     @Before

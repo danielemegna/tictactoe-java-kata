@@ -17,9 +17,8 @@ public class CoordinatesTest {
         assertEquals(1, c.getY());
     }
 
-
     @Test(expected = CoordinateOutOfBoundsException.class)
-    public void createCoordinatesWithWrongParams_throwsAnException() {
+    public void createCoordinatesWithWrongParams() {
         new Coordinates(5, 1);
     }
 

@@ -13,14 +13,14 @@ import static org.junit.Assert.assertTrue;
 
 public class SystematicComputerPlayerTest {
 
-    private Board board;
     private SystematicComputerPlayer player;
+    private Board board;
     private BoardTestHelper helper;
 
     @Before
     public void setup() {
-        board = new Board();
         player = new SystematicComputerPlayer(CellMarkSign.Cross);
+        board = new Board();
         helper = new BoardTestHelper(board);
     }
 
