@@ -24,6 +24,7 @@ public class End2EndTest {
     private final static String[][] INPUT_AND_OUTPUT_PAIRS = new String[][] {
         new String[] { "humanVsHuman1_input.txt",       "humanVsHuman1_expectedOutput.txt" },
         new String[] { "humanVsComputer1_input.txt",    "humanVsComputer1_expectedOutput.txt" },
+        new String[] { "humanVsComputer2_input.txt",    "humanVsComputer2_expectedOutput.txt" },
         new String[] { "computerVsHuman1_input.txt",    "computerVsHuman1_expectedOutput.txt" },
         new String[] { "computerVsComputer_input.txt",  "computerVsComputer_expectedOutput.txt" },
     };
