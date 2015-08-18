@@ -15,7 +15,6 @@ public class RandomComputerPlayer extends Player {
         random = new Random();
     }
 
-
     public void doNextMove(Board board) {
         while(true) {
             Coordinates c = new Coordinates(random.nextInt(3), random.nextInt(3));
@@ -26,7 +25,6 @@ public class RandomComputerPlayer extends Player {
         }
     }
 
-    @Override
     public String getName() {
         return "RandomComputerPlayer";
     }

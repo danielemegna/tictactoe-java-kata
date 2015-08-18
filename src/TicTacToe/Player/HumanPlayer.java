@@ -18,7 +18,6 @@ public class HumanPlayer extends Player {
         this.name = display.askForHumanPlayerName();
     }
 
-    @Override
     public void doNextMove(Board board) {
         while(true){
             try {
@@ -39,7 +38,6 @@ public class HumanPlayer extends Player {
         }
     }
 
-    @Override
     public String getName() {
         return name;
     }

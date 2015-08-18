@@ -18,6 +18,10 @@ public class UnbeatableComputerPlayer extends Player {
         markBoard(move, board);
     }
 
+    public String getName() {
+        return "UnbeatableComputerPlayer";
+    }
+
     private Coordinates estabilishNextMove(Board board) {
         int maxMoveValue = Minimax.ADVERSARY_WIN_VALUE;
         Coordinates maxValueCoordinates = null;
@@ -37,10 +41,5 @@ public class UnbeatableComputerPlayer extends Player {
             throw new ComputerPlayerChoiceException("UnbeatableComputerPlayer cannot establish the next move!");
 
         return maxValueCoordinates;
-    }
-
-    @Override
-    public String getName() {
-        return "UnbeatableComputerPlayer";
     }
 }

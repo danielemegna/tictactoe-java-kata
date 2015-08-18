@@ -25,7 +25,6 @@ public class SystematicComputerPlayer extends Player {
         throw new ComputerPlayerChoiceException("SystematicComputerPlayer cannot find an Empty cell for its game");
     }
 
-    @Override
     public String getName() {
         return "SystematicComputerPlayer";
     }
