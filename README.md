@@ -2,9 +2,11 @@
 An unbeatable [TicTacToe](http://en.wikipedia.org/wiki/Tic-tac-toe) game TDD kata in Java
 
 ##How to play
-![the start](http://i60.tinypic.com/vo5wur.png)
+![the start](http://i61.tinypic.com/35hi9ns.png)
 
 After few questions, you can start with the game.
+
+![player name](http://i62.tinypic.com/2gugn5s.png)
 
 The board is always displayed with the coordinate headers which can help you to orient yourself.
 
@@ -12,7 +14,7 @@ You can choose your next move specifying the coordinates of it with a pair **(x 
 
 ![move](http://i57.tinypic.com/6s6lj5.png)
 
-On the board you're always marked as the **X** and the computer as the **O**.
+On the board the player who starts is always marked as **X**; the second player as **O**.
 
 You can specify the coordinates using any kind of separator:
 
