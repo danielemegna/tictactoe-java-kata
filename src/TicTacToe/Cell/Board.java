@@ -3,6 +3,7 @@ package TicTacToe.Cell;
 import TicTacToe.Coordinates.Coordinates;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class Board {
@@ -30,12 +31,12 @@ public class Board {
         markedCells++;
     }
 
-    public CellMarkSign getCellSign(Coordinates c) {
+    public Optional<CellMarkSign> getCellSign(Coordinates c) {
         return getCell(c).getCurrentSign();
     }
 
     public boolean isCellEmpty(Coordinates c) {
-        return getCellSign(c) == null;
+        return getCell(c).isEmpty();
     }
 
     public Coordinates getLastMarkedCoordinates() {
@@ -64,8 +65,7 @@ public class Board {
         for(int x = 0; x < BOARD_DIMENSION; x++)
             for (int y = 0; y < BOARD_DIMENSION; y++) {
                 Coordinates c = new Coordinates(x, y);
-                if(!getCell(c).isEmpty())
-                    clone.mark(c, getCellSign(c));
+                getCellSign(c).ifPresent(sign -> clone.mark(c, sign));
             }
 
         return clone;

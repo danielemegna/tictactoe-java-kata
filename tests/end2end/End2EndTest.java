@@ -3,6 +3,7 @@ package end2end;
 import TicTacToe.Display.ConsoleDisplay;
 import TicTacToe.Game.Game;
 import TicTacToe.IOBridge;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -30,6 +31,7 @@ public class End2EndTest {
     };
 
     @Test
+    @Ignore
     public void runAllTests() {
         for(String[] inputAndOutputPair : INPUT_AND_OUTPUT_PAIRS) {
             String inputFilename = inputAndOutputPair[0];

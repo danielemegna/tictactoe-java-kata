@@ -4,6 +4,8 @@ import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 
+import java.util.Optional;
+
 public class BoardFormatter {
 
     public String format(Board board) {
@@ -28,15 +30,15 @@ public class BoardFormatter {
     }
 
     private char cellToChar(int x, int y, Board board) {
-        CellMarkSign sign = board.getCellSign(new Coordinates(x, y));
+        Optional<CellMarkSign> sign = board.getCellSign(new Coordinates(x, y));
         return cellSignToChar(sign);
     }
 
-    private char cellSignToChar(CellMarkSign cellSign) {
-        if(cellSign == null)
+    private char cellSignToChar(Optional<CellMarkSign> cellSign) {
+        if(!cellSign.isPresent())
             return '-';
 
-        switch(cellSign) {
+        switch(cellSign.get()) {
             case Cross:
                 return 'X';
             case Circle:

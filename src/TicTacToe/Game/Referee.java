@@ -4,10 +4,7 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Coordinates.Coordinates;
 import TicTacToe.Cell.CellMarkSign;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Referee {
 
@@ -32,7 +29,7 @@ public class Referee {
         boolean circleIsTheWinner = true;
 
         for (Coordinates c : wc) {
-            CellMarkSign cellSign = board.getCellSign(c);
+            CellMarkSign cellSign = board.getCellSign(c).orElse(null);
             crossIsTheWinner    &= (cellSign == CellMarkSign.Cross);
             circleIsTheWinner   &= (cellSign == CellMarkSign.Circle);
         }

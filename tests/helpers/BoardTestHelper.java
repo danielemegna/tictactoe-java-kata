@@ -4,6 +4,8 @@ import TicTacToe.Cell.Board;
 import TicTacToe.Cell.CellMarkSign;
 import TicTacToe.Coordinates.Coordinates;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +28,7 @@ public class BoardTestHelper {
 
     public void assertCellSign(int x, int y, CellMarkSign expected) {
         Coordinates c = new Coordinates(x, y);
-        CellMarkSign actual = board.getCellSign(c);
+        CellMarkSign actual = board.getCellSign(c).orElse(null);
         assertEquals(
             "Fail asserting cell sign at coordinates " + c + ". " +
             "Actual [" + actual + "], expected [" + expected + "]",

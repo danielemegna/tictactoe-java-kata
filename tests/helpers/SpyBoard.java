@@ -6,6 +6,7 @@ import TicTacToe.Coordinates.Coordinates;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public class SpyBoard extends Board implements Spy {
@@ -16,9 +17,9 @@ public class SpyBoard extends Board implements Spy {
     private Coordinates lastMarkedCoordinates = null;
 
     @Override
-    public CellMarkSign getCellSign(Coordinates c) {
+    public Optional<CellMarkSign> getCellSign(Coordinates c) {
         registerNewCall("getCellSign(" + c + ")");
-        return CellMarkSign.Cross;
+        return Optional.of(CellMarkSign.Cross);
     }
 
     @Override

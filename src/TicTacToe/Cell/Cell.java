@@ -1,24 +1,26 @@
 package TicTacToe.Cell;
 
+import java.util.Optional;
+
 public class Cell {
-    private CellMarkSign sign;
+    private Optional<CellMarkSign> sign;
 
     public Cell() {
-        sign = null;
+        sign = Optional.empty();
     }
 
-    public CellMarkSign getCurrentSign() {
+    public Optional<CellMarkSign> getCurrentSign() {
         return sign;
     }
 
     public boolean isEmpty() {
-        return getCurrentSign() == null;
+        return !getCurrentSign().isPresent();
     }
 
-    public void mark(CellMarkSign sign) {
-        if(this.sign != null)
+    public void mark(CellMarkSign newSign) {
+        if(sign.isPresent())
             throw new AlreadyMarkedCellAttemptException();
-
-        this.sign = sign;
+        
+        sign = Optional.of(newSign);
     }
 }
